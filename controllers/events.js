@@ -26,15 +26,18 @@ exports.createEvent = async (req, res, next) => {
 
 // @desc    Update event
 // @route   PUT /api/events/:id
-exports.updateEvent = (req, res, next) => {
-  res
-    .status(200)
-    .json({ success: true, message: `Update event with id ${req.params.id}` });
+exports.updateEvent = async (req, res, next) => {
+  const event = await Event.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true
+  });
+
+  res.status(200).json({ success: true, data: event });
 };
 
 // @desc    Delete event
 // @route   DELETE /api/events/:id
-exports.deleteEvent = (req, res, next) => {
+exports.deleteEvent = async (req, res, next) => {
   res
     .status(200)
     .json({ success: true, message: `Delete event with id ${req.params.id}` });

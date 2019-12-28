@@ -10,10 +10,10 @@ exports.getEvents = async (req, res, next) => {
 
 // @desc    Get single event
 // @route   GET /api/events/:id
-exports.getEvent = (req, res, next) => {
-  res
-    .status(200)
-    .json({ success: true, message: `Get event with id ${req.params.id}` });
+exports.getEvent = async (req, res, next) => {
+  const event = await Event.findById(req.params.id);
+
+  res.status(200).json({ success: true, data: event });
 };
 
 // @desc    Create event

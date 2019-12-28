@@ -1,6 +1,10 @@
 const express = require("express");
 const app = express();
 const PORT = 3001;
+const connectToDatabase = require("./config/db");
+
+// Connect to MongoDB
+connectToDatabase();
 
 // API Route files
 const events = require("./routes/events");

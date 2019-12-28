@@ -5,7 +5,8 @@ const connectToDatabase = async () => {
     "mongodb://localhost/event_app_db",
     {
       useNewUrlParser: true,
-      useUnifiedTopology: true
+      useUnifiedTopology: true,
+      useFindAndModify: false
     }
   );
 

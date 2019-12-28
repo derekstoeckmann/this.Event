@@ -38,7 +38,7 @@ exports.updateEvent = async (req, res, next) => {
 // @desc    Delete event
 // @route   DELETE /api/events/:id
 exports.deleteEvent = async (req, res, next) => {
-  res
-    .status(200)
-    .json({ success: true, message: `Delete event with id ${req.params.id}` });
+  const event = await Event.findByIdAndDelete(req.params.id);
+
+  res.status(200).json({ success: true, data: {} });
 };

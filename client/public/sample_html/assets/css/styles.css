@@ -11,6 +11,11 @@ header {
   text-align: center;
 }
 
+#map {
+  height: 200px;
+  width: 100%;
+}
+
 .small-letters {
   font-family: 'Courier Prime', monospace;
   font-size: 100px;

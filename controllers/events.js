@@ -2,8 +2,10 @@ const Event = require("../models/Event");
 
 // @desc    Get all events
 // @route   GET /api/events
-exports.getEvents = (req, res, next) => {
-  res.status(200).json({ success: true, message: "Get all events" });
+exports.getEvents = async (req, res, next) => {
+  const events = await Event.find();
+
+  res.status(200).json({ success: true, data: events });
 };
 
 // @desc    Get single event

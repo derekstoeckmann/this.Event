@@ -16,8 +16,58 @@ const EventSchema = new mongoose.Schema(
       type: String,
       required: [true, "Please add a description."]
     },
+    time: {
+      type: Date,
+      required: true
+    },
+    streetAddress: {
+      type: String,
+      required: true
+    },
+    city: {
+      type: String,
+      required: true
+    },
+    state: {
+      type: String,
+      required: true
+    },
+    zip: {
+      type: String,
+      required: true
+    },
     public: Boolean,
-    tags: [String]
+    tags: [String],
+    category: {
+      type: String,
+      required: true,
+      enum: [
+        "Outdoor/Adventure",
+        "Technology",
+        "Family",
+        "Health/Wellness",
+        "Sports/Fitness",
+        "Learning",
+        "Photography",
+        "Food/Drink",
+        "Writing",
+        "Language/Culture",
+        "Music",
+        "Movements",
+        "LGBTQ",
+        "Film",
+        "Sci-Fi/Games",
+        "Beliefs",
+        "Arts",
+        "Book Clubs",
+        "Dance",
+        "Pets",
+        "Hobbies/Crafts",
+        "Fashion/Beauty",
+        "Social",
+        "Career/Business"
+      ]
+    }
   },
   {
     timestamps: true

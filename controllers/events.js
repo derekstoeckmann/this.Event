@@ -5,7 +5,7 @@ const Event = require("../models/Event");
 exports.getEvents = async (req, res, next) => {
   const events = await Event.find();
 
-  res.status(200).json({ success: true, data: events });
+  res.status(200).json({ success: true, count: events.length, data: events });
 };
 
 // @desc    Get single event

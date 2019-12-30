@@ -4,7 +4,12 @@ const {
   getEvent,
   createEvent,
   updateEvent,
-  deleteEvent
+  deleteEvent,
+  getEventPosts,
+  getEventPost,
+  createEventPost,
+  updateEventPost,
+  deleteEventPost
 } = require("../controllers/events");
 
 const router = express.Router();
@@ -19,5 +24,16 @@ router
   .get(getEvent)
   .put(updateEvent)
   .delete(deleteEvent);
+
+router
+  .route("/:id/posts")
+  .get(getEventPosts)
+  .post(createEventPost);
+
+router
+  .route("/:id/posts/:postid")
+  .get(getEventPost)
+  .put(updateEventPost)
+  .delete(deleteEventPost);
 
 module.exports = router;

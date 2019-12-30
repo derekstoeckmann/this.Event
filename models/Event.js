@@ -17,7 +17,13 @@ const EventSchema = new mongoose.Schema(
       required: [true, "Please add a description."]
     },
     public: Boolean,
-    tags: [String]
+    tags: [String],
+    posts: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Post"
+      }
+    ]
   },
   {
     timestamps: true

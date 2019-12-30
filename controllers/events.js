@@ -1,4 +1,5 @@
 const Event = require("../models/Event");
+const Post = require("../models/Post");
 
 // @desc    Get all events
 // @route   GET /api/events
@@ -17,7 +18,9 @@ exports.getEvents = async (req, res, next) => {
 // @desc    Get single event
 // @route   GET /api/events/:id
 exports.getEvent = async (req, res, next) => {
-  const event = await Event.findById(req.params.id).populate("createdBy");
+  const event = await Event.findById(req.params.id)
+    .populate("createdBy")
+    .populate("posts");
 
   res.status(200).json({ success: true, data: event });
 };
@@ -25,7 +28,7 @@ exports.getEvent = async (req, res, next) => {
 // @desc    Create event
 // @route   POST /api/events
 exports.createEvent = async (req, res, next) => {
-  const event = await Event.create(req.body).populate("createdBy");
+  const event = await Event.create(req.body);
 
   res.status(201).json({ success: true, data: event });
 };
@@ -36,7 +39,7 @@ exports.updateEvent = async (req, res, next) => {
   const event = await Event.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true
-  }).populate("createdBy");
+  });
 
   res.status(200).json({ success: true, data: event });
 };
@@ -45,6 +48,42 @@ exports.updateEvent = async (req, res, next) => {
 // @route   DELETE /api/events/:id
 exports.deleteEvent = async (req, res, next) => {
   const event = await Event.findByIdAndDelete(req.params.id);
+
+  res.status(200).json({ success: true, data: {} });
+};
+
+exports.getEventPosts = async (req, res, next) => {
+  const posts = await Post.find({ parentEvent: req.params.id }).populate(
+    "author",
+    "firstName lastName"
+  );
+
+  res.status(200).json({ success: true, count: posts.length, data: posts });
+};
+
+exports.getEventPost = async (req, res, next) => {
+  const post = await Post.findById(req.params.postid);
+
+  res.status(200).json({ success: true, data: post });
+};
+
+exports.createEventPost = async (req, res, next) => {
+  const post = await Post.create({ ...req.body, parentEvent: req.params.id });
+
+  res.status(201).json({ success: true, data: post });
+};
+
+exports.updateEventPost = async (req, res, next) => {
+  const post = await Post.findByIdAndUpdate(req.params.postid, req.body, {
+    new: true,
+    runValidators: true
+  });
+
+  res.status(200).json({ success: true, data: post });
+};
+
+exports.deleteEventPost = async (req, res, next) => {
+  const post = await Post.findByIdAndDelete(req.params.postid);
 
   res.status(200).json({ success: true, data: {} });
 };

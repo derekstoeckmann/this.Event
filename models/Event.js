@@ -9,7 +9,9 @@ const EventSchema = new mongoose.Schema({
   description: {
     type: String,
     required: [true, "Please add a description."]
-  }
+  },
+  public: Boolean,
+  tags: [String]
 });
 
 module.exports = mongoose.model("Event", EventSchema);

@@ -4,11 +4,13 @@ const PostSchema = new mongoose.Schema(
   {
     parentEvent: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Event"
+      ref: "Event",
+      required: true
     },
     author: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User"
+      ref: "User",
+      required: true
     },
     text: {
       type: String,

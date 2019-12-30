@@ -18,9 +18,7 @@ exports.getEvents = async (req, res, next) => {
 // @desc    Get single event
 // @route   GET /api/events/:id
 exports.getEvent = async (req, res, next) => {
-  const event = await Event.findById(req.params.id)
-    .populate("createdBy")
-    .populate("posts");
+  const event = await Event.findById(req.params.id).populate("createdBy");
 
   res.status(200).json({ success: true, data: event });
 };

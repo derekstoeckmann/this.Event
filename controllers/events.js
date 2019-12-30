@@ -3,7 +3,13 @@ const Event = require("../models/Event");
 // @desc    Get all events
 // @route   GET /api/events
 exports.getEvents = async (req, res, next) => {
-  const events = await Event.find();
+  const stringifiedQuery = JSON.stringify(req.query);
+  const formattedQuery = stringifiedQuery.replace(
+    /\b(gt|gte|lt|lte|in)\b/,
+    match => `$${match}`
+  );
+  const parsedQuery = JSON.parse(formattedQuery);
+  const events = await Event.find(parsedQuery);
 
   res.status(200).json({ success: true, count: events.length, data: events });
 };

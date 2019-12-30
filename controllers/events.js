@@ -9,7 +9,7 @@ exports.getEvents = async (req, res, next) => {
     match => `$${match}`
   );
   const parsedQuery = JSON.parse(formattedQuery);
-  const events = await Event.find(parsedQuery);
+  const events = await Event.find(parsedQuery).populate("createdBy");
 
   res.status(200).json({ success: true, count: events.length, data: events });
 };
@@ -17,7 +17,7 @@ exports.getEvents = async (req, res, next) => {
 // @desc    Get single event
 // @route   GET /api/events/:id
 exports.getEvent = async (req, res, next) => {
-  const event = await Event.findById(req.params.id);
+  const event = await Event.findById(req.params.id).populate("createdBy");
 
   res.status(200).json({ success: true, data: event });
 };
@@ -25,7 +25,7 @@ exports.getEvent = async (req, res, next) => {
 // @desc    Create event
 // @route   POST /api/events
 exports.createEvent = async (req, res, next) => {
-  const event = await Event.create(req.body);
+  const event = await Event.create(req.body).populate("createdBy");
 
   res.status(201).json({ success: true, data: event });
 };
@@ -36,7 +36,7 @@ exports.updateEvent = async (req, res, next) => {
   const event = await Event.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true
-  });
+  }).populate("createdBy");
 
   res.status(200).json({ success: true, data: event });
 };

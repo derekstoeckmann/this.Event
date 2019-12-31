@@ -2,6 +2,7 @@ const express = require("express");
 const {
   getEvents,
   getEvent,
+  getEventAttending,
   createEvent,
   updateEvent,
   deleteEvent,
@@ -24,6 +25,8 @@ router
   .get(getEvent)
   .put(updateEvent)
   .delete(deleteEvent);
+
+router.route("/:id/attending").get(getEventAttending);
 
 router
   .route("/:id/posts")

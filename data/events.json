@@ -1,0 +1,65 @@
+[
+  {
+    "_id": "5e0b5d2e716bce55ca526881",
+    "createdBy": "5e0a84cf3778f14979b2c1c8",
+    "title": "New Years Party",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Blandit aliquam etiam erat velit. Et netus et malesuada fames ac turpis egestas integer eget. Eu scelerisque felis imperdiet proin fermentum leo vel orci porta. Dignissim diam quis enim lobortis scelerisque fermentum dui faucibus in. Orci dapibus ultrices in iaculis nunc sed augue lacus. Convallis tellus id interdum velit laoreet id donec. Massa tempor nec feugiat nisl pretium fusce. Eros in cursus turpis massa tincidunt dui ut. Quis risus sed vulputate odio ut enim blandit. Ac placerat vestibulum lectus mauris ultrices eros in cursus. Purus semper eget duis at tellus at. Felis imperdiet proin fermentum leo vel orci. Habitasse platea dictumst quisque sagittis purus sit amet volutpat consequat. Vel quam elementum pulvinar etiam non. Amet facilisis magna etiam tempor orci. Pulvinar mattis nunc sed blandit libero. Nibh nisl condimentum id venenatis a condimentum vitae sapien. Tellus molestie nunc non blandit massa. Feugiat in ante metus dictum. Scelerisque eleifend donec pretium vulputate. Elit pellentesque habitant morbi tristique senectus et netus. Tortor id aliquet lectus proin. Integer eget aliquet nibh praesent tristique magna. Accumsan sit amet nulla facilisi. Duis ultricies lacus sed turpis tincidunt.",
+    "time": "2020-12-31T20:00:00+00:00",
+    "streetAddress": "6145 N 35th Ave",
+    "city": "Phoenix",
+    "state": "AZ",
+    "zip": "85017",
+    "attending": [
+      "5e0a84cf3778f14979b2c1c8",
+      "5e0a8584bb20dd498e322f73",
+      "5e0a85a65d9a4a499cb32152"
+    ],
+    "bringYourOwn": "beer",
+    "highlights": [
+      "Additional parking in nearby garage",
+      "Strict end time of 4 am"
+    ],
+    "public": true,
+    "tags": ["holiday", "party", "event"],
+    "category": "Social"
+  },
+  {
+    "_id": "5e0b5d2e716bce55ca526882",
+    "createdBy": "5e0a8584bb20dd498e322f73",
+    "title": "My 40th birthday party!!!",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Blandit aliquam etiam erat velit. Et netus et malesuada fames ac turpis egestas integer eget. Eu scelerisque felis imperdiet proin fermentum leo vel orci porta. Dignissim diam quis enim lobortis scelerisque fermentum dui faucibus in. Orci dapibus ultrices in iaculis nunc sed augue lacus. Convallis tellus id interdum velit laoreet id donec. Massa tempor nec feugiat nisl pretium fusce. Eros in cursus turpis massa tincidunt dui ut. Quis risus sed vulputate odio ut enim blandit. Ac placerat vestibulum lectus mauris ultrices eros in cursus. Purus semper eget duis at tellus at. Felis imperdiet proin fermentum leo vel orci. Habitasse platea dictumst quisque sagittis purus sit amet volutpat consequat. Vel quam elementum pulvinar etiam non. Amet facilisis magna etiam tempor orci. Pulvinar mattis nunc sed blandit libero. Nibh nisl condimentum id venenatis a condimentum vitae sapien. Tellus molestie nunc non blandit massa. Feugiat in ante metus dictum. Scelerisque eleifend donec pretium vulputate. Elit pellentesque habitant morbi tristique senectus et netus. Tortor id aliquet lectus proin. Integer eget aliquet nibh praesent tristique magna. Accumsan sit amet nulla facilisi. Duis ultricies lacus sed turpis tincidunt.",
+    "time": "2020-01-12T13:37:27+00:00",
+    "streetAddress": "1607 W Bethany Home Rd",
+    "city": "Phoenix",
+    "state": "AZ",
+    "zip": "85015",
+    "attending": ["5e0a8584bb20dd498e322f73"],
+    "bringYourOwn": "lawn chairs",
+    "highlights": ["Park in the church parking lot next door"],
+    "public": true,
+    "tags": ["birthday", "party"],
+    "category": "Social"
+  },
+  {
+    "_id": "5e0b5d2e716bce55ca526883",
+    "createdBy": "5e0a85a65d9a4a499cb32152",
+    "title": "Dungeons & Dragons Tournament",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Blandit aliquam etiam erat velit. Et netus et malesuada fames ac turpis egestas integer eget. Eu scelerisque felis imperdiet proin fermentum leo vel orci porta. Dignissim diam quis enim lobortis scelerisque fermentum dui faucibus in. Orci dapibus ultrices in iaculis nunc sed augue lacus. Convallis tellus id interdum velit laoreet id donec. Massa tempor nec feugiat nisl pretium fusce. Eros in cursus turpis massa tincidunt dui ut. Quis risus sed vulputate odio ut enim blandit. Ac placerat vestibulum lectus mauris ultrices eros in cursus. Purus semper eget duis at tellus at. Felis imperdiet proin fermentum leo vel orci. Habitasse platea dictumst quisque sagittis purus sit amet volutpat consequat. Vel quam elementum pulvinar etiam non. Amet facilisis magna etiam tempor orci. Pulvinar mattis nunc sed blandit libero. Nibh nisl condimentum id venenatis a condimentum vitae sapien. Tellus molestie nunc non blandit massa. Feugiat in ante metus dictum. Scelerisque eleifend donec pretium vulputate. Elit pellentesque habitant morbi tristique senectus et netus. Tortor id aliquet lectus proin. Integer eget aliquet nibh praesent tristique magna. Accumsan sit amet nulla facilisi. Duis ultricies lacus sed turpis tincidunt.",
+    "time": "2020-02-14T13:37:27+00:00",
+    "streetAddress": "12236 Montana Ave",
+    "city": "El Paso",
+    "state": "TX",
+    "zip": "79938",
+    "attending": [
+      "5e0a85a65d9a4a499cb32152",
+      "5e0a85bf72f70b49ac1e9c09",
+      "5e0a85d574c4ea49b91bc73d",
+      "5e0a85f61338e149c5365996"
+    ],
+    "bringYourOwn": "d20s",
+    "highlights": ["First prize wins $20 cash"],
+    "public": true,
+    "tags": ["d&d", "tournament", "role playing games", "dungeons & dragons"],
+    "category": "Sci-Fi/Games"
+  }
+]

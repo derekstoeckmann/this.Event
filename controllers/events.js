@@ -62,6 +62,8 @@ exports.deleteEvent = async (req, res, next) => {
   res.status(200).json({ success: true, data: {} });
 };
 
+// @desc    Get event posts
+// @route   GET /api/events/:id/posts
 exports.getEventPosts = async (req, res, next) => {
   const posts = await Post.find({ parentEvent: req.params.id }).populate(
     "author",
@@ -71,18 +73,24 @@ exports.getEventPosts = async (req, res, next) => {
   res.status(200).json({ success: true, count: posts.length, data: posts });
 };
 
+// @desc    Get single event post
+// @route   GET /api/events/:id/posts/:postid
 exports.getEventPost = async (req, res, next) => {
   const post = await Post.findById(req.params.postid);
 
   res.status(200).json({ success: true, data: post });
 };
 
+// @desc    Create event post
+// @route   POST /api/events/:id/posts
 exports.createEventPost = async (req, res, next) => {
   const post = await Post.create({ ...req.body, parentEvent: req.params.id });
 
   res.status(201).json({ success: true, data: post });
 };
 
+// @desc    Update single event post
+// @route   PUT /api/events/:id/posts/:postid
 exports.updateEventPost = async (req, res, next) => {
   const post = await Post.findByIdAndUpdate(req.params.postid, req.body, {
     new: true,
@@ -92,6 +100,8 @@ exports.updateEventPost = async (req, res, next) => {
   res.status(200).json({ success: true, data: post });
 };
 
+// @desc    Delete single event post
+// @route   DELETE /api/events/:id/posts/:postid
 exports.deleteEventPost = async (req, res, next) => {
   const post = await Post.findByIdAndDelete(req.params.postid);
 

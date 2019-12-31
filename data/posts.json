@@ -1,42 +1,42 @@
 [
   {
-    "parentEvent": "5e0b5d2e716bce55ca526881",
-    "author": "5e0a84cf3778f14979b2c1c8",
+    "event": "5e0b5d2e716bce55ca526881",
+    "user": "5e0a84cf3778f14979b2c1c8",
     "text": "This is a post from Tom McDonald on the New Years Party event!"
   },
   {
-    "parentEvent": "5e0b5d2e716bce55ca526881",
-    "author": "5e0a8584bb20dd498e322f73",
+    "event": "5e0b5d2e716bce55ca526881",
+    "user": "5e0a8584bb20dd498e322f73",
     "text": "This is a post from Kim Chamberlain on the New Years Party event!"
   },
   {
-    "parentEvent": "5e0b5d2e716bce55ca526881",
-    "author": "5e0a85a65d9a4a499cb32152",
+    "event": "5e0b5d2e716bce55ca526881",
+    "user": "5e0a85a65d9a4a499cb32152",
     "text": "This is a post from Rufus Meyers on the New Years Party event!"
   },
   {
-    "parentEvent": "5e0b5d2e716bce55ca526882",
-    "author": "5e0a8584bb20dd498e322f73",
+    "event": "5e0b5d2e716bce55ca526882",
+    "user": "5e0a8584bb20dd498e322f73",
     "text": "This is a post from Kim Chamberlain on my birthday party event!"
   },
   {
-    "parentEvent": "5e0b5d2e716bce55ca526883",
-    "author": "5e0a85a65d9a4a499cb32152",
+    "event": "5e0b5d2e716bce55ca526883",
+    "user": "5e0a85a65d9a4a499cb32152",
     "text": "This is a post from Rufus Meyers on the D&D event!"
   },
   {
-    "parentEvent": "5e0b5d2e716bce55ca526883",
-    "author": "5e0a85bf72f70b49ac1e9c09",
+    "event": "5e0b5d2e716bce55ca526883",
+    "user": "5e0a85bf72f70b49ac1e9c09",
     "text": "This is a post from Joseph Sutton on the D&D event!"
   },
   {
-    "parentEvent": "5e0b5d2e716bce55ca526883",
-    "author": "5e0a85d574c4ea49b91bc73d",
+    "event": "5e0b5d2e716bce55ca526883",
+    "user": "5e0a85d574c4ea49b91bc73d",
     "text": "This is a post from Samantha Rudolph on the D&D event!"
   },
   {
-    "parentEvent": "5e0b5d2e716bce55ca526883",
-    "author": "5e0a85f61338e149c5365996",
+    "event": "5e0b5d2e716bce55ca526883",
+    "user": "5e0a85f61338e149c5365996",
     "text": "This is a post from Keith Elliott on the D&D event!"
   }
 ]

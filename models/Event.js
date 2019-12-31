@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const EventSchema = new mongoose.Schema(
   {
-    createdBy: {
+    user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: [true, "Event must have a creator."]

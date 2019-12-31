@@ -1,7 +1,7 @@
 [
   {
     "_id": "5e0b5d2e716bce55ca526881",
-    "createdBy": "5e0a84cf3778f14979b2c1c8",
+    "user": "5e0a84cf3778f14979b2c1c8",
     "title": "New Years Party",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Blandit aliquam etiam erat velit. Et netus et malesuada fames ac turpis egestas integer eget. Eu scelerisque felis imperdiet proin fermentum leo vel orci porta. Dignissim diam quis enim lobortis scelerisque fermentum dui faucibus in. Orci dapibus ultrices in iaculis nunc sed augue lacus. Convallis tellus id interdum velit laoreet id donec. Massa tempor nec feugiat nisl pretium fusce. Eros in cursus turpis massa tincidunt dui ut. Quis risus sed vulputate odio ut enim blandit. Ac placerat vestibulum lectus mauris ultrices eros in cursus. Purus semper eget duis at tellus at. Felis imperdiet proin fermentum leo vel orci. Habitasse platea dictumst quisque sagittis purus sit amet volutpat consequat. Vel quam elementum pulvinar etiam non. Amet facilisis magna etiam tempor orci. Pulvinar mattis nunc sed blandit libero. Nibh nisl condimentum id venenatis a condimentum vitae sapien. Tellus molestie nunc non blandit massa. Feugiat in ante metus dictum. Scelerisque eleifend donec pretium vulputate. Elit pellentesque habitant morbi tristique senectus et netus. Tortor id aliquet lectus proin. Integer eget aliquet nibh praesent tristique magna. Accumsan sit amet nulla facilisi. Duis ultricies lacus sed turpis tincidunt.",
     "time": "2020-12-31T20:00:00+00:00",
@@ -25,7 +25,7 @@
   },
   {
     "_id": "5e0b5d2e716bce55ca526882",
-    "createdBy": "5e0a8584bb20dd498e322f73",
+    "user": "5e0a8584bb20dd498e322f73",
     "title": "My 40th birthday party!!!",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Blandit aliquam etiam erat velit. Et netus et malesuada fames ac turpis egestas integer eget. Eu scelerisque felis imperdiet proin fermentum leo vel orci porta. Dignissim diam quis enim lobortis scelerisque fermentum dui faucibus in. Orci dapibus ultrices in iaculis nunc sed augue lacus. Convallis tellus id interdum velit laoreet id donec. Massa tempor nec feugiat nisl pretium fusce. Eros in cursus turpis massa tincidunt dui ut. Quis risus sed vulputate odio ut enim blandit. Ac placerat vestibulum lectus mauris ultrices eros in cursus. Purus semper eget duis at tellus at. Felis imperdiet proin fermentum leo vel orci. Habitasse platea dictumst quisque sagittis purus sit amet volutpat consequat. Vel quam elementum pulvinar etiam non. Amet facilisis magna etiam tempor orci. Pulvinar mattis nunc sed blandit libero. Nibh nisl condimentum id venenatis a condimentum vitae sapien. Tellus molestie nunc non blandit massa. Feugiat in ante metus dictum. Scelerisque eleifend donec pretium vulputate. Elit pellentesque habitant morbi tristique senectus et netus. Tortor id aliquet lectus proin. Integer eget aliquet nibh praesent tristique magna. Accumsan sit amet nulla facilisi. Duis ultricies lacus sed turpis tincidunt.",
     "time": "2020-01-12T13:37:27+00:00",
@@ -42,7 +42,7 @@
   },
   {
     "_id": "5e0b5d2e716bce55ca526883",
-    "createdBy": "5e0a85a65d9a4a499cb32152",
+    "user": "5e0a85a65d9a4a499cb32152",
     "title": "Dungeons & Dragons Tournament",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Blandit aliquam etiam erat velit. Et netus et malesuada fames ac turpis egestas integer eget. Eu scelerisque felis imperdiet proin fermentum leo vel orci porta. Dignissim diam quis enim lobortis scelerisque fermentum dui faucibus in. Orci dapibus ultrices in iaculis nunc sed augue lacus. Convallis tellus id interdum velit laoreet id donec. Massa tempor nec feugiat nisl pretium fusce. Eros in cursus turpis massa tincidunt dui ut. Quis risus sed vulputate odio ut enim blandit. Ac placerat vestibulum lectus mauris ultrices eros in cursus. Purus semper eget duis at tellus at. Felis imperdiet proin fermentum leo vel orci. Habitasse platea dictumst quisque sagittis purus sit amet volutpat consequat. Vel quam elementum pulvinar etiam non. Amet facilisis magna etiam tempor orci. Pulvinar mattis nunc sed blandit libero. Nibh nisl condimentum id venenatis a condimentum vitae sapien. Tellus molestie nunc non blandit massa. Feugiat in ante metus dictum. Scelerisque eleifend donec pretium vulputate. Elit pellentesque habitant morbi tristique senectus et netus. Tortor id aliquet lectus proin. Integer eget aliquet nibh praesent tristique magna. Accumsan sit amet nulla facilisi. Duis ultricies lacus sed turpis tincidunt.",
     "time": "2020-02-14T13:37:27+00:00",

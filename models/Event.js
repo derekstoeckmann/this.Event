@@ -36,6 +36,12 @@ const EventSchema = new mongoose.Schema(
       type: String,
       required: true
     },
+    attending: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+      }
+    ],
     public: Boolean,
     tags: [String],
     category: {

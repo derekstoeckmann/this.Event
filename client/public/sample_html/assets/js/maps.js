@@ -1,14 +1,9 @@
-// This example requires the Places library. Include the libraries=places
-// parameter when you first load the API. For example:
-// <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
-let myLat = "";
-let myLon = "";
+
+let myLat = "33.4484";
+let myLon = "112.0740";
 
 if ("geolocation" in navigator) {
-  /* geolocation is available */
-  //SETTING IT IN A GLOBAL VAR RATHER THAN TRYING TO PASS IT AND TRACE WHERE IT IS
   navigator.geolocation.getCurrentPosition(function (position) {
-    console.log(position.coords.latitude)
     myLat = position.coords.latitude;
     myLon = position.coords.longitude;
   })
@@ -19,6 +14,7 @@ if ("geolocation" in navigator) {
 }
 
 function initMap() {
+  console.log(myLat);
   var map = new google.maps.Map(document.getElementById('map'), {
     center: { lat: myLat, lng: myLon },
     zoom: 14,
@@ -126,7 +122,6 @@ autocomplete.bindTo('bounds', map);
 // Set the data fields to return when the user selects a place.
 autocomplete.setFields(
   ['address_components', 'geometry', 'icon', 'name']);
-
 var infowindow = new google.maps.InfoWindow();
 var infowindowContent = document.getElementById('infowindow-content');
 infowindow.setContent(infowindowContent);
@@ -136,9 +131,11 @@ var marker = new google.maps.Marker({
 });
 
 autocomplete.addListener('place_changed', function () {
+  infowindowContent.style.display = "block";
   infowindow.close();
   marker.setVisible(false);
   var place = autocomplete.getPlace();
+  console.log(place)
   if (!place.geometry) {
     // User entered the name of a Place that was not suggested and
     // pressed the Enter key, or the Place Details request failed.

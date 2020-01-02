@@ -1,0 +1,86 @@
+[
+      {
+        "featureType": "landscape.man_made",
+        "elementType": "geometry.fill",
+        "stylers": [
+          {
+            "color": "#c0c0c0"
+          },
+          {
+            "lightness": 55
+          }
+        ]
+      },
+      {
+        "featureType": "landscape.natural.landcover",
+        "elementType": "geometry.fill",
+        "stylers": [
+          {
+            "lightness": 50
+          }
+        ]
+      },
+      {
+        "featureType": "poi",
+        "elementType": "geometry.fill",
+        "stylers": [
+          {
+            "lightness": 80
+          }
+        ]
+      },
+      {
+        "featureType": "road.arterial",
+        "elementType": "geometry.fill",
+        "stylers": [
+          {
+            "color": "#c0c0c0"
+          },
+          {
+            "lightness": 25
+          }
+        ]
+      },
+      {
+        "featureType": "road.arterial",
+        "elementType": "geometry.stroke",
+        "stylers": [
+          {
+            "lightness": 5
+          }
+        ]
+      },
+      {
+        "featureType": "road.highway",
+        "elementType": "geometry.fill",
+        "stylers": [
+          {
+            "color": "#8000ff"
+          },
+          {
+            "lightness": 45
+          }
+        ]
+      },
+      {
+        "featureType": "road.highway.controlled_access",
+        "elementType": "geometry.fill",
+        "stylers": [
+          {
+            "color": "#8000ff"
+          },
+          {
+            "lightness": 45
+          }
+        ]
+      },
+      {
+        "featureType": "road.local",
+        "elementType": "geometry.stroke",
+        "stylers": [
+          {
+            "color": "#c0c0c0"
+          }
+        ]
+      }
+    ]

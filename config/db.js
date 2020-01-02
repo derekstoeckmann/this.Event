@@ -4,6 +4,7 @@ const connectToDatabase = async () => {
   const connection = await mongoose.connect(
     "mongodb://localhost/event_app_db",
     {
+      useCreateIndex: true,
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useFindAndModify: false

@@ -2,12 +2,12 @@ const mongoose = require("mongoose");
 
 const PostSchema = new mongoose.Schema(
   {
-    parentEvent: {
+    event: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Event",
       required: true
     },
-    author: {
+    user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true

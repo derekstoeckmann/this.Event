@@ -2,6 +2,7 @@ import React from 'react';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import CreateEvent from './pages/CreateEvent';
+import Event from './pages/Event';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           className="main-inner"
         >
         <CreateEvent />
+        <Event />
         </Grid>
       </Container>
     </div>

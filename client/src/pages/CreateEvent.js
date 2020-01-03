@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Map from '../components/Map/Map.js';
 import DateTime from '../components/DateTime/DateTime.js';
+import Button from '@material-ui/core/Button';
 import './styles.css';
 
 function showHideDiv(checked, myDivId) {
@@ -24,16 +25,18 @@ class CreateEvent extends Component {
           justify="center"
           alignItems="center"
         >
-          <Grid item md={6}>
+          <Grid item md={5}>
             <h1>Create Event</h1>
           </Grid>
           <Grid item md={6}>
+            <br />
             Public&nbsp;
               <label className="switch">
               <input type="checkbox" />
               <span className="slider round"></span>
             </label>
-            &nbsp;Semi-Private
+            &nbsp;Semi-Private<br />
+            <br />
           </Grid>
         </Grid>
 
@@ -56,7 +59,7 @@ class CreateEvent extends Component {
                 <TextField id="event-title" label="Event Title" variant="outlined" className="data-value-input" />
               </Grid>
               <Grid item>
-                <TextField id="location-name" label="Loation" variant="outlined" className="data-value-input" />
+                <TextField id="location-name" label="Location" variant="outlined" className="data-value-input" />
               </Grid>
               <Grid item>
                 <TextField
@@ -124,7 +127,7 @@ class CreateEvent extends Component {
                   google={this.props.google}
                   center={{ lat: 33.4484, lng: -112.0740 }}
                   height='300px'
-                  zoom={15}
+                  zoom={17}
                 />
               </Grid>
             </Grid>
@@ -148,59 +151,91 @@ class CreateEvent extends Component {
           justify="center"
           alignItems="center"
           spacing={3}
+          width="100%"
         >
           <Grid item>
             <span className="data-key">Highlights</span> (Up to 5) <input type="checkbox"
               onClick="showHideDiv(this.checked, 'highlight-box')" />
           </Grid>
-          <Grid item>
-            <div id="highlight-box" className="show-hide">
-              <Grid
-                container
-                direction="column"
-                justify="center"
-                alignItems="center"
-                spacing={3}
-              >
-                <Grid item>
-                  <TextField id="highlight-1" label="Event Highlight One" variant="outlined" className="data-value-input" />
-                </Grid>
-                <Grid item>
-                  <TextField id="highlight-2" label="Event Highlight Two" variant="outlined" className="data-value-input" />
-                </Grid>
-                <Grid item>
-                  <TextField id="highlight-3" label="Event Highlight Three" variant="outlined" className="data-value-input" />
-                </Grid>
-                <Grid item>
-                  <TextField id="highlight-4" label="Event Highlight Four" variant="outlined" className="data-value-input" />
-                </Grid>
-                <Grid item>
-                  <TextField id="highlight-5" label="Event Highlight Five" variant="outlined" className="data-value-input" />
-                </Grid>
+          <Grid item xs={11}>
+            <Grid
+              container
+              direction="row"
+              justify="left"
+              alignItems="center"
+              spacing={3}
+            >
+              <Grid item md={6}>
+                <TextField id="highlight-1" label="Event Highlight One" variant="outlined" className="data-value-input" />
               </Grid>
-            </div>
+              <Grid item md={6}>
+                <TextField id="highlight-2" label="Event Highlight Two" variant="outlined" className="data-value-input" />
+              </Grid>
+              <Grid item md={6}>
+                <TextField id="highlight-3" label="Event Highlight Three" variant="outlined" className="data-value-input" />
+              </Grid>
+              <Grid item md={6}>
+                <TextField id="highlight-4" label="Event Highlight Four" variant="outlined" className="data-value-input" />
+              </Grid>
+              <Grid item md={6}>
+                <TextField id="highlight-5" label="Event Highlight Five" variant="outlined" className="data-value-input" />
+              </Grid>
+            </Grid>
           </Grid>
 
           <Grid item>
             <span className="data-key">Bring your own?</span> <input type="checkbox"
-              onClick="showHideDiv(this.checked, 'byo-box')" />
-            <div id="byo-box" className="col-lg-6 col-xs-12 data-set-io show-hide">
-              <TextField id="byo" label="Bring Your Own ____" variant="outlined" className="data-value-input" />
-            </div>
+              onClick="showHideDiv(this.checked, 'byo-box')" /><br />
+            <TextField id="byo" label="Bring Your Own ____" variant="outlined" className="data-value-input" />
           </Grid>
 
-          <Grid item>
-            <span className="data-key">Description</span>
-          </Grid>
           <Grid item xs={12}>
+            <br />
             <TextField
               id="outlined-multiline-static"
-              label="Multiline"
+              label="Event Description"
               multiline
               rows="4"
-              defaultValue="Default Value"
+              defaultValue=""
               variant="outlined"
+              fullWidth
+              className="textarea"
             />
+            <br />
+            <br />
+          </Grid>
+          <Grid
+            container
+            direction="row"
+            justify="center"
+            alignItems="center"
+            spacing={3}
+          >
+            <br />
+            <br />
+          </Grid>
+          <Grid
+            container
+            direction="row"
+            justify="center"
+            alignItems="center"
+            spacing={4}
+          >
+            <Grid item>
+              <Button variant="contained" color="primary">
+                Create Event
+              </Button>
+            </Grid>
+            <Grid item>
+              <Button variant="contained" color="primary">
+                Update Event
+              </Button>
+            </Grid>
+            <Grid item>
+              <Button variant="contained" color="secondary">
+                Cancel Event
+              </Button>
+            </Grid>
           </Grid>
           <Grid
             container

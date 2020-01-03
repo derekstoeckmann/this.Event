@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Map from '../components/Map/Map.js';
 import DateTime from '../components/DateTime/DateTime.js';
+import './styles.css';
 
 function showHideDiv(checked, myDivId) {
   const myDisplay = document.getElementById(myDivId);

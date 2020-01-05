@@ -238,7 +238,7 @@ class Map extends Component {
 						{/* InfoWindow on top of marker */}
 						<InfoWindow
 							onClose={this.onInfoWindowClose}
-							position={{ lat: (this.state.markerPosition.lat + 0.0018), lng: this.state.markerPosition.lng }}
+							position={{ lat: (this.state.markerPosition.lat + 0.0004), lng: this.state.markerPosition.lng }}
 						>
 							<div>
 								<span style={{ padding: 0, margin: 0 }}>{this.state.address}</span>

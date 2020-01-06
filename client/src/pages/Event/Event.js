@@ -1,20 +1,21 @@
 import React from "react";
+import { withAuthenticator } from "aws-amplify-react";
 import Wrapper from "../../components/Wrapper/Wrapper";
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import '../styles.css';
+import styles from "./Event.module.css"
 
 const Event = () => {
     return (
         <Wrapper>
-            <Container maxWidth="lg" className="main">
+            <Container maxWidth="lg" className={styles["main"]}>
                 <Grid
                     container
                     direction="row"
                     justify="center"
-                    className="main-inner"
+                    className={styles["main-inner"]}
                 >
                     <div className="pageDiv">
                         <Grid
@@ -36,7 +37,7 @@ const Event = () => {
                                     }}
                                     variant="outlined"
                                     size="small"
-                                    className="data-value-input"
+                                    className={styles["data-value-input"]}
                                 />
                                 <br />
                                 <br />
@@ -80,7 +81,7 @@ const Event = () => {
                             </Grid>
                             <Grid item>
                                 <div>
-                                    <img className="map" alt="google map" src="https://maps.googleapis.com/maps/api/staticmap?center=33.4484,-112.0740&markers=33.4484,-112.0740&size=350x350&style=feature:road.highway%7Celement:geometry%7Cvisibility:simplified%7Ccolor:0xc280e9&style=feature:transit.line%7Cvisibility:simplified%7Ccolor:0xbababa&style=feature:road.highway%7Celement:labels.text.stroke%7Cvisibility:on%7Ccolor:0xb06eba&style=feature:road.highway%7Celement:labels.text.fill%7Cvisibility:on%7Ccolor:0xffffff&key=AIzaSyAViYGK-sxbsRNlv6rZ1a4Ze_h4BaZXi1M" />
+                                    <img className={styles["map"]} alt="google map" src="https://maps.googleapis.com/maps/api/staticmap?center=33.4484,-112.0740&markers=33.4484,-112.0740&size=350x350&style=feature:road.highway%7Celement:geometry%7Cvisibility:simplified%7Ccolor:0xc280e9&style=feature:transit.line%7Cvisibility:simplified%7Ccolor:0xbababa&style=feature:road.highway%7Celement:labels.text.stroke%7Cvisibility:on%7Ccolor:0xb06eba&style=feature:road.highway%7Celement:labels.text.fill%7Cvisibility:on%7Ccolor:0xffffff&key=AIzaSyAViYGK-sxbsRNlv6rZ1a4Ze_h4BaZXi1M" />
                                 </div>
                             </Grid>
                         </Grid>
@@ -101,7 +102,7 @@ const Event = () => {
                             spacing={3}
                         >
                             <Grid item xs={11}>
-                                <span className="data-key">Highlights</span>
+                                <span className={styles["data-key"]}>Highlights</span>
                             </Grid>
                             <Grid item xs={11}>
                                 <Grid
@@ -131,7 +132,7 @@ const Event = () => {
                             <Grid item xs={11}>
                                 <hr />
                                 <br />
-                                <span className="data-key">Description</span>
+                                <span className={styles["data-key"]}>Description</span>
                             </Grid>
                             <Grid item xs={11}>
                                 description_text<br />
@@ -140,10 +141,10 @@ const Event = () => {
                             </Grid>
 
                             <Grid item xs={11} md={5}>
-                                <span className="data-key">Bring your own item_to_bring</span>
+                                <span className={styles["data-key"]}>Bring your own item_to_bring</span>
                             </Grid>
                             <Grid item xs={11} md={6}>
-                                <TextField id="my_byo_item" label="The Item You Are Bringing" variant="outlined" size="small" className="data-value-input" />
+                                <TextField id="my_byo_item" label="The Item You Are Bringing" variant="outlined" size="small" className={styles["data-value-input"]} />
                             </Grid>
                             <Grid item xs={11}>
                                 <Grid
@@ -216,4 +217,4 @@ const Event = () => {
     )
 }
 
-export default Event;
+export default withAuthenticator(Event, true);

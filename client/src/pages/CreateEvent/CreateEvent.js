@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { withAuthenticator } from "aws-amplify-react";
 import Wrapper from "../../components/Wrapper/Wrapper";
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
@@ -8,7 +9,7 @@ import DateTime from '../../components/DateTime/DateTime';
 import Button from '@material-ui/core/Button';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
-import '../styles.css';
+import styles from "./CreateEvent.module.css"
 
 const CreateEvent = (props) => {
 
@@ -26,14 +27,14 @@ const CreateEvent = (props) => {
 
   return (
     <Wrapper>
-      <Container maxWidth="lg" className="main">
+      <Container maxWidth="lg" className={styles["main"]}>
         <Grid
           container
           direction="row"
           justify="center"
-          className="main-inner"
+          className={styles["main-inner"]}
         >
-          <div className="pageDiv">
+          <div className={styles["pageDiv"]}>
             <Grid
               container
               direction="row"
@@ -76,10 +77,10 @@ const CreateEvent = (props) => {
                   alignItems="center"
                 >
                   <Grid item>
-                    <TextField id="event-title" label="Event Title" variant="outlined" size="small" className="data-value-input" />
+                    <TextField id="event-title" label="Event Title" variant="outlined" size="small" className={styles["data-value-input"]} />
                   </Grid>
                   <Grid item>
-                    <TextField id="location-name" label="Location" variant="outlined" size="small" className="data-value-input" />
+                    <TextField id="location-name" label="Location" variant="outlined" size="small" className={styles["data-value-input"]} />
                   </Grid>
                   <Grid item>
                     <TextField
@@ -91,7 +92,7 @@ const CreateEvent = (props) => {
                       }}
                       variant="outlined"
                       size="small"
-                      className="data-value-input"
+                      className={styles["data-value-input"]}
                     />
                   </Grid>
                   <Grid item>
@@ -104,7 +105,7 @@ const CreateEvent = (props) => {
                       }}
                       variant="outlined"
                       size="small"
-                      className="data-value-input"
+                      className={styles["data-value-input"]}
                     />
                   </Grid>
                   <Grid item>
@@ -117,7 +118,7 @@ const CreateEvent = (props) => {
                       }}
                       variant="outlined"
                       size="small"
-                      className="data-value-input"
+                      className={styles["data-value-input"]}
                     />
                   </Grid>
                   <Grid item>
@@ -130,7 +131,7 @@ const CreateEvent = (props) => {
                       }}
                       variant="outlined"
                       size="small"
-                      className="data-value-input"
+                      className={styles["data-value-input"]}
                     />
                   </Grid>
                 </Grid>
@@ -178,7 +179,7 @@ const CreateEvent = (props) => {
               width="100%"
             >
               <Grid item>
-                <span className="data-key">Highlights</span> (Up to 5) <input type="checkbox"
+                <span className={styles["data-key"]}>Highlights</span> (Up to 5) <input type="checkbox"
                 />
                 {/* onClick={this.showHideDiv(this.checked, 'highlight-box')} /> */}
               </Grid>
@@ -191,31 +192,31 @@ const CreateEvent = (props) => {
                   spacing={3}
                 >
                   <Grid item md={6}>
-                    <TextField id="highlight-1" label="Event Highlight One" variant="outlined" size="small" className="data-value-input" />
+                    <TextField id="highlight-1" label="Event Highlight One" variant="outlined" size="small" className={styles["data-value-input"]} />
                   </Grid>
                   <Grid item md={6}>
-                    <TextField id="highlight-2" label="Event Highlight Two" variant="outlined" size="small" className="data-value-input" />
+                    <TextField id="highlight-2" label="Event Highlight Two" variant="outlined" size="small" className={styles["data-value-input"]} />
                   </Grid>
                   <Grid item md={6}>
-                    <TextField id="highlight-3" label="Event Highlight Three" variant="outlined" size="small" className="data-value-input" />
+                    <TextField id="highlight-3" label="Event Highlight Three" variant="outlined" size="small" className={styles["data-value-input"]} />
                   </Grid>
                   <Grid item md={6}>
-                    <TextField id="highlight-4" label="Event Highlight Four" variant="outlined" size="small" className="data-value-input" />
+                    <TextField id="highlight-4" label="Event Highlight Four" variant="outlined" size="small" className={styles["data-value-input"]} />
                   </Grid>
                   <Grid item md={6}>
-                    <TextField id="highlight-5" label="Event Highlight Five" variant="outlined" size="small" className="data-value-input" />
+                    <TextField id="highlight-5" label="Event Highlight Five" variant="outlined" size="small" className={styles["data-value-input"]} />
                   </Grid>
                 </Grid>
               </Grid>
 
               <Grid item>
-                <span className="data-key">Bring your own?</span> <input type="checkbox"
+                <span className={styles["data-key"]}>Bring your own?</span> <input type="checkbox"
                 /><br /><br />
                 {/* onClick={this.showHideDiv(this.checked, 'byo-box')} /><br /><br /> */}
-                <TextField id="byo" label="Bring Your Own ____" variant="outlined" size="small" className="data-value-input" />
+                <TextField id="byo" label="Bring Your Own ____" variant="outlined" size="small" className={styles["data-value-input"]} />
               </Grid>
 
-              <Grid item xs={12} className="tableFullWidth">
+              <Grid item xs={12} className={styles["tableFullWidth"]}>
                 <br />
                 <TextField
                   id="outlined-multiline-static"
@@ -226,7 +227,7 @@ const CreateEvent = (props) => {
                   defaultValue=""
                   variant="outlined"
                   size="small"
-                  className="textarea"
+                  className={styles["textarea"]}
                 />
                 <br />
                 <br />
@@ -284,4 +285,4 @@ const CreateEvent = (props) => {
   )
 }
 
-export default CreateEvent;
+export default withAuthenticator(CreateEvent, true);

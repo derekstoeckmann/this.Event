@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Amplify from "aws-amplify";
 import aws_exports from "./aws-exports";
-import { withAuthenticator } from "aws-amplify-react";
 import Home from "./pages/Home/Home";
 import CreateEvent from "./pages/CreateEvent/CreateEvent";
 import Event from "./pages/Event/Event";

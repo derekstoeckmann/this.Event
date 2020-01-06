@@ -5,6 +5,7 @@ import { withAuthenticator } from "aws-amplify-react";
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import CreateEvent from './pages/CreateEvent';
+import Event from './pages/Event';
 
 Amplify.configure(aws_exports);
 
@@ -22,7 +23,8 @@ function App() {
           justify="center"
           className="main-inner"
         >
-          <CreateEvent />
+        <CreateEvent />
+        <Event />
         </Grid>
       </Container>
     </div>

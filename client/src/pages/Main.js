@@ -8,6 +8,10 @@ import './styles.css';
 const Main = () => {
   const [searchRadius, setSearchRadius] = React.useState('');
 
+  const handleChange = event => {
+    setSearchRadius(event.target.value);
+  };
+
   return (
     <div className="pageDiv">
       <Grid
@@ -112,7 +116,7 @@ const Main = () => {
               <TextField id="search-zip" label="Zipcode" variant="outlined" size="small" />
             </Grid>
             <Grid item xs={6}>
-              <RadiusSelect searchRadius={searchRadius} setSearchRadius={setSearchRadius} />
+              <RadiusSelect searchRadius={searchRadius} handleChange={handleChange} />
             </Grid>
           </Grid>
         </Grid>

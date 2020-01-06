@@ -25,10 +25,6 @@ export default function SimpleSelect(props) {
     setLabelWidth(inputLabel.current.offsetWidth);
   }, []);
 
-  const handleChange = event => {
-    props.setSearchRadius(event.target.value);
-  };
-
   return (
     <>
       <FormControl variant="outlined" className={classes.formControl}>
@@ -39,7 +35,7 @@ export default function SimpleSelect(props) {
           labelId="search-radius-label"
           id="search-radius"
           value={props.searchRadius}
-          onChange={handleChange}
+          onChange={props.handleChange}
           labelWidth={labelWidth}
         >
           <MenuItem value=""><em>None</em></MenuItem>

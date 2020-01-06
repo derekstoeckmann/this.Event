@@ -5,14 +5,13 @@ import {
   MuiPickersUtilsProvider,
 } from '@material-ui/pickers';
 
-export default function DateTime() {
-  const [selectedDate, handleDateChange] = useState(new Date());
+export default function DateTime(props) {
 
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <DateTimePicker
-        value={selectedDate}
-        onChange={handleDateChange}
+        value={props.selectedDate}
+        onChange={props.handleDateChange}
         id="event-date-time"
         label="Event Date and Time"
         variant="outlined"

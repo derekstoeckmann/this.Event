@@ -92,6 +92,12 @@ h2 {
   margin: 20px 10px 20px 10px;
 }
 
+.searchScroll {
+  height: 500px;
+  width: 100%;
+  overflow: auto;
+}
+
 .main-events {
   background-color: #ADCBE3;
   background: rgba(173, 203, 227, 0.7);

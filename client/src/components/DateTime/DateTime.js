@@ -13,12 +13,11 @@ export default function DateTime() {
       <DateTimePicker
         value={selectedDate}
         onChange={handleDateChange}
-        id="event-date-time" 
+        id="event-date-time"
         label="Event Date and Time"
         variant="outlined"
         justify="center"
         alignItems="center"
-        size="medium"
         className="data-value-input"
       />
     </MuiPickersUtilsProvider>

@@ -1,6 +1,7 @@
 import React from 'react';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
+import Main from './pages/Main';
 import CreateEvent from './pages/CreateEvent';
 import Event from './pages/Event';
 
@@ -12,16 +13,18 @@ function App() {
           className="small-letters">vent</span>
       </header>
       <Container maxWidth="lg" className="main">
-      <Grid
+        <Grid
           container
           direction="row"
           justify="center"
           className="main-inner"
         >
-        <CreateEvent />
-        <Event />
+          <Main />
+          <CreateEvent />
+          <Event />
         </Grid>
       </Container>
+      <br />
     </div>
   );
 }

@@ -15,7 +15,7 @@ header {
   border: 1px solid black;
 } */
 
-#map {
+.map {
   /* height: 200px;
   width: 100%;
   border: 2px solid #03396C; */
@@ -41,9 +41,16 @@ header {
 
 h1 {
   font-family: 'Courier Prime', monospace;
-  font-size: 48px;
+  font-size: 40px;
   font-weight: bold;
   color: #03396C;
+}
+
+h2 {
+  font-family: 'Courier Prime', monospace;
+  font-size: 28px;
+  font-weight: bold;
+  color: #000;
 }
 
 .body-container {
@@ -69,12 +76,35 @@ h1 {
   box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+.pageDiv {
+  width: 95%;
+}
+
+.tableFullWidth {
+  width: 95%;
+}
+
 .first-row {
   margin: 20px 10px 20px 10px;
 }
 
 .form-row {
   margin: 20px 10px 20px 10px;
+}
+
+.main-events {
+  background-color: #ADCBE3;
+  background: rgba(173, 203, 227, 0.7);
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.main-events-white {
+  background-color: #fff;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 10px;
+  box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .data-set {

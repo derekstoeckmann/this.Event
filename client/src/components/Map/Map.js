@@ -221,6 +221,7 @@ class Map extends Component {
 							disableDefaultUI: true,
 							draggable: true,
 							keyboardShortcuts: false,
+							zoomControl: true,
 							styles: styles
 						}}
 					>
@@ -269,7 +270,7 @@ class Map extends Component {
 						<div style={{ height: this.props.height }} />
 					}
 					mapElement={
-						<div style={{ height: `100%` }} />
+						<div className="map" style={{ height: `100%` }} />
 					}
 				/>
 			</div>

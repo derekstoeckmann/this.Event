@@ -1,4 +1,5 @@
 import React from "react";
+import { withAuthenticator } from "aws-amplify-react";
 import Wrapper from "../../components/Wrapper/Wrapper";
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
@@ -6,26 +7,26 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import RadiusSelect from '../../components/RadiusSelect';
 import { Link } from "react-router-dom";
-import '../styles.css';
+import styles from './Home.module.css';
 
 const Home = () => {
     return (
         <Wrapper>
-            <Container maxWidth="lg" className="main">
+            <Container maxWidth="lg" className={styles["main"]}>
                 <Grid
                     container
                     direction="row"
                     justify="center"
-                    className="main-inner"
+                    className={styles["main-inner"]}
                 >
-                    <div className="pageDiv">
+                    <div className={styles["pageDiv"]}>
                         <Grid
                             container
                             direction="row"
                             justify="center"
                             alignItems="top"
                             spacing={4}
-                            className="tableFullWidth"
+                            className={styles["tableFullWidth"]}
                         >
                             <Grid item md={6}>
                                 <h1>Your Events Today</h1>
@@ -35,13 +36,13 @@ const Home = () => {
                                     justify="center"
                                     alignItems="top"
                                     spacing={2}
-                                    className="main-events"
+                                    className={styles["main-events"]}
                                 >
                                     <Grid item xs={12}>
                                         <h2>current_date</h2>
                                     </Grid>
 
-                                    <Grid item xs={12} className="main-events-white">
+                                    <Grid item xs={12} className={styles["main-events-white"]}>
                                         <Grid
                                             container
                                             direction="row"
@@ -66,7 +67,7 @@ const Home = () => {
                                     </Grid>
                                     <hr />
 
-                                    <Grid item xs={12} className="main-events-white">
+                                    <Grid item xs={12} className={styles["main-events-white"]}>
                                         <Grid
                                             container
                                             direction="row"

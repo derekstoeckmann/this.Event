@@ -1,11 +1,12 @@
 import React from "react";
+import styles from "./Wrapper.module.css"
 
 const Wrapper = (props) => {
     return (
         <div className="App">
             <header>
-                <span className="small-letters">this.</span><span className="large-letters">E</span><span
-                    className="small-letters">vent</span>
+                <span className={styles["small-letters"]}>this.</span><span className={styles["large-letters"]}>E</span><span
+                    className={styles["small-letters"]}>vent</span>
             </header>
             {props.children}
             <br />

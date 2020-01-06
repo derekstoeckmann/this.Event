@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withGoogleMap, GoogleMap, withScriptjs, InfoWindow, Marker } from "react-google-maps";
 import Geocode from "react-geocode";
 import Autocomplete from 'react-google-autocomplete';
-Geocode.setApiKey("AIzaSyAViYGK-sxbsRNlv6rZ1a4Ze_h4BaZXi1M");
+Geocode.setApiKey("");
 Geocode.enableDebug();
 
 /* Import custom styles to customize the style of Google Map*/
@@ -262,7 +262,7 @@ class Map extends Component {
 		if (this.props.center.lat !== undefined) {
 			map = <div>
 				<AsyncMap
-					googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAViYGK-sxbsRNlv6rZ1a4Ze_h4BaZXi1M&libraries=places"
+					googleMapURL="https://maps.googleapis.com/maps/api/js?key=&libraries=places"
 					loadingElement={
 						<div style={{ height: `100%` }} />
 					}

@@ -4,6 +4,7 @@ import aws_exports from "./aws-exports";
 import { withAuthenticator } from "aws-amplify-react";
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
+import Main from './pages/Main';
 import CreateEvent from './pages/CreateEvent';
 import Event from './pages/Event';
 
@@ -23,10 +24,12 @@ function App() {
           justify="center"
           className="main-inner"
         >
-        <CreateEvent />
-        <Event />
+          <Main />
+          <CreateEvent />
+          <Event />
         </Grid>
       </Container>
+      <br />
     </div>
   );
 }

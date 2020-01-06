@@ -7,7 +7,7 @@ import './styles.css';
 class Event extends Component {
   render() {
     return (
-      <div>
+      <div className="pageDiv">
         <Grid
           container
           direction="row"
@@ -26,6 +26,7 @@ class Event extends Component {
                 readOnly: true,
               }}
               variant="outlined"
+              size="small"
               className="data-value-input"
             />
             <br />
@@ -70,7 +71,7 @@ class Event extends Component {
           </Grid>
           <Grid item>
             <div>
-              <img id="map" src="https://maps.googleapis.com/maps/api/staticmap?center=33.4484,-112.0740&markers=33.4484,-112.0740&size=350x350&style=feature:road.highway%7Celement:geometry%7Cvisibility:simplified%7Ccolor:0xc280e9&style=feature:transit.line%7Cvisibility:simplified%7Ccolor:0xbababa&style=feature:road.highway%7Celement:labels.text.stroke%7Cvisibility:on%7Ccolor:0xb06eba&style=feature:road.highway%7Celement:labels.text.fill%7Cvisibility:on%7Ccolor:0xffffff&key=AIzaSyAViYGK-sxbsRNlv6rZ1a4Ze_h4BaZXi1M" />
+              <img className="map" alt="google map" src="https://maps.googleapis.com/maps/api/staticmap?center=33.4484,-112.0740&markers=33.4484,-112.0740&size=350x350&style=feature:road.highway%7Celement:geometry%7Cvisibility:simplified%7Ccolor:0xc280e9&style=feature:transit.line%7Cvisibility:simplified%7Ccolor:0xbababa&style=feature:road.highway%7Celement:labels.text.stroke%7Cvisibility:on%7Ccolor:0xb06eba&style=feature:road.highway%7Celement:labels.text.fill%7Cvisibility:on%7Ccolor:0xffffff&key=AIzaSyAViYGK-sxbsRNlv6rZ1a4Ze_h4BaZXi1M" />
             </div>
           </Grid>
         </Grid>
@@ -81,9 +82,6 @@ class Event extends Component {
           alignItems="center"
           spacing={3}
         >
-          <br />
-          <br />
-          <br />
           <br />
         </Grid>
         <Grid
@@ -121,12 +119,22 @@ class Event extends Component {
               </Grid>
             </Grid>
           </Grid>
+          <Grid item xs={11}>
+            <hr />
+            <br />
+            <span className="data-key">Description</span>
+          </Grid>
+          <Grid item xs={11}>
+            description_text<br />
+            <br />
+            <hr />
+          </Grid>
 
           <Grid item xs={11} md={5}>
             <span className="data-key">Bring your own item_to_bring</span>
           </Grid>
           <Grid item xs={11} md={6}>
-            <TextField id="my_byo_item" label="The Item You Are Bringing" variant="outlined" className="data-value-input" />
+            <TextField id="my_byo_item" label="The Item You Are Bringing" variant="outlined" size="small" className="data-value-input" />
           </Grid>
           <Grid item xs={11}>
             <Grid
@@ -151,13 +159,10 @@ class Event extends Component {
               <Grid item xs={12} sm={6} md={4}>
                 <li>Mike Milton - Potato Chips</li>
               </Grid>
+              <br />
+              <br />
+              <br />
             </Grid>
-          </Grid>
-          <Grid item xs={11}>
-            <span className="data-key">Description</span>
-          </Grid>
-          <Grid item xs={11}>
-            description_text
           </Grid>
           <Grid
             container

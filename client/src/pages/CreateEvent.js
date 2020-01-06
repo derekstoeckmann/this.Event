@@ -4,21 +4,26 @@ import TextField from '@material-ui/core/TextField';
 import Map from '../components/Map/Map.js';
 import DateTime from '../components/DateTime/DateTime.js';
 import Button from '@material-ui/core/Button';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
 import './styles.css';
 
-function showHideDiv(checked, myDivId) {
-  const myDisplay = document.getElementById(myDivId);
-  if (checked) {
-    myDisplay.style.display = "inline";
-  } else {
-    myDisplay.style.display = "none";
-  }
-}
 
 class CreateEvent extends Component {
+
+  showHideDiv({ checked, myDivId }) {
+    console.log(checked)
+    // const myDisplay = document.getElementById(myDivId);
+    // if (checked) {
+    //   myDisplay.style.display = "inline";
+    // } else {
+    //   myDisplay.style.display = "none";
+    // }
+  };
+
   render() {
     return (
-      <div>
+      <div className="pageDiv">
         <Grid
           container
           direction="row"
@@ -31,10 +36,15 @@ class CreateEvent extends Component {
           <Grid item md={6}>
             <br />
             Public&nbsp;
-              <label className="switch">
-              <input type="checkbox" />
-              <span className="slider round"></span>
-            </label>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked="true"
+                  value="checkedB"
+                  color="primary"
+                />
+              }
+            />
             &nbsp;Semi-Private<br />
             <br />
           </Grid>
@@ -56,10 +66,10 @@ class CreateEvent extends Component {
               alignItems="center"
             >
               <Grid item>
-                <TextField id="event-title" label="Event Title" variant="outlined" className="data-value-input" />
+                <TextField id="event-title" label="Event Title" variant="outlined" size="small" className="data-value-input" />
               </Grid>
               <Grid item>
-                <TextField id="location-name" label="Location" variant="outlined" className="data-value-input" />
+                <TextField id="location-name" label="Location" variant="outlined" size="small" className="data-value-input" />
               </Grid>
               <Grid item>
                 <TextField
@@ -70,6 +80,7 @@ class CreateEvent extends Component {
                     readOnly: true,
                   }}
                   variant="outlined"
+                  size="small"
                   className="data-value-input"
                 />
               </Grid>
@@ -82,6 +93,7 @@ class CreateEvent extends Component {
                     readOnly: true,
                   }}
                   variant="outlined"
+                  size="small"
                   className="data-value-input"
                 />
               </Grid>
@@ -94,6 +106,7 @@ class CreateEvent extends Component {
                     readOnly: true,
                   }}
                   variant="outlined"
+                  size="small"
                   className="data-value-input"
                 />
               </Grid>
@@ -106,6 +119,7 @@ class CreateEvent extends Component {
                     readOnly: true,
                   }}
                   variant="outlined"
+                  size="small"
                   className="data-value-input"
                 />
               </Grid>
@@ -155,7 +169,8 @@ class CreateEvent extends Component {
         >
           <Grid item>
             <span className="data-key">Highlights</span> (Up to 5) <input type="checkbox"
-              onClick="showHideDiv(this.checked, 'highlight-box')" />
+            />
+            {/* onClick={this.showHideDiv(this.checked, 'highlight-box')} /> */}
           </Grid>
           <Grid item xs={11}>
             <Grid
@@ -166,39 +181,41 @@ class CreateEvent extends Component {
               spacing={3}
             >
               <Grid item md={6}>
-                <TextField id="highlight-1" label="Event Highlight One" variant="outlined" className="data-value-input" />
+                <TextField id="highlight-1" label="Event Highlight One" variant="outlined" size="small" className="data-value-input" />
               </Grid>
               <Grid item md={6}>
-                <TextField id="highlight-2" label="Event Highlight Two" variant="outlined" className="data-value-input" />
+                <TextField id="highlight-2" label="Event Highlight Two" variant="outlined" size="small" className="data-value-input" />
               </Grid>
               <Grid item md={6}>
-                <TextField id="highlight-3" label="Event Highlight Three" variant="outlined" className="data-value-input" />
+                <TextField id="highlight-3" label="Event Highlight Three" variant="outlined" size="small" className="data-value-input" />
               </Grid>
               <Grid item md={6}>
-                <TextField id="highlight-4" label="Event Highlight Four" variant="outlined" className="data-value-input" />
+                <TextField id="highlight-4" label="Event Highlight Four" variant="outlined" size="small" className="data-value-input" />
               </Grid>
               <Grid item md={6}>
-                <TextField id="highlight-5" label="Event Highlight Five" variant="outlined" className="data-value-input" />
+                <TextField id="highlight-5" label="Event Highlight Five" variant="outlined" size="small" className="data-value-input" />
               </Grid>
             </Grid>
           </Grid>
 
           <Grid item>
             <span className="data-key">Bring your own?</span> <input type="checkbox"
-              onClick="showHideDiv(this.checked, 'byo-box')" /><br />
-            <TextField id="byo" label="Bring Your Own ____" variant="outlined" className="data-value-input" />
+            /><br /><br />
+            {/* onClick={this.showHideDiv(this.checked, 'byo-box')} /><br /><br /> */}
+            <TextField id="byo" label="Bring Your Own ____" variant="outlined" size="small" className="data-value-input" />
           </Grid>
 
-          <Grid item xs={12}>
+          <Grid item xs={12} className="tableFullWidth">
             <br />
             <TextField
               id="outlined-multiline-static"
               label="Event Description"
               multiline
-              rows="4"
+              fullWidth
+              rows="7"
               defaultValue=""
               variant="outlined"
-              fullWidth
+              size="small"
               className="textarea"
             />
             <br />

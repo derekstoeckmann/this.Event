@@ -71,7 +71,7 @@ class Event extends Component {
           </Grid>
           <Grid item>
             <div>
-              <img className="map" alt="google map" src="https://maps.googleapis.com/maps/api/staticmap?center=33.4484,-112.0740&markers=33.4484,-112.0740&size=350x350&style=feature:road.highway%7Celement:geometry%7Cvisibility:simplified%7Ccolor:0xc280e9&style=feature:transit.line%7Cvisibility:simplified%7Ccolor:0xbababa&style=feature:road.highway%7Celement:labels.text.stroke%7Cvisibility:on%7Ccolor:0xb06eba&style=feature:road.highway%7Celement:labels.text.fill%7Cvisibility:on%7Ccolor:0xffffff&key=AIzaSyAViYGK-sxbsRNlv6rZ1a4Ze_h4BaZXi1M" />
+              <img className="map" alt="google map" src={"https://maps.googleapis.com/maps/api/staticmap?center=33.4484,-112.0740&markers=33.4484,-112.0740&size=350x350&style=feature:road.highway%7Celement:geometry%7Cvisibility:simplified%7Ccolor:0xc280e9&style=feature:transit.line%7Cvisibility:simplified%7Ccolor:0xbababa&style=feature:road.highway%7Celement:labels.text.stroke%7Cvisibility:on%7Ccolor:0xb06eba&style=feature:road.highway%7Celement:labels.text.fill%7Cvisibility:on%7Ccolor:0xffffff&key=" + process.env.REACT_APP_GOOGLE_KEY} />
             </div>
           </Grid>
         </Grid>

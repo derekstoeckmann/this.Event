@@ -1,7 +1,12 @@
 import React from 'react';
+import Amplify from "aws-amplify";
+import aws_exports from "./aws-exports";
+import { withAuthenticator } from "aws-amplify-react";
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import CreateEvent from './pages/CreateEvent';
+
+Amplify.configure(aws_exports);
 
 function App() {
   return (
@@ -11,13 +16,13 @@ function App() {
           className="small-letters">vent</span>
       </header>
       <Container maxWidth="lg" className="main">
-      <Grid
+        <Grid
           container
           direction="row"
           justify="center"
           className="main-inner"
         >
-        <CreateEvent />
+          <CreateEvent />
         </Grid>
       </Container>
     </div>

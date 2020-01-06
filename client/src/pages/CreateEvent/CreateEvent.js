@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { withAuthenticator } from "aws-amplify-react";
 import Wrapper from "../../components/Wrapper/Wrapper";
 import Container from '@material-ui/core/Container';
@@ -12,6 +12,8 @@ import Switch from '@material-ui/core/Switch';
 import styles from "./CreateEvent.module.css"
 
 const CreateEvent = (props) => {
+
+  const [selectedDate, setSelectedDate] = useState(new Date());
 
   // showHideDiv({ checked, myDivId }) {
   // console.log(checked)
@@ -48,7 +50,7 @@ const CreateEvent = (props) => {
             <FormControlLabel
                   control={
                     <Switch
-                      checked="true"
+                      checked
                       value="checkedB"
                       color="primary"
                     />
@@ -143,7 +145,7 @@ const CreateEvent = (props) => {
                   alignItems="center"
                 >
                   <Grid item>
-                    <DateTime />
+                    <DateTime selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
                   </Grid>
                   <Grid item>
                     <Map
@@ -199,7 +201,7 @@ const CreateEvent = (props) => {
                     <TextField id="highlight-3" label="Event Highlight Three" variant="outlined" size="small" className={styles["data-value-input"]} />
                   </Grid>
                   <Grid item md={6}>
-                    <TextField id="highlight-4" label="Event Highlight Four" variant="outlined" size="small" className={styles = ["data-value-input"]} />
+                    <TextField id="highlight-4" label="Event Highlight Four" variant="outlined" size="small" className={styles["data-value-input"]} />
                   </Grid>
                   <Grid item md={6}>
                     <TextField id="highlight-5" label="Event Highlight Five" variant="outlined" size="small" className={styles["data-value-input"]} />

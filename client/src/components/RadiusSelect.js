@@ -16,19 +16,14 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SimpleSelect() {
+export default function SimpleSelect(props) {
   const classes = useStyles();
-  const [seachRadius, setSeachRadius] = React.useState('');
 
   const inputLabel = React.useRef(null);
   const [labelWidth, setLabelWidth] = React.useState(0);
   React.useEffect(() => {
     setLabelWidth(inputLabel.current.offsetWidth);
   }, []);
-
-  const handleChange = event => {
-    setSeachRadius(event.target.value);
-  };
 
   return (
     <>
@@ -39,8 +34,8 @@ export default function SimpleSelect() {
         <Select
           labelId="search-radius-label"
           id="search-radius"
-          value={seachRadius}
-          onChange={handleChange}
+          value={props.searchRadius}
+          onChange={props.handleChange}
           labelWidth={labelWidth}
         >
           <MenuItem value=""><em>None</em></MenuItem>

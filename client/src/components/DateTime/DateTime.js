@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import DateFnsUtils from '@date-io/date-fns'; // choose your lib
 import {
   DateTimePicker,
   MuiPickersUtilsProvider,
 } from '@material-ui/pickers';
 
-export default function DateTime(props) {
+function DateTime(props) {
 
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <DateTimePicker
         value={props.selectedDate}
-        onChange={props.handleDateChange}
+        onChange={props.setSelectedDate}
         id="event-date-time"
         label="Event Date and Time"
         variant="outlined"
@@ -22,3 +22,5 @@ export default function DateTime(props) {
     </MuiPickersUtilsProvider>
   );
 }
+
+export default DateTime;

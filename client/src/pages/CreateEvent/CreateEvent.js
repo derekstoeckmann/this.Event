@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { withAuthenticator } from "aws-amplify-react";
 
 import Map from "../../components/Map/Map.js";
@@ -15,19 +16,23 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import styles from "./CreateEvent.module.css";
 
 const CreateEvent = props => {
+  const [eventIsPublic, setEventIsPublic] = useState(true);
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [eventTitle, setEventTitle] = useState("");
+  const [eventDescription, setEventDescription] = useState("");
+  const [locationName, setLocationName] = useState("");
   const [locationData, setLocationData] = useState({
     address: "",
     city: "",
     state: "",
     zipcode: "",
     mapPosition: {
-      lat: 33.4484,
-      lng: -112.074
+      lat: 0,
+      lng: 0
     },
     markerPosition: {
-      lat: 33.4484,
-      lng: -112.074
+      lat: 0,
+      lng: 0
     }
   });
 
@@ -48,11 +53,45 @@ const CreateEvent = props => {
             lat: latitude,
             lng: longitude
           }
-        })
-      })
+        });
+      });
     }
-  }, [])
+  }, []);
 
+  const toggleEventIsPublic = () => {
+    setEventIsPublic(!eventIsPublic);
+  };
+
+  const createEventHandler = event => {
+    event.preventDefault();
+
+    const eventData = {
+      title: eventTitle,
+      description: eventDescription,
+      time: selectedDate,
+      location: {
+        type: "Point",
+        coordinates: [
+          locationData.markerPosition.lng,
+          locationData.markerPosition.lat
+        ],
+        address: locationData.address,
+        city: locationData.city,
+        state: locationData.state,
+        zipcode: locationData.zipcode
+      },
+      public: eventIsPublic
+    };
+
+    console.log(eventData);
+
+    axios
+      .post("/api/events", eventData)
+      .then(response => {
+        console.log(response);
+      })
+      .catch(err => console.log(err));
+  };
 
   //THIS IS HERE TO REMIND TO DO THE SHOW/HIDE
   // showHideDiv({ checked, myDivId }) {
@@ -86,11 +125,17 @@ const CreateEvent = props => {
               </Grid>
               <Grid item md={6}>
                 <br />
-                Public&nbsp;
+                Semi-Private&nbsp;
                 <FormControlLabel
-                  control={<Switch checked value="checkedB" color="primary" />}
+                  control={
+                    <Switch
+                      checked={eventIsPublic}
+                      onChange={toggleEventIsPublic}
+                      color="primary"
+                    />
+                  }
                 />
-                &nbsp;Semi-Private
+                &nbsp;Public
                 <br />
                 <br />
               </Grid>
@@ -115,6 +160,8 @@ const CreateEvent = props => {
                     <TextField
                       id="event-title"
                       label="Event Title"
+                      value={eventTitle}
+                      onChange={event => setEventTitle(event.target.value)}
                       variant="outlined"
                       size="small"
                       className={styles["data-value-input"]}
@@ -123,7 +170,9 @@ const CreateEvent = props => {
                   <Grid item>
                     <TextField
                       id="location-name"
-                      label="Location"
+                      label="Location Name"
+                      value={locationName}
+                      onChange={event => setLocationName(event.target.value)}
                       variant="outlined"
                       size="small"
                       className={styles["data-value-input"]}
@@ -319,6 +368,8 @@ const CreateEvent = props => {
                   fullWidth
                   rows="7"
                   defaultValue=""
+                  value={eventDescription}
+                  onChange={event => setEventDescription(event.target.value)}
                   variant="outlined"
                   size="small"
                   className={styles["textarea"]}
@@ -344,7 +395,11 @@ const CreateEvent = props => {
                 spacing={4}
               >
                 <Grid item>
-                  <Button variant="contained" color="primary">
+                  <Button
+                    onClick={createEventHandler}
+                    variant="contained"
+                    color="primary"
+                  >
                     Create Event
                   </Button>
                 </Grid>

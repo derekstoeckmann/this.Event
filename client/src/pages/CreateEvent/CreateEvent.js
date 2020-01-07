@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { withAuthenticator } from "aws-amplify-react";
 import Wrapper from "../../components/Wrapper/Wrapper";
 import Container from "@material-ui/core/Container";
@@ -32,8 +33,61 @@ const CreateEvent = props => {
     }
   });
 
+  useEffect(() => {
+    if (window.navigator) {
+      window.navigator.geolocation.getCurrentPosition(function(pos) {
+        const { latitude, longitude } = pos.coords;
+        setLocationData({
+          address: "",
+          city: "",
+          state: "",
+          zipcode: "",
+          mapPosition: {
+            lat: latitude,
+            lng: longitude
+          },
+          markerPosition: {
+            lat: latitude,
+            lng: longitude
+          }
+        });
+      });
+    }
+  }, []);
+
   const toggleEventIsPublic = () => {
     setEventIsPublic(!eventIsPublic);
+  };
+
+  const createEventHandler = event => {
+    event.preventDefault();
+
+    const eventData = {
+      title: eventTitle,
+      description: eventDescription,
+      time: selectedDate,
+      location: {
+        type: "Point",
+        coordinates: [
+          locationData.markerPosition.lng,
+          locationData.markerPosition.lat
+        ],
+        address: locationData.address,
+        city: locationData.city,
+        state: locationData.state,
+        zipcode: locationData.zipcode
+      },
+      public: eventIsPublic
+    };
+
+    console.log(eventData);
+
+    axios
+      .post("/api/events", eventData)
+      .then(response => {
+        console.log(response);
+      })
+      .catch(err => console.log(err));
   };
 
   //THIS IS HERE TO REMIND TO DO THE SHOW/HIDE
@@ -193,7 +247,7 @@ const CreateEvent = props => {
                       setSelectedDate={setSelectedDate}
                     />
                   </Grid>
-                  <Grid item>
+                  <Grid item style={{ width: "400px" }}>
                     <Map
                       {...locationData}
                       setLocationData={setLocationData}
@@ -338,7 +392,11 @@ const CreateEvent = props => {
                 spacing={4}
               >
                 <Grid item>
-                  <Button variant="contained" color="primary">
+                  <Button
+                    onClick={createEventHandler}
+                    variant="contained"
+                    color="primary"
+                  >
                     Create Event
                   </Button>
                 </Grid>

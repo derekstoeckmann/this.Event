@@ -2,11 +2,11 @@ const mongoose = require("mongoose");
 
 const EventSchema = new mongoose.Schema(
   {
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: [true, "Event must have a creator."]
-    },
+    // user: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: "User",
+    //   required: [true, "Event must have a creator."]
+    // },
     title: {
       type: String,
       required: [true, "Event must have a title."],
@@ -20,22 +20,37 @@ const EventSchema = new mongoose.Schema(
       type: Date,
       required: [true, "Event must have a date and time."]
     },
-    streetAddress: {
-      type: String,
-      required: [true, "Event must have an address."]
+    location: {
+      // GeoJSON Point
+      type: {
+        type: String,
+        enum: ["Point"]
+      },
+      coordinates: {
+        type: [Number],
+        index: "2dsphere"
+      },
+      address: String,
+      city: String,
+      state: String,
+      zipcode: String
     },
-    city: {
-      type: String,
-      required: [true, "Event must have a city."]
-    },
-    state: {
-      type: String,
-      required: [true, "Event must have a state."]
-    },
-    zip: {
-      type: String,
-      required: [true, "Event must have a zip code."]
-    },
+    // address: {
+    //   type: String,
+    //   required: [true, "Event must have an address."]
+    // },
+    // city: {
+    //   type: String,
+    //   required: [true, "Event must have a city."]
+    // },
+    // state: {
+    //   type: String,
+    //   required: [true, "Event must have a state."]
+    // },
+    // zip: {
+    //   type: String,
+    //   required: [true, "Event must have a zip code."]
+    // },
     attending: {
       type: [
         {
@@ -67,37 +82,37 @@ const EventSchema = new mongoose.Schema(
           lowercase: true
         }
       ]
-    },
-    category: {
-      type: String,
-      required: true,
-      enum: [
-        "Outdoor/Adventure",
-        "Technology",
-        "Family",
-        "Health/Wellness",
-        "Sports/Fitness",
-        "Learning",
-        "Photography",
-        "Food/Drink",
-        "Writing",
-        "Language/Culture",
-        "Music",
-        "Movements",
-        "LGBTQ",
-        "Film",
-        "Sci-Fi/Games",
-        "Beliefs",
-        "Arts",
-        "Book Clubs",
-        "Dance",
-        "Pets",
-        "Hobbies/Crafts",
-        "Fashion/Beauty",
-        "Social",
-        "Career/Business"
-      ]
     }
+    // category: {
+    //   type: String,
+    //   required: true,
+    //   enum: [
+    //     "Outdoor/Adventure",
+    //     "Technology",
+    //     "Family",
+    //     "Health/Wellness",
+    //     "Sports/Fitness",
+    //     "Learning",
+    //     "Photography",
+    //     "Food/Drink",
+    //     "Writing",
+    //     "Language/Culture",
+    //     "Music",
+    //     "Movements",
+    //     "LGBTQ",
+    //     "Film",
+    //     "Sci-Fi/Games",
+    //     "Beliefs",
+    //     "Arts",
+    //     "Book Clubs",
+    //     "Dance",
+    //     "Pets",
+    //     "Hobbies/Crafts",
+    //     "Fashion/Beauty",
+    //     "Social",
+    //     "Career/Business"
+    //   ]
+    // }
   },
   {
     timestamps: true

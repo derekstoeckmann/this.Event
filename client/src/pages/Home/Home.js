@@ -1,19 +1,19 @@
 import React, { useState } from "react";
-import Moment from 'react-moment';
+import Moment from "react-moment";
 import { withAuthenticator } from "aws-amplify-react";
 import Wrapper from "../../components/Wrapper/Wrapper";
-import Container from '@material-ui/core/Container';
-import DatePicker from '../../components/DatePicker/DatePicker';
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import RadiusSelect from '../../components/RadiusSelect';
+import Container from "@material-ui/core/Container";
+import DatePicker from "../../components/DatePicker/DatePicker";
+import Grid from "@material-ui/core/Grid";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+import RadiusSelect from "../../components/RadiusSelect";
 import { Link } from "react-router-dom";
-import styles from './Home.module.css';
+import styles from "./Home.module.css";
 
 const Home = () => {
-  const [searchRadius, setSearchRadius] = useState('');
-  const [searchZipcode, setSearchZipcode] = useState();
+  const [searchRadius, setSearchRadius] = useState("");
+  const [searchZipcode, setSearchZipcode] = useState("");
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   const handleZipChange = event => {
@@ -60,24 +60,18 @@ const Home = () => {
                   </Grid>
                   <div className={styles["searchScroll"]}>
                     <Grid item xs={12} className={styles["main-events-white"]}>
-                      <Grid
-                        container
-                        direction="row"
-                      >
+                      <Grid container direction="row">
                         <Grid item xs={2}>
                           10:30 pm
-                      </Grid>
+                        </Grid>
                         <Grid item xs={10}>
-                          <Grid
-                            container
-                            direction="row"
-                          >
+                          <Grid container direction="row">
                             <Grid item xs={12}>
                               Event Title
-                      </Grid>
+                            </Grid>
                             <Grid item xs={12}>
                               Event partial description
-                      </Grid>
+                            </Grid>
                           </Grid>
                         </Grid>
                       </Grid>
@@ -85,24 +79,18 @@ const Home = () => {
                     <br />
 
                     <Grid item xs={12} className={styles["main-events-white"]}>
-                      <Grid
-                        container
-                        direction="row"
-                      >
+                      <Grid container direction="row">
                         <Grid item xs={2}>
                           10:30 pm
-                  </Grid>
+                        </Grid>
                         <Grid item xs={10}>
-                          <Grid
-                            container
-                            direction="row"
-                          >
+                          <Grid container direction="row">
                             <Grid item xs={12}>
                               Event Title
-                      </Grid>
+                            </Grid>
                             <Grid item xs={12}>
                               Event partial description
-                      </Grid>
+                            </Grid>
                           </Grid>
                         </Grid>
                       </Grid>
@@ -138,18 +126,35 @@ const Home = () => {
                     spacing={2}
                   >
                     <Grid item>
-                      <DatePicker selectedDate={selectedDate} handleDateChange={handleDateChange} />
+                      <DatePicker
+                        selectedDate={selectedDate}
+                        handleDateChange={handleDateChange}
+                      />
                     </Grid>
                     <Grid item>
-                      <TextField type="number" id="search-zip" label="Zipcode" variant="outlined" size="small" value={searchZipcode} onChange={handleZipChange} />
+                      <TextField
+                        type="number"
+                        id="search-zip"
+                        label="Zipcode"
+                        variant="outlined"
+                        size="small"
+                        value={searchZipcode}
+                        onChange={handleZipChange}
+                      />
                     </Grid>
                     <Grid item>
-                      <RadiusSelect searchRadius={searchRadius} handleRadiusChange={handleRadiusChange} />
+                      <RadiusSelect
+                        searchRadius={searchRadius}
+                        handleRadiusChange={handleRadiusChange}
+                      />
                     </Grid>
                     <Grid item>
-                      <Moment date={selectedDate} format="MM/DD/YYYY" /><br />
-                      {searchZipcode}<br />
-                      {searchRadius}<br />
+                      <Moment date={selectedDate} format="MM/DD/YYYY" />
+                      <br />
+                      {searchZipcode}
+                      <br />
+                      {searchRadius}
+                      <br />
                     </Grid>
                   </Grid>
 
@@ -165,7 +170,7 @@ const Home = () => {
                       <Link to="/createEvent">
                         <Button variant="contained" color="primary">
                           Create New Event
-                    </Button>
+                        </Button>
                       </Link>
                     </Grid>
                   </Grid>
@@ -183,11 +188,11 @@ const Home = () => {
                 </Grid>
               </Grid>
             </Grid>
-          </div >
+          </div>
         </Grid>
       </Container>
-    </Wrapper >
-  )
-}
+    </Wrapper>
+  );
+};
 
 export default withAuthenticator(Home, true);

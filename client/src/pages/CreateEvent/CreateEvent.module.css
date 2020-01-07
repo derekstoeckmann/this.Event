@@ -12,13 +12,13 @@ header {
 }
 
 /* div {
-    border: 1px solid black;
-  } */
+  border: 1px solid black;
+} */
 
 .map {
   /* height: 200px;
-    width: 100%;
-    border: 2px solid #03396C; */
+  width: 100%;
+  border: 2px solid #03396C; */
   border-radius: 15px;
   box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }

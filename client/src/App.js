@@ -34,6 +34,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/createEvent" component={CreateEvent} />
+          <Route exact path="/search" component={Search} />
           <Route exact path="/event" component={Event} />
           <Route component={Home} />
         </Switch>

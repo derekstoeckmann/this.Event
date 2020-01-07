@@ -26,11 +26,12 @@ class Map extends Component {
     ).then(
       response => {
         console.log("RESPONSE: ", response);
-        const address = response.results[0].formatted_address;
+        const formattedAddress = response.results[0].formatted_address;
+        const address = this.getAddress(formattedAddress);
         // const addressArray = response.results[0].address_components;
-        const city = this.getCity(address);
-        const state = this.getState(address);
-        const zipcode = this.getZipcode(address);
+        const city = this.getCity(formattedAddress);
+        const state = this.getState(formattedAddress);
+        const zipcode = this.getZipcode(formattedAddress);
 
         this.props.setLocationData({
           address: address ? address : "",
@@ -55,20 +56,25 @@ class Map extends Component {
    * @param nextState
    * @return {boolean}
    */
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   console.log("from shouldComponentUpdate", this.props);
-  //   if (
-  //     this.props.markerPosition.lat !== this.props.center.lat ||
-  //     this.props.address !== nextState.address ||
-  //     this.props.city !== nextState.city ||
-  //     this.props.area !== nextState.area ||
-  //     this.props.state !== nextState.state
-  //   ) {
-  //     return true;
-  //   } else if (this.props.center.lat === nextProps.center.lat) {
-  //     return false;
-  //   }
-  // }
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log("from props", nextProps.address);
+    console.log("from NEXT props", this.props.address);
+    if (
+      this.props.markerPosition.lat !== this.props.center.lat ||
+      this.props.address !== nextProps.address ||
+      this.props.city !== nextProps.city ||
+      this.props.state !== nextProps.state ||
+      this.props.zipcode !== nextProps.zipcode
+    ) {
+      return true;
+    } else if (this.props.center.lat === nextProps.center.lat) {
+      return false;
+    }
+  }
+
+  getAddress = addressArray => {
+    return addressArray.split(",")[0].trim();
+  };
   /**
    * Get the city and set the city input value to the one selected
    *
@@ -150,7 +156,7 @@ class Map extends Component {
    *
    * @param event
    */
-  onInfoWindowClose = event => {};
+  onInfoWindowClose = event => { };
 
   /**
    * When the marker is dragged you get the lat and long using the functions available from event object.
@@ -165,11 +171,12 @@ class Map extends Component {
 
     Geocode.fromLatLng(newLat, newLng).then(
       response => {
-        const address = response.results[0].formatted_address;
+        const formattedAddress = response.results[0].formatted_address;
+        const address = this.getAddress(formattedAddress);
         // const addressArray = response.results[0].address_components;
-        const city = this.getCity(address);
-        const state = this.getState(address);
-        const zipcode = this.getZipcode(address);
+        const city = this.getCity(formattedAddress);
+        const state = this.getState(formattedAddress);
+        const zipcode = this.getZipcode(formattedAddress);
 
         this.props.setLocationData({
           address: address ? address : "",
@@ -198,11 +205,12 @@ class Map extends Component {
    */
   onPlaceSelected = place => {
     console.log("PLACE", place);
-    const address = place.formatted_address;
+    const formattedAddress = place.formatted_address;
+    const address = this.getAddress(formattedAddress);
     // const addressArray = place.address_components;
-    const city = this.getCity(address);
-    const state = this.getState(address);
-    const zipcode = this.getZipcode(address);
+    const city = this.getCity(formattedAddress);
+    const state = this.getState(formattedAddress);
+    const zipcode = this.getZipcode(formattedAddress);
     const latValue = place.geometry.location.lat();
     const lngValue = place.geometry.location.lng();
 
@@ -246,6 +254,7 @@ class Map extends Component {
             onPlaceSelected={this.onPlaceSelected}
             types={["geocode", "establishment"]}
             style={{
+              width: "95%",
               height: "40px",
               paddingLeft: "16px",
               marginTop: "2px"

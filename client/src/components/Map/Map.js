@@ -55,20 +55,21 @@ class Map extends Component {
    * @param nextState
    * @return {boolean}
    */
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   console.log("from shouldComponentUpdate", this.props);
-  //   if (
-  //     this.props.markerPosition.lat !== this.props.center.lat ||
-  //     this.props.address !== nextState.address ||
-  //     this.props.city !== nextState.city ||
-  //     this.props.area !== nextState.area ||
-  //     this.props.state !== nextState.state
-  //   ) {
-  //     return true;
-  //   } else if (this.props.center.lat === nextProps.center.lat) {
-  //     return false;
-  //   }
-  // }
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log("from props", nextProps.address);
+    console.log("from NEXT props", this.props.address);
+    if (
+      this.props.markerPosition.lat !== this.props.center.lat ||
+      this.props.address !== nextProps.address ||
+      this.props.city !== nextProps.city ||
+      this.props.area !== nextProps.area ||
+      this.props.state !== nextProps.state
+    ) {
+      return true;
+    } else if (this.props.center.lat === nextProps.center.lat) {
+      return false;
+    }
+  }
   /**
    * Get the city and set the city input value to the one selected
    *

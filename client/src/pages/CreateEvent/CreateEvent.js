@@ -1,19 +1,32 @@
 import React, { useState } from "react";
 import { withAuthenticator } from "aws-amplify-react";
 import Wrapper from "../../components/Wrapper/Wrapper";
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
-import Map from '../../components/Map/Map.js';
-import DateTime from '../../components/DateTime/DateTime';
-import Button from '@material-ui/core/Button';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
-import styles from "./CreateEvent.module.css"
+import Container from "@material-ui/core/Container";
+import Grid from "@material-ui/core/Grid";
+import TextField from "@material-ui/core/TextField";
+import Map from "../../components/Map/Map.js";
+import DateTime from "../../components/DateTime/DateTime";
+import Button from "@material-ui/core/Button";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Switch from "@material-ui/core/Switch";
+import styles from "./CreateEvent.module.css";
 
-const CreateEvent = (props) => {
-
+const CreateEvent = props => {
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [locationData, setLocationData] = useState({
+    address: "",
+    city: "",
+    state: "",
+    zipcode: "",
+    mapPosition: {
+      lat: 33.4484,
+      lng: -112.074
+    },
+    markerPosition: {
+      lat: 33.4484,
+      lng: -112.074
+    }
+  });
 
   //THIS IS HERE TO REMIND TO DO THE SHOW/HIDE
   // showHideDiv({ checked, myDivId }) {
@@ -48,16 +61,11 @@ const CreateEvent = (props) => {
               <Grid item md={6}>
                 <br />
                 Public&nbsp;
-            <FormControlLabel
-                  control={
-                    <Switch
-                      checked
-                      value="checkedB"
-                      color="primary"
-                    />
-                  }
+                <FormControlLabel
+                  control={<Switch checked value="checkedB" color="primary" />}
                 />
-                &nbsp;Semi-Private<br />
+                &nbsp;Semi-Private
+                <br />
                 <br />
               </Grid>
             </Grid>
@@ -78,18 +86,31 @@ const CreateEvent = (props) => {
                   alignItems="center"
                 >
                   <Grid item>
-                    <TextField id="event-title" label="Event Title" variant="outlined" size="small" className={styles["data-value-input"]} />
+                    <TextField
+                      id="event-title"
+                      label="Event Title"
+                      variant="outlined"
+                      size="small"
+                      className={styles["data-value-input"]}
+                    />
                   </Grid>
                   <Grid item>
-                    <TextField id="location-name" label="Location" variant="outlined" size="small" className={styles["data-value-input"]} />
+                    <TextField
+                      id="location-name"
+                      label="Location"
+                      variant="outlined"
+                      size="small"
+                      className={styles["data-value-input"]}
+                    />
                   </Grid>
                   <Grid item>
                     <TextField
                       id="address"
-                      label="Event Address"
+                      label="Address"
                       defaultValue=""
+                      value={locationData.address}
                       InputProps={{
-                        readOnly: true,
+                        readOnly: true
                       }}
                       variant="outlined"
                       size="small"
@@ -101,8 +122,9 @@ const CreateEvent = (props) => {
                       id="city"
                       label="City"
                       defaultValue=""
+                      value={locationData.city}
                       InputProps={{
-                        readOnly: true,
+                        readOnly: true
                       }}
                       variant="outlined"
                       size="small"
@@ -114,8 +136,9 @@ const CreateEvent = (props) => {
                       id="state"
                       label="State"
                       defaultValue=""
+                      value={locationData.state}
                       InputProps={{
-                        readOnly: true,
+                        readOnly: true
                       }}
                       variant="outlined"
                       size="small"
@@ -127,8 +150,9 @@ const CreateEvent = (props) => {
                       id="zip"
                       label="Zip Code"
                       defaultValue=""
+                      value={locationData.zipcode}
                       InputProps={{
-                        readOnly: true,
+                        readOnly: true
                       }}
                       variant="outlined"
                       size="small"
@@ -146,13 +170,18 @@ const CreateEvent = (props) => {
                   alignItems="center"
                 >
                   <Grid item>
-                    <DateTime selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
+                    <DateTime
+                      selectedDate={selectedDate}
+                      setSelectedDate={setSelectedDate}
+                    />
                   </Grid>
                   <Grid item>
                     <Map
+                      {...locationData}
+                      setLocationData={setLocationData}
                       google={props.google}
-                      center={{ lat: 33.4484, lng: -112.0740 }}
-                      height='300px'
+                      center={{ lat: 33.4484, lng: -112.074 }}
+                      height="300px"
                       zoom={17}
                     />
                   </Grid>
@@ -180,8 +209,8 @@ const CreateEvent = (props) => {
               width="100%"
             >
               <Grid item>
-                <span className={styles["data-key"]}>Highlights</span> (Up to 5) <input type="checkbox"
-                />
+                <span className={styles["data-key"]}>Highlights</span> (Up to 5){" "}
+                <input type="checkbox" />
                 {/* onClick={this.showHideDiv(this.checked, 'highlight-box')} /> */}
               </Grid>
               <Grid item xs={11}>
@@ -193,28 +222,66 @@ const CreateEvent = (props) => {
                   spacing={3}
                 >
                   <Grid item md={6}>
-                    <TextField id="highlight-1" label="Event Highlight One" variant="outlined" size="small" className={styles["data-value-input"]} />
+                    <TextField
+                      id="highlight-1"
+                      label="Event Highlight One"
+                      variant="outlined"
+                      size="small"
+                      className={styles["data-value-input"]}
+                    />
                   </Grid>
                   <Grid item md={6}>
-                    <TextField id="highlight-2" label="Event Highlight Two" variant="outlined" size="small" className={styles["data-value-input"]} />
+                    <TextField
+                      id="highlight-2"
+                      label="Event Highlight Two"
+                      variant="outlined"
+                      size="small"
+                      className={styles["data-value-input"]}
+                    />
                   </Grid>
                   <Grid item md={6}>
-                    <TextField id="highlight-3" label="Event Highlight Three" variant="outlined" size="small" className={styles["data-value-input"]} />
+                    <TextField
+                      id="highlight-3"
+                      label="Event Highlight Three"
+                      variant="outlined"
+                      size="small"
+                      className={styles["data-value-input"]}
+                    />
                   </Grid>
                   <Grid item md={6}>
-                    <TextField id="highlight-4" label="Event Highlight Four" variant="outlined" size="small" className={styles["data-value-input"]} />
+                    <TextField
+                      id="highlight-4"
+                      label="Event Highlight Four"
+                      variant="outlined"
+                      size="small"
+                      className={styles["data-value-input"]}
+                    />
                   </Grid>
                   <Grid item md={6}>
-                    <TextField id="highlight-5" label="Event Highlight Five" variant="outlined" size="small" className={styles["data-value-input"]} />
+                    <TextField
+                      id="highlight-5"
+                      label="Event Highlight Five"
+                      variant="outlined"
+                      size="small"
+                      className={styles["data-value-input"]}
+                    />
                   </Grid>
                 </Grid>
               </Grid>
 
               <Grid item>
-                <span className={styles["data-key"]}>Bring your own?</span> <input type="checkbox"
-                /><br /><br />
+                <span className={styles["data-key"]}>Bring your own?</span>{" "}
+                <input type="checkbox" />
+                <br />
+                <br />
                 {/* onClick={this.showHideDiv(this.checked, 'byo-box')} /><br /><br /> */}
-                <TextField id="byo" label="Bring Your Own ____" variant="outlined" size="small" className={styles["data-value-input"]} />
+                <TextField
+                  id="byo"
+                  label="Bring Your Own ____"
+                  variant="outlined"
+                  size="small"
+                  className={styles["data-value-input"]}
+                />
               </Grid>
 
               <Grid item xs={12} className={styles["tableFullWidth"]}>
@@ -253,17 +320,17 @@ const CreateEvent = (props) => {
                 <Grid item>
                   <Button variant="contained" color="primary">
                     Create Event
-              </Button>
+                  </Button>
                 </Grid>
                 <Grid item>
                   <Button variant="contained" color="primary">
                     Update Event
-              </Button>
+                  </Button>
                 </Grid>
                 <Grid item>
                   <Button variant="contained" color="secondary">
                     Cancel Event
-              </Button>
+                  </Button>
                 </Grid>
               </Grid>
               <Grid
@@ -279,11 +346,11 @@ const CreateEvent = (props) => {
                 <br />
               </Grid>
             </Grid>
-          </div >
+          </div>
         </Grid>
       </Container>
     </Wrapper>
-  )
-}
+  );
+};
 
 export default withAuthenticator(CreateEvent, true);

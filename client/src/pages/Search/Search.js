@@ -12,6 +12,7 @@ import TextField from '@material-ui/core/TextField';
 import Wrapper from "../../components/Wrapper/Wrapper";
 import RadiusSelect from '../../components/RadiusSelect';
 import DatePicker from '../../components/DatePicker/DatePicker';
+import SingleEvent from '../../components/SingleEvent/SingleEvent';
 
 import styles from './Search.module.css';
 
@@ -51,7 +52,7 @@ const Search = () => {
               className={styles["tableFullWidth"]}
             >
               <Grid item md={6}>
-                <h1>Your Upcoming Events</h1>
+                <h1>Events on __date__</h1>
                 <Grid
                   container
                   direction="column"
@@ -59,137 +60,8 @@ const Search = () => {
                   spacing={2}
                   className={styles["main-events"]}
                 >
-                  {/* THIS DATE AREA SHOULD APPEAR FOR EACH NEW DATE ie IF THE USER HAS TWO EVENTS 
-                    ON THE DAY IT SHOWS UP ONCE FOR BOTH AND THEN THE NEXT DAY THAT HAS AN EVENT GETS 
-                    THAT DATE */}
                   <div className={styles["searchScroll"]}>
-                    <Grid item xs={12}>
-                      <h2>date</h2>
-                    </Grid>
-                    {/* START OF A SINGLE EVENT */}
-                    <Grid item xs={12} className={styles["main-events-white"]}>
-                      <Grid
-                        container
-                        direction="row"
-                      >
-                        <Grid item xs={2}>
-                          10:30 pm
-                      </Grid>
-                        <Grid item xs={10}>
-                          <Grid
-                            container
-                            direction="row"
-                          >
-                            <Grid item xs={12}>
-                              Event Title
-                      </Grid>
-                            <Grid item xs={12}>
-                              Event partial description
-                      </Grid>
-                          </Grid>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                    <br />
-                    {/* END OF A SINGLE EVENT */}
-                    {/* FROM HERE TO THE CLOSING DIV IS JUST FOR VISUAL REFERENCE OF THE FLOW */}
-                    <Grid item xs={12} className={styles["main-events-white"]}>
-                      <Grid
-                        container
-                        direction="row"
-                      >
-                        <Grid item xs={2}>
-                          10:30 pm
-                  </Grid>
-                        <Grid item xs={10}>
-                          <Grid
-                            container
-                            direction="row"
-                          >
-                            <Grid item xs={12}>
-                              Event Title
-                      </Grid>
-                            <Grid item xs={12}>
-                              Event partial description
-                      </Grid>
-                          </Grid>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                    <br />
-                    <Grid item xs={12} className={styles["main-events-white"]}>
-                      <Grid
-                        container
-                        direction="row"
-                      >
-                        <Grid item xs={2}>
-                          10:30 pm
-                      </Grid>
-                        <Grid item xs={10}>
-                          <Grid
-                            container
-                            direction="row"
-                          >
-                            <Grid item xs={12}>
-                              Event Title
-                      </Grid>
-                            <Grid item xs={12}>
-                              Event partial description
-                      </Grid>
-                          </Grid>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                    <br />
-                    <Grid item xs={12} className={styles["main-events-white"]}>
-                      <Grid
-                        container
-                        direction="row"
-                      >
-                        <Grid item xs={2}>
-                          10:30 pm
-                      </Grid>
-                        <Grid item xs={10}>
-                          <Grid
-                            container
-                            direction="row"
-                          >
-                            <Grid item xs={12}>
-                              Event Title
-                      </Grid>
-                            <Grid item xs={12}>
-                              Event partial description
-                      </Grid>
-                          </Grid>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                    <br />
-
-                    <Grid item xs={12} className={styles["main-events-white"]}>
-                      <Grid
-                        container
-                        direction="row"
-                      >
-                        <Grid item xs={2}>
-                          10:30 pm
-                  </Grid>
-                        <Grid item xs={10}>
-                          <Grid
-                            container
-                            direction="row"
-                          >
-                            <Grid item xs={12}>
-                              Event Title
-                      </Grid>
-                            <Grid item xs={12}>
-                              Event partial description
-                      </Grid>
-                          </Grid>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                    <br />
+                    <SingleEvent />
                   </div>
                 </Grid>
                 <Grid

@@ -12,6 +12,7 @@ import TextField from '@material-ui/core/TextField';
 import Wrapper from "../../components/Wrapper/Wrapper";
 import RadiusSelect from '../../components/RadiusSelect';
 import DatePicker from '../../components/DatePicker/DatePicker';
+import SingleEvent from '../../components/SingleEvent/SingleEvent';
 
 import styles from './Home.module.css';
 
@@ -67,30 +68,7 @@ const Home = () => {
                       <h2>date</h2>
                     </Grid>
                     {/* START OF A SINGLE EVENT */}
-                    <Grid item xs={12} className={styles["main-events-white"]}>
-                      <Grid
-                        container
-                        direction="row"
-                      >
-                        <Grid item xs={2}>
-                          10:30 pm
-                      </Grid>
-                        <Grid item xs={10}>
-                          <Grid
-                            container
-                            direction="row"
-                          >
-                            <Grid item xs={12}>
-                              Event Title
-                      </Grid>
-                            <Grid item xs={12}>
-                              Event partial description
-                      </Grid>
-                          </Grid>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                    <br />
+                    <SingleEvent />
                     {/* END OF A SINGLE EVENT */}
                     {/* FROM HERE TO THE CLOSING DIV IS JUST FOR VISUAL REFERENCE OF THE FLOW */}
                     <Grid item xs={12} className={styles["main-events-white"]}>

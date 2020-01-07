@@ -150,7 +150,7 @@ class Map extends Component {
    *
    * @param event
    */
-  onInfoWindowClose = event => {};
+  onInfoWindowClose = event => { };
 
   /**
    * When the marker is dragged you get the lat and long using the functions available from event object.
@@ -247,6 +247,7 @@ class Map extends Component {
             types={["geocode", "establishment"]}
             style={{
               height: "40px",
+              width: "90%",
               paddingLeft: "16px",
               marginTop: "2px"
             }}

@@ -175,7 +175,7 @@ const CreateEvent = props => {
                       setSelectedDate={setSelectedDate}
                     />
                   </Grid>
-                  <Grid item>
+                  <Grid item style={{ width: "400px" }}>
                     <Map
                       {...locationData}
                       setLocationData={setLocationData}

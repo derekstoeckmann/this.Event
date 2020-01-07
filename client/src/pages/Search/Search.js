@@ -1,24 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
-import Moment from 'react-moment';
+import Moment from "react-moment";
 
 import { withAuthenticator } from "aws-amplify-react";
 
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
-import Container from '@material-ui/core/Container';
-import TextField from '@material-ui/core/TextField';
+import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
+import Container from "@material-ui/core/Container";
+import TextField from "@material-ui/core/TextField";
 
 import Wrapper from "../../components/Wrapper/Wrapper";
-import RadiusSelect from '../../components/RadiusSelect';
-import DatePicker from '../../components/DatePicker/DatePicker';
+import RadiusSelect from "../../components/RadiusSelect";
+import DatePicker from "../../components/DatePicker/DatePicker";
 
-import styles from './Search.module.css';
+import styles from "./Search.module.css";
 
 const Search = () => {
+  const [events, setEvents] = useState([]);
   const [searchRadius, setSearchRadius] = useState("");
   const [searchZipcode, setSearchZipcode] = useState("");
   const [selectedDate, setSelectedDate] = useState(new Date());
+
+  useEffect(() => {
+    axios
+      .get("/api/events")
+      .then(response => {
+        setEvents(response.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, []);
 
   const handleZipChange = event => {
     setSearchZipcode(event.target.value);
@@ -68,24 +81,18 @@ const Search = () => {
                     </Grid>
                     {/* START OF A SINGLE EVENT */}
                     <Grid item xs={12} className={styles["main-events-white"]}>
-                      <Grid
-                        container
-                        direction="row"
-                      >
+                      <Grid container direction="row">
                         <Grid item xs={2}>
                           10:30 pm
-                      </Grid>
+                        </Grid>
                         <Grid item xs={10}>
-                          <Grid
-                            container
-                            direction="row"
-                          >
+                          <Grid container direction="row">
                             <Grid item xs={12}>
                               Event Title
-                      </Grid>
+                            </Grid>
                             <Grid item xs={12}>
                               Event partial description
-                      </Grid>
+                            </Grid>
                           </Grid>
                         </Grid>
                       </Grid>
@@ -94,72 +101,54 @@ const Search = () => {
                     {/* END OF A SINGLE EVENT */}
                     {/* FROM HERE TO THE CLOSING DIV IS JUST FOR VISUAL REFERENCE OF THE FLOW */}
                     <Grid item xs={12} className={styles["main-events-white"]}>
-                      <Grid
-                        container
-                        direction="row"
-                      >
+                      <Grid container direction="row">
                         <Grid item xs={2}>
                           10:30 pm
-                  </Grid>
+                        </Grid>
                         <Grid item xs={10}>
-                          <Grid
-                            container
-                            direction="row"
-                          >
+                          <Grid container direction="row">
                             <Grid item xs={12}>
                               Event Title
-                      </Grid>
+                            </Grid>
                             <Grid item xs={12}>
                               Event partial description
-                      </Grid>
+                            </Grid>
                           </Grid>
                         </Grid>
                       </Grid>
                     </Grid>
                     <br />
                     <Grid item xs={12} className={styles["main-events-white"]}>
-                      <Grid
-                        container
-                        direction="row"
-                      >
+                      <Grid container direction="row">
                         <Grid item xs={2}>
                           10:30 pm
-                      </Grid>
+                        </Grid>
                         <Grid item xs={10}>
-                          <Grid
-                            container
-                            direction="row"
-                          >
+                          <Grid container direction="row">
                             <Grid item xs={12}>
                               Event Title
-                      </Grid>
+                            </Grid>
                             <Grid item xs={12}>
                               Event partial description
-                      </Grid>
+                            </Grid>
                           </Grid>
                         </Grid>
                       </Grid>
                     </Grid>
                     <br />
                     <Grid item xs={12} className={styles["main-events-white"]}>
-                      <Grid
-                        container
-                        direction="row"
-                      >
+                      <Grid container direction="row">
                         <Grid item xs={2}>
                           10:30 pm
-                      </Grid>
+                        </Grid>
                         <Grid item xs={10}>
-                          <Grid
-                            container
-                            direction="row"
-                          >
+                          <Grid container direction="row">
                             <Grid item xs={12}>
                               Event Title
-                      </Grid>
+                            </Grid>
                             <Grid item xs={12}>
                               Event partial description
-                      </Grid>
+                            </Grid>
                           </Grid>
                         </Grid>
                       </Grid>
@@ -167,24 +156,18 @@ const Search = () => {
                     <br />
 
                     <Grid item xs={12} className={styles["main-events-white"]}>
-                      <Grid
-                        container
-                        direction="row"
-                      >
+                      <Grid container direction="row">
                         <Grid item xs={2}>
                           10:30 pm
-                  </Grid>
+                        </Grid>
                         <Grid item xs={10}>
-                          <Grid
-                            container
-                            direction="row"
-                          >
+                          <Grid container direction="row">
                             <Grid item xs={12}>
                               Event Title
-                      </Grid>
+                            </Grid>
                             <Grid item xs={12}>
                               Event partial description
-                      </Grid>
+                            </Grid>
                           </Grid>
                         </Grid>
                       </Grid>
@@ -220,13 +203,27 @@ const Search = () => {
                     spacing={2}
                   >
                     <Grid item>
-                      <DatePicker selectedDate={selectedDate} handleDateChange={handleDateChange} />
+                      <DatePicker
+                        selectedDate={selectedDate}
+                        handleDateChange={handleDateChange}
+                      />
                     </Grid>
                     <Grid item>
-                      <TextField type="number" id="search-zip" label="Zipcode" variant="outlined" size="small" value={searchZipcode} onChange={handleZipChange} />
+                      <TextField
+                        type="number"
+                        id="search-zip"
+                        label="Zipcode"
+                        variant="outlined"
+                        size="small"
+                        value={searchZipcode}
+                        onChange={handleZipChange}
+                      />
                     </Grid>
                     <Grid item>
-                      <RadiusSelect searchRadius={searchRadius} handleRadiusChange={handleRadiusChange} />
+                      <RadiusSelect
+                        searchRadius={searchRadius}
+                        handleRadiusChange={handleRadiusChange}
+                      />
                     </Grid>
                   </Grid>
 
@@ -242,7 +239,7 @@ const Search = () => {
                       <Link to="/createEvent">
                         <Button variant="contained" color="primary">
                           Create New Event
-                    </Button>
+                        </Button>
                       </Link>
                     </Grid>
                   </Grid>
@@ -260,11 +257,11 @@ const Search = () => {
                 </Grid>
               </Grid>
             </Grid>
-          </div >
+          </div>
         </Grid>
       </Container>
-    </Wrapper >
-  )
-}
+    </Wrapper>
+  );
+};
 
 export default withAuthenticator(Search, true);

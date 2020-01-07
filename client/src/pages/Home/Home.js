@@ -236,14 +236,6 @@ const Home = () => {
                         handleRadiusChange={handleRadiusChange}
                       />
                     </Grid>
-                    <Grid item>
-                      <Moment date={selectedDate} format="MM/DD/YYYY" />
-                      <br />
-                      {searchZipcode}
-                      <br />
-                      {searchRadius}
-                      <br />
-                    </Grid>
                   </Grid>
 
                   <h1>Planning an Event?</h1>

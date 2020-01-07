@@ -15,7 +15,7 @@ import DatePicker from '../../components/DatePicker/DatePicker';
 
 import styles from './Search.module.css';
 
-const Home = () => {
+const Search = () => {
   const [searchRadius, setSearchRadius] = useState("");
   const [searchZipcode, setSearchZipcode] = useState("");
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -117,9 +117,6 @@ const Home = () => {
                       </Grid>
                     </Grid>
                     <br />
-                    <Grid item xs={12}>
-                      <h2>date</h2>
-                    </Grid>
                     <Grid item xs={12} className={styles["main-events-white"]}>
                       <Grid
                         container
@@ -144,9 +141,6 @@ const Home = () => {
                       </Grid>
                     </Grid>
                     <br />
-                    <Grid item xs={12}>
-                      <h2>date</h2>
-                    </Grid>
                     <Grid item xs={12} className={styles["main-events-white"]}>
                       <Grid
                         container
@@ -234,11 +228,6 @@ const Home = () => {
                     <Grid item>
                       <RadiusSelect searchRadius={searchRadius} handleRadiusChange={handleRadiusChange} />
                     </Grid>
-                    <Grid item>
-                      <Moment date={selectedDate} format="MM/DD/YYYY" /><br />
-                      {searchZipcode}<br />
-                      {searchRadius}<br />
-                    </Grid>
                   </Grid>
 
                   <h1>Planning an Event?</h1>
@@ -278,4 +267,4 @@ const Home = () => {
   )
 }
 
-export default withAuthenticator(Home, true);
+export default withAuthenticator(Search, true);

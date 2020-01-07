@@ -156,7 +156,7 @@ class Map extends Component {
    *
    * @param event
    */
-  onInfoWindowClose = event => {};
+  onInfoWindowClose = event => { };
 
   /**
    * When the marker is dragged you get the lat and long using the functions available from event object.

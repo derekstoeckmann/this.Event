@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { withAuthenticator } from "aws-amplify-react";
-import Wrapper from "../../components/Wrapper/Wrapper";
-import Container from "@material-ui/core/Container";
-import Grid from "@material-ui/core/Grid";
-import TextField from "@material-ui/core/TextField";
+
 import Map from "../../components/Map/Map.js";
+import Wrapper from "../../components/Wrapper/Wrapper";
 import DateTime from "../../components/DateTime/DateTime";
-import Button from "@material-ui/core/Button";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
+
+import Grid from "@material-ui/core/Grid";
 import Switch from "@material-ui/core/Switch";
+import Button from "@material-ui/core/Button";
+import Container from "@material-ui/core/Container";
+import TextField from "@material-ui/core/TextField";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+
 import styles from "./CreateEvent.module.css";
 
 const CreateEvent = props => {
@@ -35,7 +38,7 @@ const CreateEvent = props => {
 
   useEffect(() => {
     if (window.navigator) {
-      window.navigator.geolocation.getCurrentPosition(function(pos) {
+      window.navigator.geolocation.getCurrentPosition(function (pos) {
         const { latitude, longitude } = pos.coords;
         setLocationData({
           address: "",
@@ -252,7 +255,7 @@ const CreateEvent = props => {
                       {...locationData}
                       setLocationData={setLocationData}
                       google={props.google}
-                      center={{ lat: 33.4484, lng: -112.074 }}
+                      center={{ lat: 33, lng: 100 }}
                       height="300px"
                       zoom={17}
                     />

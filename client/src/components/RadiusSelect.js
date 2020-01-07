@@ -2,7 +2,6 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import Grid from '@material-ui/core/Grid';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
@@ -18,9 +17,9 @@ const useStyles = makeStyles(theme => ({
 
 export default function SimpleSelect(props) {
   const classes = useStyles();
-
   const inputLabel = React.useRef(null);
   const [labelWidth, setLabelWidth] = React.useState(0);
+
   React.useEffect(() => {
     setLabelWidth(inputLabel.current.offsetWidth);
   }, []);
@@ -35,7 +34,7 @@ export default function SimpleSelect(props) {
           labelId="search-radius-label"
           id="search-radius"
           value={props.searchRadius}
-          onChange={props.handleChange}
+          onChange={props.handleRadiusChange}
           labelWidth={labelWidth}
         >
           <MenuItem value=""><em>None</em></MenuItem>

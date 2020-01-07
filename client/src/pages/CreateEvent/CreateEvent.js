@@ -15,6 +15,7 @@ const CreateEvent = (props) => {
 
   const [selectedDate, setSelectedDate] = useState(new Date());
 
+  //THIS IS HERE TO REMIND TO DO THE SHOW/HIDE
   // showHideDiv({ checked, myDivId }) {
   // console.log(checked)
   // const myDisplay = document.getElementById(myDivId);

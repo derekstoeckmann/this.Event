@@ -21,27 +21,27 @@ const LandingPage = () => {
 
     return (
         <div>
-            <nav className={styles["navbar navbar-expand-lg navbar-light bg-light fixed"]}>
-                <p className={styles["navbar-brand col-10"]}>this.Event</p>
-                <button className={styles["btn btn-outline-success my-2 my-sm-0"]} type="submit"><Link to="/home">Sign Up</Link></button>
+            <nav className={styles["navbar"]}>
+                <p className={styles["navbar-brand"]}>this.Event</p>
+                <button className={styles["btn"]}><Link to="/home"><span className={styles["btn-style"]}>Sign Up</span></Link></button>
             </nav>
             <div className={styles["header"]}>
                 <h1>this.Event</h1>
                 <h1 className={styles["lead"]}>Create, Customize, Join, and Manage Your Events</h1>
-                <button className={styles["btn btn-primary  pill"]}><Link to="/home">Join</Link></button>
+                <button className={styles["btn"]}><Link to="/home"><span className={styles["btn-style"]}>Join</span></Link></button>
             </div>
-            <div className={styles["wrapper container-fluid"]}>
+            <div className={styles["wrapper"] + " " + styles["container-fluid"]}>
                 <div className={styles["background"]}>
                     <div className={styles["border"]}>
                         <div className={styles["flex-box"]}>
-                            <div className={styles["inline-photo show-on-scroll left"]}>
+                            <div className={styles["inline-photo"] + " " + styles["show-on-scroll"] + " " + styles["left"]}>
                                 <img src={require("./img/making-friends.png")} alt="Making Friends" />
                                 <h1>Try New Things</h1>
                                 <p className={styles["lead"]}>
                                     Make New Friends and Socialize With New People
                             </p>
                             </div>
-                            <div className={styles["show-on-scroll text-fade"]}>
+                            <div className={styles["show-on-scroll"] + " " + styles["text-fade"]}>
                                 <p className={styles["lead"]}>
                                     Meet new people and share new experiences with others. Create your own event to share
                                     with
@@ -51,7 +51,7 @@ const LandingPage = () => {
                             </div>
                         </div>
                         <div className={styles["flex-box"]}>
-                            <div className={styles["show-on-scroll text-fade"]}>
+                            <div className={styles["show-on-scroll"] + " " + styles["text-fade"]}>
                                 <p className={styles["lead"]}>
                                     Whatever you love to do there's something always something happening . Create or join an
                                     event
@@ -60,7 +60,7 @@ const LandingPage = () => {
                             </p>
                             </div>
                             <div className={styles["flex"]}>
-                                <div className={styles["inline-photo show-on-scroll right"]}>
+                                <div className={styles["inline-photo"] + " " + styles["show-on-scroll"] + " " + styles["right"]}>
                                     <img src={require("./img/volleyball.png")} alt="Friends playing volleyball" />
                                     <h1>Find Your Hobbies</h1>
                                     <p className={styles["lead"]}>
@@ -70,14 +70,14 @@ const LandingPage = () => {
                             </div>
                         </div>
                         <div className={styles["flex-box"]}>
-                            <div className={styles["inline-photo show-on-scroll left"]}>
+                            <div className={styles["inline-photo"] + " " + styles["show-on-scroll"] + " " + styles["left"]}>
                                 <img src={require("./img/family.png")} alt="Family and Friends" />
                                 <h1>Create Custom Events</h1>
                                 <p className={styles["lead"]}>
                                     You Have The Power To Create, Manage, Join and Customize Events
                             </p>
                             </div>
-                            <div className={styles["show-on-scroll text-fade"]}>
+                            <div className={styles["show-on-scroll"] + " " + styles["text-fade"]}>
                                 <p className={styles["lead"]}>
                                     Create an event and customize all the details. You decide who you want to invite and
                                     when it

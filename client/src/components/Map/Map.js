@@ -247,7 +247,7 @@ class Map extends Component {
             types={["geocode", "establishment"]}
             style={{
               height: "40px",
-              width: "90%",
+              width: "95%",
               paddingLeft: "16px",
               marginTop: "2px"
             }}

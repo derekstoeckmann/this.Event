@@ -13,7 +13,7 @@ import Wrapper from "../../components/Wrapper/Wrapper";
 import RadiusSelect from '../../components/RadiusSelect';
 import DatePicker from '../../components/DatePicker/DatePicker';
 
-import styles from './Home.module.css';
+import styles from './Search.module.css';
 
 const Home = () => {
   const [searchRadius, setSearchRadius] = useState("");

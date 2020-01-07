@@ -4,31 +4,20 @@ import { Link } from "react-router-dom";
 
 const LandingPage = () => {
 
-    document.addEventListener("DOMContentLoaded", function (event) {
-        const elements = [...document.querySelectorAll('.show-on-scroll')];
-
-        const intersectionObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.toggle("is-visible");
-                    observer.unobserve(entry.target);
-                }
-            });
-        });
-
-        elements.forEach((element) => intersectionObserver.observe(element));
-    });
-
     return (
         <div>
             <nav className={styles["navbar"]}>
                 <p className={styles["navbar-brand"]}>this.Event</p>
-                <button className={styles["btn"]}><Link to="/home"><span className={styles["btn-style"]}>Sign Up</span></Link></button>
+                <Link to="/home">
+                    <button className={styles["btn"]}><span className={styles["btn-style"]}>Sign Up</span></button>
+                </Link>
             </nav>
             <div className={styles["header"]}>
                 <h1>this.Event</h1>
                 <h1 className={styles["lead"]}>Create, Customize, Join, and Manage Your Events</h1>
-                <button className={styles["btn"]}><Link to="/home"><span className={styles["btn-style"]}>Join</span></Link></button>
+                <Link to="/home">
+                    <button className={styles["btn"]}><span className={styles["btn-style"]}>Join</span></button>
+                </Link>
             </div>
             <div className={styles["wrapper"] + " " + styles["container-fluid"]}>
                 <div className={styles["background"]}>
@@ -41,8 +30,8 @@ const LandingPage = () => {
                                     Make New Friends and Socialize With New People
                             </p>
                             </div>
-                            <div className={styles["show-on-scroll"] + " " + styles["text-fade"]}>
-                                <p className={styles["lead"]}>
+                            <div>
+                                <p className={styles["desc-text"]}>
                                     Meet new people and share new experiences with others. Create your own event to share
                                     with
                                     others or
@@ -51,8 +40,8 @@ const LandingPage = () => {
                             </div>
                         </div>
                         <div className={styles["flex-box"]}>
-                            <div className={styles["show-on-scroll"] + " " + styles["text-fade"]}>
-                                <p className={styles["lead"]}>
+                            <div>
+                                <p className={styles["desc-text"]}>
                                     Whatever you love to do there's something always something happening . Create or join an
                                     event
                                     based on your interests and hobbies. Enjoy a social outing while doing the things you
@@ -77,8 +66,8 @@ const LandingPage = () => {
                                     You Have The Power To Create, Manage, Join and Customize Events
                             </p>
                             </div>
-                            <div className={styles["show-on-scroll"] + " " + styles["text-fade"]}>
-                                <p className={styles["lead"]}>
+                            <div>
+                                <p className={styles["desc-text"]}>
                                     Create an event and customize all the details. You decide who you want to invite and
                                     when it
                                     happens. Or

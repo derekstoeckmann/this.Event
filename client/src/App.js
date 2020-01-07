@@ -12,12 +12,13 @@ Amplify.configure(aws_exports);
 
 function App() {
 
-  const [currentUser, getCurrentUser] = useState();
+  const [currentUser, getCurrentUser] = useState("");
 
   Auth.currentUserInfo()
     .then(res => {
       if (res !== null) {
-        getCurrentUser(res.username);
+        getCurrentUser(res.id);
+        console.log(res)
       } else {
         getCurrentUser(null);
       }

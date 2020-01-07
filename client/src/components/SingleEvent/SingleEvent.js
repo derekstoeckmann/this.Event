@@ -1,39 +1,33 @@
 import React from "react";
 
-import Grid from '@material-ui/core/Grid';
+import Grid from "@material-ui/core/Grid";
 
-import styles from './SingleEvent.module.css';
+import styles from "./SingleEvent.module.css";
 
 function SingleEvent(props) {
-
+  const { time, title, description } = props;
   return (
     <>
       <Grid item xs={12} className={styles["main-events-white"]}>
-        <Grid
-          container
-          direction="row"
-        >
+        <Grid container direction="row">
           <Grid item xs={2}>
-            __time__
-                      </Grid>
+            {time}
+          </Grid>
           <Grid item xs={10}>
-            <Grid
-              container
-              direction="row"
-            >
+            <Grid container direction="row">
               <Grid item xs={12}>
-                __event_title__
-                      </Grid>
+                {title}
+              </Grid>
               <Grid item xs={12}>
-                __event_part_descript__
-                      </Grid>
+                {description}
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
       </Grid>
       <br />
     </>
-  )
+  );
 }
 
 export default SingleEvent;

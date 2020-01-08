@@ -1,23 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Moment from 'react-moment';
+import Moment from "react-moment";
+import axios from "axios";
 
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
-import Container from '@material-ui/core/Container';
-import TextField from '@material-ui/core/TextField';
+import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
+import Container from "@material-ui/core/Container";
+import TextField from "@material-ui/core/TextField";
 
 import Wrapper from "../../components/Wrapper/Wrapper";
-import RadiusSelect from '../../components/RadiusSelect';
-import DatePicker from '../../components/DatePicker/DatePicker';
-import MySingleEvent from '../../components/MySingleEvent/MySingleEvent';
+import RadiusSelect from "../../components/RadiusSelect";
+import DatePicker from "../../components/DatePicker/DatePicker";
+import MySingleEvent from "../../components/MySingleEvent/MySingleEvent";
 
-import styles from './Home.module.css';
+import CurrentUserEmail from "../../utils/CurrentUserEmail";
+
+import styles from "./Home.module.css";
 
 const Home = () => {
+  const { currentUser } = useContext(CurrentUserEmail);
+
+  const [currentUserData, setCurrentUserData] = useState();
+  const [events, setEvents] = useState();
   const [searchRadius, setSearchRadius] = useState("");
   const [searchZipcode, setSearchZipcode] = useState("");
   const [selectedDate, setSelectedDate] = useState(new Date());
+
+  useEffect(() => {
+    axios
+      .get(`/api/users?email=${currentUser}`)
+      .then(response => {
+        setCurrentUserData({ ...response.data.data[0] });
+      })
+      .catch(err => console.log(err));
+  }, [currentUser]);
 
   const handleZipChange = event => {
     setSearchZipcode(event.target.value);

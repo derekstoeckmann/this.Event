@@ -3,12 +3,17 @@ import Moment from "react-moment";
 
 import Grid from "@material-ui/core/Grid";
 
-import styles from "./SingleEvent.module.css";
+import styles from "./MySingleEvent.module.css";
 
-function SingleEvent(props) {
+function MySingleEvent(props) {
   const { time, title, description } = props;
   return (
     <>
+      {/* If New date display new date else do not render */}
+      <Grid item xs={12}>
+        <h2><Moment date={time} format="MM/DD/YYYY" /></h2>
+      </Grid>
+      {/* End IF */}
       <Grid item xs={12} className={styles["main-events-white"]}>
         <Grid container direction="row">
           <Grid item xs={2} style={{ borderRight: "1px solid #ccc", padding: "3px" }}>
@@ -31,4 +36,4 @@ function SingleEvent(props) {
   );
 }
 
-export default SingleEvent;
+export default MySingleEvent;

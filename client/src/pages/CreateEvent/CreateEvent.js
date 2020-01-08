@@ -26,18 +26,18 @@ const CreateEvent = props => {
     state: "",
     zipcode: "",
     mapPosition: {
-      lat: 0,
-      lng: 0
+      lat: 33.4200832,
+      lng: -111.91664639999999
     },
     markerPosition: {
-      lat: 0,
-      lng: 0
+      lat: 33.4200832,
+      lng: -111.91664639999999
     }
   });
 
   useEffect(() => {
     if (window.navigator) {
-      window.navigator.geolocation.getCurrentPosition(function (pos) {
+      window.navigator.geolocation.getCurrentPosition(function(pos) {
         const { latitude, longitude } = pos.coords;
         setLocationData({
           address: "",
@@ -254,7 +254,7 @@ const CreateEvent = props => {
                       {...locationData}
                       setLocationData={setLocationData}
                       google={props.google}
-                      center={{ lat: 33, lng: 100 }}
+                      center={{ lat: 33.4200832, lng: -111.91664639999999 }}
                       height="300px"
                       zoom={17}
                     />

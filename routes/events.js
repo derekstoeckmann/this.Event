@@ -3,6 +3,7 @@ const {
   getEvents,
   getEvent,
   getEventAttending,
+  getEventsWithinRadius,
   createEvent,
   updateEvent,
   deleteEvent,
@@ -19,6 +20,8 @@ router
   .route("/")
   .get(getEvents)
   .post(createEvent);
+
+router.route("/radius").get(getEventsWithinRadius);
 
 router
   .route("/:id")

@@ -107,3 +107,18 @@ exports.deleteEventPost = async (req, res, next) => {
 
   res.status(200).json({ success: true, data: {} });
 };
+
+exports.getEventsWithinRadius = async (req, res, next) => {
+  const { distance, lat, lng } = req.query;
+
+  // Calculate radius using radians
+  // Divide distance by radius of Earth
+  // Earth's radius = 3,963 mi / 6,378 km
+  const radius = distance / 3963;
+
+  const events = await Event.find({
+    location: { $geoWithin: { $centerSphere: [[lng, lat], radius] } }
+  });
+
+  res.status(200).json({ success: true, count: events.length, data: events });
+};

@@ -16,6 +16,7 @@ const EventSchema = new mongoose.Schema(
       type: String,
       required: [true, "Event must have a description."]
     },
+    shortDescription: String,
     time: {
       type: Date,
       required: [true, "Event must have a date and time."]
@@ -118,5 +119,15 @@ const EventSchema = new mongoose.Schema(
     timestamps: true
   }
 );
+
+EventSchema.pre("save", function(next) {
+  this.shortDescription = this.description
+    .split(" ")
+    .slice(0, 40)
+    .join(" ")
+    .concat("...");
+
+  next();
+});
 
 module.exports = mongoose.model("Event", EventSchema);

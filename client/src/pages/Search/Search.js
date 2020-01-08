@@ -15,12 +15,14 @@ import RadiusSelect from "../../components/RadiusSelect";
 import DatePicker from "../../components/DatePicker/DatePicker";
 import NoEvent from "../../components/NoEvent/NoEvent";
 import SingleEvent from "../../components/SingleEvent/SingleEvent";
-
 import styles from "./Search.module.css";
+import Geocode from "react-geocode";
+Geocode.setApiKey(process.env.REACT_APP_GOOGLE_KEY);
+Geocode.enableDebug();
 
 const Search = () => {
   const [events, setEvents] = useState([]);
-  const [searchRadius, setSearchRadius] = useState("");
+  const [searchRadius, setSearchRadius] = useState(25);
   const [searchZipcode, setSearchZipcode] = useState("");
   const [selectedDate, setSelectedDate] = useState(new Date());
 
@@ -34,6 +36,18 @@ const Search = () => {
         console.log(err);
       });
   }, []);
+
+  const handleSearchSubmit = async () => {
+    const location = await Geocode.fromAddress(searchZipcode);
+    const { lat, lng } = location.results[0].geometry.location;
+    // const params = { lat, lng, distance: searchRadius };
+    // console.log("params", params);
+    const events = await axios.get(
+      `/api/events/near?distance=${searchRadius}&lat=${lat}&lng=${lng}`
+    );
+    // console.log("events", events);
+    setEvents(events.data.data);
+  };
 
   const handleZipChange = event => {
     setSearchZipcode(event.target.value);
@@ -66,7 +80,10 @@ const Search = () => {
               className={styles["tableFullWidth"]}
             >
               <Grid item md={6}>
-                <h1>Events on <Moment date={selectedDate} format="Do of MMM, YYYY" /></h1>
+                <h1>
+                  Events on{" "}
+                  <Moment date={selectedDate} format="Do of MMM, YYYY" />
+                </h1>
                 <Grid
                   container
                   direction="column"
@@ -75,17 +92,13 @@ const Search = () => {
                   className={styles["main-events"]}
                 >
                   <div className={styles["searchScroll"]}>
-                    {events.length > 0 ?
+                    {events.length > 0 ? (
                       events.map(event => (
-                        <SingleEvent
-                          key={event._id}
-                          time={event.time}
-                          title={event.title}
-                          description={event.description}
-                        />
+                        <SingleEvent key={event._id} {...event} />
                       ))
-                      :
-                      <NoEvent />}
+                    ) : (
+                      <NoEvent />
+                    )}
                   </div>
                 </Grid>
                 <Grid
@@ -140,7 +153,11 @@ const Search = () => {
                     </Grid>
                     <Grid item>
                       <Link to="/search">
-                        <Button variant="contained" color="primary">
+                        <Button
+                          onClick={handleSearchSubmit}
+                          variant="contained"
+                          color="primary"
+                        >
                           Search
                         </Button>
                       </Link>

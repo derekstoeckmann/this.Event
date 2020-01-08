@@ -89,7 +89,10 @@ const CreateEvent = props => {
         state: locationData.state,
         zipcode: locationData.zipcode
       },
-      public: eventIsPublic
+      public: eventIsPublic,
+      locationName: locationName,
+      highlights: [highlight1, highlight2, highlight3, highlight4, highlight5],
+      byoItemType: byoItemType
     };
 
     console.log(eventData);

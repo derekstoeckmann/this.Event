@@ -20,7 +20,7 @@ import styles from "./Search.module.css";
 
 const Search = () => {
   const [events, setEvents] = useState([]);
-  const [searchRadius, setSearchRadius] = useState("");
+  const [searchRadius, setSearchRadius] = useState(25);
   const [searchZipcode, setSearchZipcode] = useState("");
   const [selectedDate, setSelectedDate] = useState(new Date());
 

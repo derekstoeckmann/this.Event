@@ -95,6 +95,7 @@ const CreateEvent = props => {
       byoItemType: byoItemType
     };
 
+
     console.log(eventData);
 
     axios

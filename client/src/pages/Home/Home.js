@@ -15,7 +15,7 @@ import MySingleEvent from '../../components/MySingleEvent/MySingleEvent';
 import styles from './Home.module.css';
 
 const Home = () => {
-  const [searchRadius, setSearchRadius] = useState("");
+  const [searchRadius, setSearchRadius] = useState(25);
   const [searchZipcode, setSearchZipcode] = useState("");
   const [selectedDate, setSelectedDate] = useState(new Date());
 
@@ -59,7 +59,9 @@ const Home = () => {
                   className={styles["main-events"]}
                 >
                   <div className={styles["searchScroll"]}>
-                    <MySingleEvent />
+                    <Link to="/event">
+                      <MySingleEvent />
+                    </Link>
                   </div>
                 </Grid>
                 <Grid

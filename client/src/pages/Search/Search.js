@@ -13,6 +13,7 @@ import TextField from "@material-ui/core/TextField";
 import Wrapper from "../../components/Wrapper/Wrapper";
 import RadiusSelect from "../../components/RadiusSelect";
 import DatePicker from "../../components/DatePicker/DatePicker";
+import NoEvent from "../../components/NoEvent/NoEvent";
 import SingleEvent from "../../components/SingleEvent/SingleEvent";
 
 import styles from "./Search.module.css";
@@ -65,7 +66,7 @@ const Search = () => {
               className={styles["tableFullWidth"]}
             >
               <Grid item md={6}>
-                <h1>Events on __date__</h1>
+                <h1>Events on <Moment date={selectedDate} format="Do of MMM, YYYY" /></h1>
                 <Grid
                   container
                   direction="column"
@@ -74,7 +75,7 @@ const Search = () => {
                   className={styles["main-events"]}
                 >
                   <div className={styles["searchScroll"]}>
-                    {events ? (
+                    {events.length > 0 ?
                       events.map(event => (
                         <SingleEvent
                           key={event._id}
@@ -83,9 +84,8 @@ const Search = () => {
                           description={event.description}
                         />
                       ))
-                    ) : (
-                      <h1>No events</h1>
-                    )}
+                      :
+                      <NoEvent />}
                   </div>
                 </Grid>
                 <Grid
@@ -138,8 +138,16 @@ const Search = () => {
                         handleRadiusChange={handleRadiusChange}
                       />
                     </Grid>
+                    <Grid item>
+                      <Link to="/search">
+                        <Button variant="contained" color="primary">
+                          Search
+                        </Button>
+                      </Link>
+                    </Grid>
                   </Grid>
-
+                  <br />
+                  <br />
                   <h1>Planning an Event?</h1>
                   <Grid
                     container

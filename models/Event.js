@@ -2,11 +2,11 @@ const mongoose = require("mongoose");
 
 const EventSchema = new mongoose.Schema(
   {
-    // user: {
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   ref: "User",
-    //   required: [true, "Event must have a creator."]
-    // },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: [true, "Event must have a creator."]
+    },
     title: {
       type: String,
       required: [true, "Event must have a title."],

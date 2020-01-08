@@ -108,7 +108,7 @@ exports.deleteEventPost = async (req, res, next) => {
   res.status(200).json({ success: true, data: {} });
 };
 
-exports.getEventsWithinRadius = async (req, res, next) => {
+exports.getEventsNear = async (req, res, next) => {
   const { distance, lat, lng } = req.query;
 
   // Calculate radius using radians

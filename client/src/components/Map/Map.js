@@ -7,8 +7,8 @@ import {
   Marker
 } from "react-google-maps";
 import { getAddress, getCity, getState, getZipcode } from "./functions";
-import Geocode from "react-geocode";
 import Autocomplete from "react-google-autocomplete";
+import Geocode from "react-geocode";
 Geocode.setApiKey(process.env.REACT_APP_GOOGLE_KEY);
 Geocode.enableDebug();
 

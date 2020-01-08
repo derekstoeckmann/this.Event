@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { Auth } from "aws-amplify";
+import axios from "axios";
+import ErrorBanner from "../ErrorBanner/ErrorBanner"
+import styles from "./SignUpForm.module.css"
 
 const SignUpForm = (props) => {
     const [firstName, setFirstName] = useState("");
@@ -9,6 +12,8 @@ const SignUpForm = (props) => {
     const [password, setPassword] = useState("");
     const [confirmationCode, setConfirmationCode] = useState("");
     const [signedup, setSignedUp] = useState("");
+    const [userId, setUserId] = useState("");
+    const [error, setError] = useState("");
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -22,50 +27,65 @@ const SignUpForm = (props) => {
                 }
             })
                 .then(res => {
-                    console.log(res)
+                    setUserId(res.userSub)
                     setSignedUp(true)
                 })
                 .catch(err => {
-                    console.log(err)
+                    setError(err.message)
                 })
         } else {
-            //We'll want to hit the database here with info to create the user and render the home page IDK if the id will be available here tho
             Auth.confirmSignUp(username, confirmationCode)
                 .then((res) => {
-                    console.log(res)
-                    console.log("confirmed sign up")
-                    props.history.push("/login")
+                    const userData = {
+                        firstName,
+                        lastName,
+                        email
+                    }
+                    axios.post("/api/users", userData)
+                        .then(res => {
+                            props.history.push("/login")
+                        })
                 })
                 .catch(err => {
-                    console.log(err)
+                    setError(err.message)
                 })
         }
     }
     if (signedup) {
         return (
-            <form>
-                <label>Username</label>
-                <input type="text" name="username" placeholder="Username" value={username} onChange={e => setUsername(e.target.value)}></input>
-                <label>Confirmation Code</label>
-                <input type="text" name="confirmationCode" value={confirmationCode} onChange={e => setConfirmationCode(e.target.value)}></input>
-                <button onClick={handleSubmit}>Submit</button>
-            </form>
+            <div className={styles['form']} >
+                <ErrorBanner>
+                    {error}
+                </ErrorBanner>
+                <form>
+                    <label>Username</label>
+                    <input type="text" name="username" placeholder="Username" value={username} onChange={e => setUsername(e.target.value)}></input>
+                    <label>Confirmation Code</label>
+                    <input type="text" name="confirmationCode" value={confirmationCode} onChange={e => setConfirmationCode(e.target.value)}></input>
+                    <button onClick={handleSubmit}>Submit</button>
+                </form>
+            </div >
         )
     } else {
         return (
-            <form>
-                <label>First Name</label>
-                <input type="text" name="firstname" placeholder="First Name" value={firstName} onChange={e => setFirstName(e.target.value)}></input>
-                <label>Last Name</label>
-                <input type="text" name="lastname" placeholder="Last Name" value={lastName} onChange={e => setLastName(e.target.value)}></input>
-                <label>Username</label>
-                <input type="text" name="username" placeholder="Username" value={username} onChange={e => setUsername(e.target.value)}></input>
-                <label>Email</label>
-                <input type="text" name="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)}></input>
-                <label>Password</label>
-                <input type="password" name="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)}></input>
-                <button onClick={handleSubmit}>Submit</button>
-            </form>
+            <div className={styles['form']}>
+                <ErrorBanner>
+                    {error}
+                </ErrorBanner>
+                <form>
+                    <label>First Name</label>
+                    <input type="text" name="firstname" placeholder="First Name" value={firstName} onChange={e => setFirstName(e.target.value)}></input>
+                    <label>Last Name</label>
+                    <input type="text" name="lastname" placeholder="Last Name" value={lastName} onChange={e => setLastName(e.target.value)}></input>
+                    <label>Username</label>
+                    <input type="text" name="username" placeholder="Username" value={username} onChange={e => setUsername(e.target.value)}></input>
+                    <label>Email</label>
+                    <input type="text" name="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)}></input>
+                    <label>Password</label>
+                    <input type="password" name="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)}></input>
+                    <button onClick={handleSubmit}>Submit</button>
+                </form>
+            </div>
         )
     }
 }

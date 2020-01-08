@@ -18,10 +18,7 @@ const styles = require("./GoogleMapStyles.json");
 class Map extends Component {
   // Get current address from default map position and set those values to state.
   componentDidMount() {
-    Geocode.fromLatLng(
-      this.props.mapPosition.lat,
-      this.props.mapPosition.lng
-    ).then(
+    Geocode.fromLatLng(this.props.center.lat, this.props.center.lng).then(
       response => {
         const formattedAddress = response.results[0].formatted_address;
         const address = getAddress(formattedAddress);
@@ -46,10 +43,8 @@ class Map extends Component {
 
   // Component should only rerender when user selects address or drags map marker.
   shouldComponentUpdate(nextProps, nextState) {
-    console.log("from props", nextProps.address);
-    console.log("from NEXT props", this.props.address);
     if (
-      this.props.markerPosition.lat !== this.props.center.lat ||
+      this.props.markerPosition.lat !== this.props.markerPosition.lat ||
       this.props.address !== nextProps.address ||
       this.props.city !== nextProps.city ||
       this.props.state !== nextProps.state ||

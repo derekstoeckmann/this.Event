@@ -12,7 +12,7 @@ import TextField from '@material-ui/core/TextField';
 import Wrapper from "../../components/Wrapper/Wrapper";
 import RadiusSelect from '../../components/RadiusSelect';
 import DatePicker from '../../components/DatePicker/DatePicker';
-import SingleEvent from '../../components/SingleEvent/SingleEvent';
+import MySingleEvent from '../../components/MySingleEvent/MySingleEvent';
 
 import styles from './Home.module.css';
 
@@ -60,108 +60,8 @@ const Home = () => {
                   spacing={2}
                   className={styles["main-events"]}
                 >
-                  {/* THIS DATE AREA SHOULD APPEAR FOR EACH NEW DATE ie IF THE USER HAS TWO EVENTS 
-                    ON THE DAY IT SHOWS UP ONCE FOR BOTH AND THEN THE NEXT DAY THAT HAS AN EVENT GETS 
-                    THAT DATE */}
                   <div className={styles["searchScroll"]}>
-                    <Grid item xs={12}>
-                      <h2>date</h2>
-                    </Grid>
-                    {/* START OF A SINGLE EVENT */}
-                    <SingleEvent />
-                    {/* END OF A SINGLE EVENT */}
-                    {/* FROM HERE TO THE CLOSING DIV IS JUST FOR VISUAL REFERENCE OF THE FLOW */}
-                    <Grid item xs={12} className={styles["main-events-white"]}>
-                      <Grid
-                        container
-                        direction="row"
-                      >
-                        <Grid item xs={2}>
-                          10:30 pm
-                  </Grid>
-                        <Grid item xs={10}>
-                          <Grid
-                            container
-                            direction="row"
-                          >
-                            <Grid item xs={12}>
-                              Event Title
-                      </Grid>
-                            <Grid item xs={12}>
-                              Event partial description
-                      </Grid>
-                          </Grid>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                    <br />
-                    <Grid item xs={12}>
-                      <h2>date</h2>
-                    </Grid>
-                    <Grid item xs={12} className={styles["main-events-white"]}>
-                      <Grid
-                        container
-                        direction="row"
-                      >
-                        <Grid item xs={2}>
-                          10:30 pm
-                      </Grid>
-                        <Grid item xs={10}>
-                          <Grid
-                            container
-                            direction="row"
-                          >
-                            <Grid item xs={12}>
-                              Event Title
-                      </Grid>
-                            <Grid item xs={12}>
-                              Event partial description
-                      </Grid>
-                          </Grid>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                    <br />
-                    <Grid item xs={12}>
-                      <h2>date</h2>
-                    </Grid>
-                    <Grid item xs={12} className={styles["main-events-white"]}>
-                      <Grid container direction="row">
-                        <Grid item xs={2}>
-                          10:30 pm
-                        </Grid>
-                        <Grid item xs={10}>
-                          <Grid container direction="row">
-                            <Grid item xs={12}>
-                              Event Title
-                            </Grid>
-                            <Grid item xs={12}>
-                              Event partial description
-                            </Grid>
-                          </Grid>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                    <br />
-
-                    <Grid item xs={12} className={styles["main-events-white"]}>
-                      <Grid container direction="row">
-                        <Grid item xs={2}>
-                          10:30 pm
-                        </Grid>
-                        <Grid item xs={10}>
-                          <Grid container direction="row">
-                            <Grid item xs={12}>
-                              Event Title
-                            </Grid>
-                            <Grid item xs={12}>
-                              Event partial description
-                            </Grid>
-                          </Grid>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                    <br />
+                    <MySingleEvent />
                   </div>
                 </Grid>
                 <Grid
@@ -214,8 +114,16 @@ const Home = () => {
                         handleRadiusChange={handleRadiusChange}
                       />
                     </Grid>
+                    <Grid item>
+                      <Link to="/search">
+                        <Button variant="contained" color="primary">
+                          Search
+                        </Button>
+                      </Link>
+                    </Grid>
                   </Grid>
-
+                  <br />
+                  <br />
                   <h1>Planning an Event?</h1>
                   <Grid
                     container

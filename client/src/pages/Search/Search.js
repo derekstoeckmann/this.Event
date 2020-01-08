@@ -94,12 +94,7 @@ const Search = () => {
                   <div className={styles["searchScroll"]}>
                     {events.length > 0 ? (
                       events.map(event => (
-                        <SingleEvent
-                          key={event._id}
-                          time={event.time}
-                          title={event.title}
-                          description={event.description}
-                        />
+                        <SingleEvent key={event._id} {...event} />
                       ))
                     ) : (
                       <NoEvent />

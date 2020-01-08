@@ -6,32 +6,29 @@ import {
   InfoWindow,
   Marker
 } from "react-google-maps";
+import { getAddress, getCity, getState, getZipcode } from "./functions";
 import Geocode from "react-geocode";
 import Autocomplete from "react-google-autocomplete";
 Geocode.setApiKey(process.env.REACT_APP_GOOGLE_KEY);
 Geocode.enableDebug();
 
-/* Import custom styles to customize the style of Google Map*/
+// Import custom map styles.
 const styles = require("./GoogleMapStyles.json");
 
 class Map extends Component {
-  /**
-   * Get the current address from the default map position and set those values in the state
-   */
+  // Get current address from default map position and set those values to state.
   componentDidMount() {
-    console.log("BEFORE", this.props);
     Geocode.fromLatLng(
       this.props.mapPosition.lat,
       this.props.mapPosition.lng
     ).then(
       response => {
-        console.log("RESPONSE: ", response);
+        console.log("componentDidMount Geocode response: ", response);
         const formattedAddress = response.results[0].formatted_address;
-        const address = this.getAddress(formattedAddress);
-        // const addressArray = response.results[0].address_components;
-        const city = this.getCity(formattedAddress);
-        const state = this.getState(formattedAddress);
-        const zipcode = this.getZipcode(formattedAddress);
+        const address = getAddress(formattedAddress);
+        const city = getCity(formattedAddress);
+        const state = getState(formattedAddress);
+        const zipcode = getZipcode(formattedAddress);
 
         this.props.setLocationData({
           address: address ? address : "",
@@ -41,26 +38,17 @@ class Map extends Component {
           mapPosition: this.props.mapPosition,
           markerPosition: this.props.markerPosition
         });
-
-        console.log("AFTER: ", this.props);
       },
       error => {
         console.error(error);
       }
     );
   }
-  /**
-   * Component should only update ( meaning re-render ), when the user selects the address, or drags the pin
-   *
-   * @param nextProps
-   * @param nextState
-   * @return {boolean}
-   */
+
+  // Component should only rerender when user selects address or drags map marker.
   shouldComponentUpdate(nextProps, nextState) {
-    console.log("from props", nextProps.address);
-    console.log("from NEXT props", this.props.address);
     if (
-      this.props.markerPosition.lat !== this.props.center.lat ||
+      this.props.markerPosition.lat !== this.props.markerPosition.lat ||
       this.props.address !== nextProps.address ||
       this.props.city !== nextProps.city ||
       this.props.state !== nextProps.state ||
@@ -72,99 +60,7 @@ class Map extends Component {
     }
   }
 
-  getAddress = addressArray => {
-    return addressArray.split(",")[0].trim();
-  };
-  /**
-   * Get the city and set the city input value to the one selected
-   *
-   * @param addressArray
-   * @return {string}
-   */
-  getCity = addressArray => {
-    // let city = "";
-    // for (let i = 0; i < addressArray.length; i++) {
-    //   if (
-    //     addressArray[i].types[0] &&
-    //     "administrative_area_level_2" === addressArray[i].types[0]
-    //   ) {
-    //     city = addressArray[i].long_name;
-    //     return city;
-    //   }
-    // }
-
-    return addressArray.split(",")[1].trim();
-  };
-  /**
-   * Get the area and set the area input value to the one selected
-   *
-   * @param addressArray
-   * @return {string}
-   */
-  getZipcode = addressArray => {
-    // let area = "";
-    // for (let i = 0; i < addressArray.length; i++) {
-    //   if (addressArray[i].types[0]) {
-    //     for (let j = 0; j < addressArray[i].types.length; j++) {
-    //       if (
-    //         "sublocality_level_1" === addressArray[i].types[j] ||
-    //         "locality" === addressArray[i].types[j]
-    //       ) {
-    //         area = addressArray[i].long_name;
-    //         return area;
-    //       }
-    //     }
-    //   }
-    // }
-
-    return addressArray.split(",")[2].slice(-5);
-  };
-  /**
-   * Get the address and set the address input value to the one selected
-   *
-   * @param addressArray
-   * @return {string}
-   */
-  getState = addressArray => {
-    // let state = "";
-    // for (let i = 0; i < addressArray.length; i++) {
-    //   for (let i = 0; i < addressArray.length; i++) {
-    //     if (
-    //       addressArray[i].types[0] &&
-    //       "administrative_area_level_1" === addressArray[i].types[0]
-    //     ) {
-    //       state = addressArray[i].long_name;
-    //       return state;
-    //     }
-    //   }
-    // }
-
-    return addressArray
-      .split(",")[2]
-      .trim()
-      .slice(0, 2);
-  };
-  /**
-   * And function for city,state and address input
-   * @param event
-   */
-  // onChange = event => {
-  //   this.props.setLocationData({ [event.target.name]: event.target.value });
-  // };
-  /**
-   * This Event triggers when the marker window is closed
-   *
-   * @param event
-   */
-  onInfoWindowClose = event => { };
-
-  /**
-   * When the marker is dragged you get the lat and long using the functions available from event object.
-   * Use geocode to get the address, city, area and state from the lat and lng positions.
-   * And then set those values in the state.
-   *
-   * @param event
-   */
+  // Get location info from map marker drag lat/lng.
   onMarkerDragEnd = event => {
     const newLat = event.latLng.lat();
     const newLng = event.latLng.lng();
@@ -172,11 +68,10 @@ class Map extends Component {
     Geocode.fromLatLng(newLat, newLng).then(
       response => {
         const formattedAddress = response.results[0].formatted_address;
-        const address = this.getAddress(formattedAddress);
-        // const addressArray = response.results[0].address_components;
-        const city = this.getCity(formattedAddress);
-        const state = this.getState(formattedAddress);
-        const zipcode = this.getZipcode(formattedAddress);
+        const address = getAddress(formattedAddress);
+        const city = getCity(formattedAddress);
+        const state = getState(formattedAddress);
+        const zipcode = getZipcode(formattedAddress);
 
         this.props.setLocationData({
           address: address ? address : "",
@@ -199,18 +94,13 @@ class Map extends Component {
     );
   };
 
-  /**
-   * When the user types an address in the search box
-   * @param place
-   */
+  // Get location info from map search input.
   onPlaceSelected = place => {
-    console.log("PLACE", place);
     const formattedAddress = place.formatted_address;
-    const address = this.getAddress(formattedAddress);
-    // const addressArray = place.address_components;
-    const city = this.getCity(formattedAddress);
-    const state = this.getState(formattedAddress);
-    const zipcode = this.getZipcode(formattedAddress);
+    const address = getAddress(formattedAddress);
+    const city = getCity(formattedAddress);
+    const state = getState(formattedAddress);
+    const zipcode = getZipcode(formattedAddress);
     const latValue = place.geometry.location.lat();
     const lngValue = place.geometry.location.lng();
 
@@ -228,6 +118,14 @@ class Map extends Component {
         lng: lngValue
       }
     });
+  };
+
+  // Event when map marker window is closed.
+  onInfoWindowClose = event => {};
+
+  // We don't use this...
+  onChange = event => {
+    // this.props.setLocationData({ [event.target.name]: event.target.value });
   };
 
   render() {

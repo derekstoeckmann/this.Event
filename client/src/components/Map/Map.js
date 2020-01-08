@@ -18,8 +18,12 @@ const styles = require("./GoogleMapStyles.json");
 class Map extends Component {
   // Get current address from default map position and set those values to state.
   componentDidMount() {
-    Geocode.fromLatLng(this.props.center.lat, this.props.center.lng).then(
+    Geocode.fromLatLng(
+      this.props.mapPosition.lat,
+      this.props.mapPosition.lng
+    ).then(
       response => {
+        console.log("componentDidMount Geocode response: ", response);
         const formattedAddress = response.results[0].formatted_address;
         const address = getAddress(formattedAddress);
         const city = getCity(formattedAddress);

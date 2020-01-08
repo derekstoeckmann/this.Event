@@ -8,14 +8,14 @@ const LandingPage = () => {
         <div>
             <nav className={styles["navbar"]}>
                 <p className={styles["navbar-brand"]}>this.Event</p>
-                <Link to="/home">
-                    <button className={styles["btn"]}><span className={styles["btn-style"]}>Sign Up</span></button>
+                <Link to="/login">
+                    <button className={styles["btn"]}><span className={styles["btn-style"]}>Sign In</span></button>
                 </Link>
             </nav>
             <div className={styles["header"]}>
                 <h1>this.Event</h1>
                 <h1 className={styles["lead"]}>Create, Customize, Join, and Manage Your Events</h1>
-                <Link to="/home">
+                <Link to="/signup">
                     <button className={styles["btn"]}><span className={styles["btn-style"]}>Join</span></button>
                 </Link>
             </div>

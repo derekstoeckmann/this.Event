@@ -7,12 +7,20 @@ import Search from "./pages/Search/Search";
 import CreateEvent from "./pages/CreateEvent/CreateEvent";
 import Event from "./pages/Event/Event";
 import LandingPage from "./pages/LandingPage/LandingPage";
+import SignUpForm from './components/SignUpForm/SignUpForm';
+import SignInForm from './components/SignInForm/SignInForm';
+import IsLoggedIn from "./utils/IsLoggedIn"
 
 Amplify.configure(aws_exports);
 
 function App() {
 
   const [currentUser, getCurrentUser] = useState("");
+  const [loggedIn, getLoggedIn] = useState("");
+
+  const isLoggedIn = (value) => {
+    getLoggedIn(value)
+  }
 
   Auth.currentUserInfo()
     .then(res => {
@@ -27,27 +35,27 @@ function App() {
       console.log("error", err)
     })
 
-
-  if (currentUser) {
+  if (loggedIn || currentUser) {
     return (
-      <Router>
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/createEvent" component={CreateEvent} />
-          <Route exact path="/search" component={Search} />
-          <Route exact path="/event" component={Event} />
-          <Route component={Home} />
-        </Switch>
-      </Router>
+      <IsLoggedIn.Provider value={{ loggedIn, isLoggedIn }}>
+        <Router>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/createEvent" component={CreateEvent} />
+            <Route exact path="/search" component={Search} />
+            <Route exact path="/event" component={Event} />
+            <Route component={Home} />
+          </Switch>
+        </Router>
+      </IsLoggedIn.Provider>
     )
   } else {
     return (
       <Router>
         <Switch>
           <Route exact path="/" component={LandingPage} />
-          <Route exact path="/home" component={Home} />
-          <Route exact path="/createEvent" component={CreateEvent} />
-          <Route exact path="/event" component={Event} />
+          <Route exact path="/login" render={(props) => <SignInForm {...props} value={isLoggedIn} />} />
+          <Route exact path="/signup" render={(props) => <SignUpForm {...props} value={isLoggedIn} />} />
         </Switch>
       </Router>
     )

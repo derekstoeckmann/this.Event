@@ -1,5 +1,4 @@
 import React from "react";
-import { withAuthenticator } from "aws-amplify-react";
 import Wrapper from "../../components/Wrapper/Wrapper";
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
@@ -217,4 +216,4 @@ const Event = () => {
   )
 }
 
-export default withAuthenticator(Event, true);
+export default Event;

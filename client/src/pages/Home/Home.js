@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Moment from 'react-moment';
 
-import { withAuthenticator } from "aws-amplify-react";
-
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
@@ -253,4 +251,4 @@ const Home = () => {
   );
 };
 
-export default withAuthenticator(Home, true);
+export default Home;

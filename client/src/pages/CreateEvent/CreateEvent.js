@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { withAuthenticator } from "aws-amplify-react";
 
 import Map from "../../components/Map/Map.js";
 import Wrapper from "../../components/Wrapper/Wrapper";
@@ -434,4 +433,4 @@ const CreateEvent = props => {
   );
 };
 
-export default withAuthenticator(CreateEvent, true);
+export default CreateEvent;

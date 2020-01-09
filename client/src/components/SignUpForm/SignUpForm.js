@@ -8,12 +8,10 @@ import { Link } from "react-router-dom";
 const SignUpForm = (props) => {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
-    // const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmationCode, setConfirmationCode] = useState("");
     const [signedup, setSignedUp] = useState("");
-    // const [userId, setUserId] = useState("");
     const [error, setError] = useState("");
 
     function handleSubmit(e) {
@@ -23,7 +21,6 @@ const SignUpForm = (props) => {
                 username: email,
                 password: password,
                 attributes: {
-                    email: email,
                     phone_number: "+11234561234"
                 }
             })
@@ -88,8 +85,6 @@ const SignUpForm = (props) => {
                         <input className={styles.formInputBox} type="text" name="firstname" placeholder="First Name" value={firstName} onChange={e => setFirstName(e.target.value)}></input>
                         <label>Last Name</label>
                         <input className={styles.formInputBox} type="text" name="lastname" placeholder="Last Name" value={lastName} onChange={e => setLastName(e.target.value)}></input>
-                        {/* <label>Username</label>
-                        <input className={styles.formInputBox} type="text" name="username" placeholder="Username" value={username} onChange={e => setUsername(e.target.value)}></input> */}
                         <label>Email</label>
                         <input className={styles.formInputBox} type="text" name="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)}></input>
                         <label>Password</label>

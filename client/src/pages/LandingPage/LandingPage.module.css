@@ -25,7 +25,7 @@ html, body{
     will-change: transform, opacity;
 }
 .flex-box{
-    display: flex;    
+    display: flex;  
     justify-content: center;
     align-items: center;
 }
@@ -80,7 +80,6 @@ img{
 .right{
     transform: translateX(2em) rotateZ(5deg);
     margin-left: 200px;
-
 }
 .inline-photo {
     display: flex;
@@ -138,4 +137,18 @@ img{
 }
 a{
     text-decoration: none;
+}
+
+@media only screen and (max-width: 1200px){
+.flex-box{
+    flex-direction: column;
+}
+.inline-photo{
+    max-width: 400px;
+}
+}
+@media only screen and (max-width: 800px){
+    .img{
+        display: none;
+    }
 }

@@ -24,7 +24,7 @@ const LandingPage = () => {
                     <div className={styles["border"]}>
                         <div className={styles["flex-box"]}>
                             <div className={styles["inline-photo"] + " " + styles["show-on-scroll"] + " " + styles["left"]}>
-                                <img src={require("./img/making-friends.png")} alt="Making Friends" />
+                                <img className={styles.img} src={require("./img/making-friends.png")} alt="Making Friends" />
                                 <h1>Try New Things</h1>
                                 <p className={styles["lead"]}>
                                     Make New Friends and Socialize With New People
@@ -50,7 +50,7 @@ const LandingPage = () => {
                             </div>
                             <div className={styles["flex"]}>
                                 <div className={styles["inline-photo"] + " " + styles["show-on-scroll"] + " " + styles["right"]}>
-                                    <img src={require("./img/volleyball.png")} alt="Friends playing volleyball" />
+                                    <img className={styles.img} src={require("./img/volleyball.png")} alt="Friends playing volleyball" />
                                     <h1>Find Your Hobbies</h1>
                                     <p className={styles["lead"]}>
                                         Find People That Enjoy The Things You Do
@@ -60,7 +60,7 @@ const LandingPage = () => {
                         </div>
                         <div className={styles["flex-box"]}>
                             <div className={styles["inline-photo"] + " " + styles["show-on-scroll"] + " " + styles["left"]}>
-                                <img src={require("./img/family.png")} alt="Family and Friends" />
+                                <img className={styles.img} src={require("./img/family.png")} alt="Family and Friends" />
                                 <h1>Create Custom Events</h1>
                                 <p className={styles["lead"]}>
                                     You Have The Power To Create, Manage, Join and Customize Events

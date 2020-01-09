@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const Event = require("../models/Event");
 
 // @desc    Get all users
 // @route   GET /api/users
@@ -14,6 +15,22 @@ exports.getUser = async (req, res, next) => {
   const user = await User.findById(req.params.id);
 
   res.status(200).json({ success: true, data: user });
+};
+
+// @desc    Get all events user is hosting
+// @route   GET /api/users/:id/hosting
+exports.getUserEventsHosting = async (req, res, next) => {
+  const events = await Event.find({ user: req.params.id });
+
+  res.status(200).json({ success: true, count: events.length, data: events });
+};
+
+// @desc    Get all events user is attending
+// @route   GET /api/users/:id/attending
+exports.getUserEventsAttending = async (req, res, next) => {
+  const events = await Event.find({ attending: { $in: [req.params.id] } });
+
+  res.status(200).json({ success: true, count: events.length, data: events });
 };
 
 // @desc    Create user

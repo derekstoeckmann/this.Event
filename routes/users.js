@@ -4,7 +4,9 @@ const {
   getUser,
   createUser,
   updateUser,
-  deleteUser
+  deleteUser,
+  getUserEventsHosting,
+  getUserEventsAttending
 } = require("../controllers/users");
 
 const router = express.Router();
@@ -19,5 +21,9 @@ router
   .get(getUser)
   .put(updateUser)
   .delete(deleteUser);
+
+router.route("/:id/hosting").get(getUserEventsHosting);
+
+router.route("/:id/attending").get(getUserEventsAttending);
 
 module.exports = router;

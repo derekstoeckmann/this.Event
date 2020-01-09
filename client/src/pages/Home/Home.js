@@ -18,22 +18,25 @@ import CurrentUserEmail from "../../utils/CurrentUserEmail";
 import styles from "./Home.module.css";
 
 const Home = () => {
-  const { currentUser } = useContext(CurrentUserEmail);
+  const { currentUserData } = useContext(CurrentUserEmail);
 
-  const [currentUserData, setCurrentUserData] = useState();
-  const [events, setEvents] = useState();
+  const [events, setEvents] = useState([]);
   const [searchRadius, setSearchRadius] = useState("");
   const [searchZipcode, setSearchZipcode] = useState("");
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   useEffect(() => {
-    axios
-      .get(`/api/users?email=${currentUser}`)
-      .then(response => {
-        setCurrentUserData({ ...response.data.data[0] });
-      })
-      .catch(err => console.log(err));
-  }, [currentUser]);
+    if (currentUserData) {
+      axios
+        .get(`/api/events?user=${currentUserData._id}`)
+        .then(response => {
+          setEvents([...response.data.data]);
+
+          console.log(events);
+        })
+        .catch(err => console.log(err));
+    }
+  }, [currentUserData]);
 
   const handleZipChange = event => {
     setSearchZipcode(event.target.value);

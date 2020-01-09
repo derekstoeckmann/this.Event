@@ -3,8 +3,6 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import Moment from "react-moment";
 
-import { withAuthenticator } from "aws-amplify-react";
-
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
@@ -97,8 +95,8 @@ const Search = () => {
                         <SingleEvent key={event._id} {...event} />
                       ))
                     ) : (
-                      <NoEvent />
-                    )}
+                        <NoEvent />
+                      )}
                   </div>
                 </Grid>
                 <Grid
@@ -202,4 +200,4 @@ const Search = () => {
   );
 };
 
-export default withAuthenticator(Search, true);
+export default Search;

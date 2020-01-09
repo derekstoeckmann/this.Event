@@ -33,7 +33,7 @@ export default function SimpleSelect(props) {
         <Select
           labelId="search-radius-label"
           id="search-radius"
-          value={props.searchRadius || 25}
+          value={props.searchRadius}
           onChange={props.handleRadiusChange}
           labelWidth={labelWidth}
         >

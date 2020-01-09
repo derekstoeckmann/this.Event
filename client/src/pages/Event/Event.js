@@ -1,12 +1,36 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+
 import Wrapper from "../../components/Wrapper/Wrapper";
-import Container from '@material-ui/core/Container';
+
 import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import Container from '@material-ui/core/Container';
+import TextField from '@material-ui/core/TextField';
+
 import styles from "./Event.module.css"
 
-const Event = () => {
+const Event = ({ match, location }) => {
+  console.log(match.params.eventId);
+  console.log(location)
+  const [event, setEvent] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(`/api/events/${match.params.eventId}`)
+      .then(response => {
+        setEvent(response.data.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, []);
+
+  console.log(event)
+  if (!event.title) {
+    return <h1>Loading...</h1>
+  }
+
   return (
     <Wrapper>
       <Container maxWidth="lg" className={styles["main"]}>
@@ -24,13 +48,13 @@ const Event = () => {
               alignItems="center"
             >
               <Grid item md={5}>
-                <h1>Event Name</h1>
+                <h1>{event.title}</h1>
               </Grid>
               <Grid item md={6}>
                 <TextField
                   id="eventUrl"
                   label="Sharable URL"
-                  defaultValue=""
+                  defaultValue={window.location.href}
                   InputProps={{
                     readOnly: true,
                   }}
@@ -59,28 +83,25 @@ const Event = () => {
                   alignItems="center"
                 >
                   <Grid item>
-                    <span class="data-key">event_title</span>
+                    <span class="data-key">LOCATION NAME TO COME</span>
                   </Grid>
                   <Grid item>
-                    <span class="data-key">location_name</span>
+                    <span class="data-key">{event.location.address}</span>
                   </Grid>
                   <Grid item>
-                    <span class="data-key">event_address</span>
+                    <span class="data-key">{event.location.city}</span>
                   </Grid>
                   <Grid item>
-                    <span class="data-key">event_city</span>
+                    <span class="data-key">{event.location.state}</span>
                   </Grid>
                   <Grid item>
-                    <span class="data-key">event_state</span>
-                  </Grid>
-                  <Grid item>
-                    <span class="data-key">event_zip</span>
+                    <span class="data-key">{event.location.zipcode}</span>
                   </Grid>
                 </Grid>
               </Grid>
               <Grid item>
                 <div>
-                  <img className={styles["map"]} alt="google map" src="https://maps.googleapis.com/maps/api/staticmap?center=33.4484,-112.0740&markers=33.4484,-112.0740&size=350x350&style=feature:road.highway%7Celement:geometry%7Cvisibility:simplified%7Ccolor:0xc280e9&style=feature:transit.line%7Cvisibility:simplified%7Ccolor:0xbababa&style=feature:road.highway%7Celement:labels.text.stroke%7Cvisibility:on%7Ccolor:0xb06eba&style=feature:road.highway%7Celement:labels.text.fill%7Cvisibility:on%7Ccolor:0xffffff&key=AIzaSyAViYGK-sxbsRNlv6rZ1a4Ze_h4BaZXi1M" />
+                  <img className={styles["map"]} alt="google map" src={`https://maps.googleapis.com/maps/api/staticmap?center=${event.location.coordinates[1]},${event.location.coordinates[0]}&markers=${event.location.coordinates[1]},${event.location.coordinates[0]}&size=350x350&style=feature:road.highway%7Celement:geometry%7Cvisibility:simplified%7Ccolor:0xc280e9&style=feature:transit.line%7Cvisibility:simplified%7Ccolor:0xbababa&style=feature:road.highway%7Celement:labels.text.stroke%7Cvisibility:on%7Ccolor:0xb06eba&style=feature:road.highway%7Celement:labels.text.fill%7Cvisibility:on%7Ccolor:0xffffff&key=${process.env.REACT_APP_GOOGLE_KEY}`} />
                 </div>
               </Grid>
             </Grid>
@@ -134,7 +155,7 @@ const Event = () => {
                 <span className={styles["data-key"]}>Description</span>
               </Grid>
               <Grid item xs={11}>
-                description_text<br />
+                {event.description}<br />
                 <br />
                 <hr />
               </Grid>

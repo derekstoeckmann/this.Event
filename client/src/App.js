@@ -55,6 +55,7 @@ function App() {
               <Route exact path="/createEvent" component={CreateEvent} />
               <Route exact path="/search" component={Search} />
               <Route exact path="/event" component={Event} />
+              <Route exact path="/event/:eventId" component={Event} />
               <Route component={Home} />
             </Switch>
           </Router>

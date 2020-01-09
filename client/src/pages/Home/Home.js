@@ -19,9 +19,9 @@ import styles from "./Home.module.css";
 
 const Home = () => {
   const { currentUserData } = useContext(CurrentUserEmail);
-
+  
   const [events, setEvents] = useState([]);
-  const [searchRadius, setSearchRadius] = useState("");
+  const [searchRadius, setSearchRadius] = useState(25);
   const [searchZipcode, setSearchZipcode] = useState("");
   const [selectedDate, setSelectedDate] = useState(new Date());
 
@@ -78,7 +78,9 @@ const Home = () => {
                   className={styles["main-events"]}
                 >
                   <div className={styles["searchScroll"]}>
-                    <MySingleEvent />
+                    <Link to="/event">
+                      <MySingleEvent />
+                    </Link>
                   </div>
                 </Grid>
                 <Grid

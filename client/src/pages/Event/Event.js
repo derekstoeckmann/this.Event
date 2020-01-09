@@ -28,6 +28,36 @@ const Event = ({ match, location }) => {
       });
   }, []);
 
+  const userIsAttending = async () => {
+    const updatedAttending = [...event.attending, currentUserData._id];
+
+    try {
+      const response = await axios.put(`/api/events/${event._id}`, {
+        attending: updatedAttending
+      });
+
+      setEvent({ ...event, attending: updatedAttending });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const userIsNotAttending = async () => {
+    const updatedAttending = [...event.attending].filter(
+      id => id !== currentUserData._id
+    );
+
+    try {
+      const response = await axios.put(`/api/events/${event._id}`, {
+        attending: updatedAttending
+      });
+
+      setEvent({ ...event, attending: updatedAttending });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   console.log("event", event);
   console.log("user ", currentUserData);
   if (!event.title || !currentUserData._id) {
@@ -230,21 +260,33 @@ const Event = ({ match, location }) => {
                 spacing={4}
               >
                 <Grid item>
-                  <Button variant="contained" color="primary">
-                    Attend Event
-                  </Button>
-                </Grid>
-                <Grid item>
-                  {currentUserData._id === event.user._id && (
-                    <Button variant="contained" color="primary">
-                      Update Event
+                  {!event.attending.includes(currentUserData._id) && (
+                    <Button
+                      onClick={userIsAttending}
+                      variant="contained"
+                      color="primary"
+                    >
+                      Attend Event
                     </Button>
                   )}
                 </Grid>
                 <Grid item>
-                  <Button variant="contained" color="secondary">
-                    No Longer Attending
-                  </Button>
+                  {currentUserData._id === event.user._id && (
+                    <Button variant="contained" color="primary">
+                      Edit Event
+                    </Button>
+                  )}
+                </Grid>
+                <Grid item>
+                  {event.attending.includes(currentUserData._id) && (
+                    <Button
+                      onClick={userIsNotAttending}
+                      variant="contained"
+                      color="secondary"
+                    >
+                      No Longer Attending
+                    </Button>
+                  )}
                 </Grid>
               </Grid>
             </Grid>

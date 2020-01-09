@@ -1,16 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 
 import Wrapper from "../../components/Wrapper/Wrapper";
 
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
-import Container from '@material-ui/core/Container';
-import TextField from '@material-ui/core/TextField';
+import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
+import Container from "@material-ui/core/Container";
+import TextField from "@material-ui/core/TextField";
 
-import styles from "./Event.module.css"
+import CurrentUserEmail from "../../utils/CurrentUserEmail";
+
+import styles from "./Event.module.css";
 
 const Event = ({ match, location }) => {
+  const { currentUserData } = useContext(CurrentUserEmail);
+
   const [event, setEvent] = useState([]);
 
   useEffect(() => {
@@ -24,9 +28,10 @@ const Event = ({ match, location }) => {
       });
   }, []);
 
-  console.log(event)
-  if (!event.title) {
-    return <h1>Loading...</h1>
+  console.log("event", event);
+  console.log("user ", currentUserData);
+  if (!event.title || !currentUserData._id) {
+    return <h1>Loading...</h1>;
   }
 
   return (
@@ -54,7 +59,7 @@ const Event = ({ match, location }) => {
                   label="Sharable URL"
                   defaultValue={window.location.href}
                   InputProps={{
-                    readOnly: true,
+                    readOnly: true
                   }}
                   variant="outlined"
                   size="small"
@@ -74,7 +79,11 @@ const Event = ({ match, location }) => {
             >
               <Grid item>
                 <div>
-                  <img className={styles["map"]} alt="google map" src={`https://maps.googleapis.com/maps/api/staticmap?center=${event.location.coordinates[1]},${event.location.coordinates[0]}&markers=${event.location.coordinates[1]},${event.location.coordinates[0]}&size=350x350&zoom=17&format=png&maptype=roadmap&style=feature:landscape.man_made%7Celement:geometry.fill%7Clightness:-10&style=feature:landscape.man_made%7Celement:geometry.stroke%7Ccolor:0xc0c0c0%7Clightness:-25&style=feature:landscape.natural.landcover%7Celement:geometry.fill%7Clightness:35&style=feature:poi%7Celement:geometry.fill%7Clightness:80&style=feature:road.arterial%7Celement:geometry.fill%7Ccolor:0xc0c0c0%7Clightness:25&style=feature:road.arterial%7Celement:geometry.stroke%7Clightness:5&style=feature:road.highway%7Celement:geometry.fill%7Ccolor:0x8000ff%7Clightness:45&style=feature:road.highway.controlled_access%7Celement:geometry.fill%7Ccolor:0x8000ff%7Clightness:45&style=feature:road.local%7Celement:geometry.stroke%7Ccolor:0xc0c0c0&key=${process.env.REACT_APP_GOOGLE_KEY}`} />
+                  <img
+                    className={styles["map"]}
+                    alt="google map"
+                    src={`https://maps.googleapis.com/maps/api/staticmap?center=${event.location.coordinates[1]},${event.location.coordinates[0]}&markers=${event.location.coordinates[1]},${event.location.coordinates[0]}&size=350x350&zoom=17&format=png&maptype=roadmap&style=feature:landscape.man_made%7Celement:geometry.fill%7Clightness:-10&style=feature:landscape.man_made%7Celement:geometry.stroke%7Ccolor:0xc0c0c0%7Clightness:-25&style=feature:landscape.natural.landcover%7Celement:geometry.fill%7Clightness:35&style=feature:poi%7Celement:geometry.fill%7Clightness:80&style=feature:road.arterial%7Celement:geometry.fill%7Ccolor:0xc0c0c0%7Clightness:25&style=feature:road.arterial%7Celement:geometry.stroke%7Clightness:5&style=feature:road.highway%7Celement:geometry.fill%7Ccolor:0x8000ff%7Clightness:45&style=feature:road.highway.controlled_access%7Celement:geometry.fill%7Ccolor:0x8000ff%7Clightness:45&style=feature:road.local%7Celement:geometry.stroke%7Ccolor:0xc0c0c0&key=${process.env.REACT_APP_GOOGLE_KEY}`}
+                  />
                 </div>
               </Grid>
               <Grid item xs={12} sm={12} md={6}>
@@ -85,13 +94,21 @@ const Event = ({ match, location }) => {
                   alignItems="center"
                 >
                   <Grid item>
-                    <span className={styles["data-key"]}>LOCATION NAME TO COME</span>
+                    <span className={styles["data-key"]}>
+                      LOCATION NAME TO COME
+                    </span>
                   </Grid>
                   <Grid item>
-                    <span className={styles["data-key"]}>{event.location.address}</span>
+                    <span className={styles["data-key"]}>
+                      {event.location.address}
+                    </span>
                   </Grid>
                   <Grid item>
-                    <span className={styles["data-key"]}>{event.location.city}, {event.location.state}{"  "}{event.location.zipcode}</span>
+                    <span className={styles["data-key"]}>
+                      {event.location.city}, {event.location.state}
+                      {"  "}
+                      {event.location.zipcode}
+                    </span>
                   </Grid>
                 </Grid>
 
@@ -133,7 +150,6 @@ const Event = ({ match, location }) => {
                     </Grid>
                   </Grid>
                 </Grid>
-
               </Grid>
             </Grid>
             <Grid
@@ -152,23 +168,31 @@ const Event = ({ match, location }) => {
               alignItems="center"
               spacing={3}
             >
-
               <Grid item xs={11}>
                 <hr />
                 <br />
                 <span className={styles["data-key"]}>Description</span>
               </Grid>
               <Grid item xs={11}>
-                {event.description}<br />
+                {event.description}
+                <br />
                 <br />
                 <hr />
               </Grid>
 
               <Grid item xs={11} md={5}>
-                <span className={styles["data-key"]}>Bring your own item_to_bring</span>
+                <span className={styles["data-key"]}>
+                  Bring your own item_to_bring
+                </span>
               </Grid>
               <Grid item xs={11} md={6}>
-                <TextField id="my_byo_item" label="The Item You Are Bringing" variant="outlined" size="small" className={styles["data-value-input"]} />
+                <TextField
+                  id="my_byo_item"
+                  label="The Item You Are Bringing"
+                  variant="outlined"
+                  size="small"
+                  className={styles["data-value-input"]}
+                />
               </Grid>
               <Grid item xs={11}>
                 <Grid
@@ -208,17 +232,19 @@ const Event = ({ match, location }) => {
                 <Grid item>
                   <Button variant="contained" color="primary">
                     Attend Event
-              </Button>
+                  </Button>
                 </Grid>
                 <Grid item>
-                  <Button variant="contained" color="primary">
-                    Update Event
-              </Button>
+                  {currentUserData._id === event.user._id && (
+                    <Button variant="contained" color="primary">
+                      Update Event
+                    </Button>
+                  )}
                 </Grid>
                 <Grid item>
                   <Button variant="contained" color="secondary">
                     No Longer Attending
-              </Button>
+                  </Button>
                 </Grid>
               </Grid>
             </Grid>
@@ -234,11 +260,11 @@ const Event = ({ match, location }) => {
               <br />
               <br />
             </Grid>
-          </div >
+          </div>
         </Grid>
       </Container>
     </Wrapper>
-  )
-}
+  );
+};
 
 export default Event;

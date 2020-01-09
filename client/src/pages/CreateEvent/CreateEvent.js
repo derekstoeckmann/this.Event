@@ -55,6 +55,26 @@ const CreateEvent = props => {
 
     if (match.params.eventId) {
       response = await axios.get(`/api/events/${match.params.eventId}`)
+      console.log("RESPONSE: ", response)
+      if (window.navigator || match.params.eventId) {
+        window.navigator.geolocation.getCurrentPosition(function (pos) {
+          const { latitude, longitude } = pos.coords;
+          setLocationData({
+            address: response.data.data.location.address ? response.data.data.location.address : '',
+            city: response.data.data.location.city ? response.data.data.location.city : '',
+            state: response.data.data.location.state ? response.data.data.location.state : '',
+            zipcode: response.data.data.location.zipcode ? response.data.data.location.zipcode : '',
+            mapPosition: {
+              lat: response.data.data.location.coordinates[1] ? response.data.data.location.coordinates[1] : latitude,
+              lng: response.data.data.location.coordinates[0] ? response.data.data.location.coordinates[0] : longitude
+            },
+            markerPosition: {
+              lat: response.data.data.location.coordinates[1] ? response.data.data.location.coordinates[1] : latitude,
+              lng: response.data.data.location.coordinates[0] ? response.data.data.location.coordinates[0] : longitude
+            }
+          });
+        });
+      }
 
       setEventIsPublic(response.data.data.public);
       setSelectedDate(response.data.data.time);
@@ -69,26 +89,6 @@ const CreateEvent = props => {
       setHighlight5(response.data.data.highlights[4] ? response.data.data.highlights[4] : null);
       // setByoItemType(response.data.data.);
       setEventTitle(response.data.data.title);
-    }
-
-    if (window.navigator || match.params.eventId) {
-      window.navigator.geolocation.getCurrentPosition(function (pos) {
-        const { latitude, longitude } = pos.coords;
-        setLocationData({
-          address: response.data.data.location.address ? response.data.data.location.address : '',
-          city: response.data.data.location.city ? response.data.data.location.city : '',
-          state: response.data.data.location.state ? response.data.data.location.state : '',
-          zipcode: response.data.data.location.zipcode ? response.data.data.location.zipcode : '',
-          mapPosition: {
-            lat: response.data.data.location.coordinates[1] ? response.data.data.location.coordinates[1] : latitude,
-            lng: response.data.data.location.coordinates[0] ? response.data.data.location.coordinates[0] : longitude
-          },
-          markerPosition: {
-            lat: response.data.data.location.coordinates[1] ? response.data.data.location.coordinates[1] : latitude,
-            lng: response.data.data.location.coordinates[0] ? response.data.data.location.coordinates[0] : longitude
-          }
-        });
-      });
     }
   }, []);
 
@@ -129,12 +129,13 @@ const CreateEvent = props => {
       .post("/api/events", eventData)
       .then(response => {
         console.log(response);
+        props.history.push(`/event/${response.data.data._id}`);
       })
       .catch(err => console.log(err));
   };
 
   // THIS NEEDS TO BE SET TO A RELEVENT STATE
-  if (match.params.eventId && !eventTitle) {
+  if (match.params.eventId && !locationData.address) {
     return <h1>Loading...</h1>
   }
 
@@ -347,7 +348,7 @@ const CreateEvent = props => {
                 {byoChecked ?
                   <TextField
                     id="byo"
-                    label="Bring Your Own ____"
+                    label="Type of item people should bring"
                     value={byoItemType}
                     onChange={event => setByoItemType(event.target.value)}
                     variant="outlined"
@@ -392,27 +393,32 @@ const CreateEvent = props => {
                 alignItems="center"
                 spacing={4}
               >
-
-                <Grid item>
-                  <Button
-                    onClick={createEventHandler}
-                    variant="contained"
-                    color="primary"
-                  >
-                    Create Event
-                  </Button>
-                </Grid>
-
-                <Grid item>
-                  <Button variant="contained" color="primary">
-                    Update Event
-                  </Button>
-                </Grid>
-                <Grid item>
-                  <Button variant="contained" color="secondary">
-                    Cancel Event
-                  </Button>
-                </Grid>
+                {!match.params.eventId ? (
+                  <>
+                    <Grid item>
+                      <Button
+                        onClick={createEventHandler}
+                        variant="contained"
+                        color="primary"
+                      >
+                        Create Event
+                    </Button>
+                    </Grid>
+                  </>
+                ) : (
+                    <>
+                      <Grid item>
+                        <Button variant="contained" color="primary">
+                          Update Event
+                    </Button>
+                      </Grid>
+                      <Grid item>
+                        <Button variant="contained" color="secondary">
+                          Cancel Event
+                    </Button>
+                      </Grid>
+                    </>
+                  )}
 
               </Grid>
               <Grid

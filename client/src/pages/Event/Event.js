@@ -13,6 +13,7 @@ import CurrentUserEmail from "../../utils/CurrentUserEmail";
 import styles from "./Event.module.css";
 
 const Event = ({ match }) => {
+  const { currentUserData } = useContext(CurrentUserEmail);
   const [event, setEvent] = useState([]);
 
   useEffect(() => {

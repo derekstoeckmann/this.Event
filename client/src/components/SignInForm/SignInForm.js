@@ -5,7 +5,7 @@ import styles from "../SignUpForm/SignUpForm.module.css";
 import { Link } from "react-router-dom"
 
 const SignInForm = (props) => {
-    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
 
@@ -14,7 +14,8 @@ const SignInForm = (props) => {
     function handleSubmit(e) {
         e.preventDefault();
         Auth.signIn({
-            username: username,
+            username: email,
+            email: email,
             password: password,
         })
             .then(res => {
@@ -33,8 +34,8 @@ const SignInForm = (props) => {
                 </ErrorBanner>
                 <h1 className={styles.title}>Sign In</h1>
                 <form className={styles.formInput}>
-                    <label>Username</label>
-                    <input className={styles.formInputBox} type="text" name="username" placeholder="Username" value={username} onChange={e => setUsername(e.target.value)}></input>
+                    <label>Email</label>
+                    <input className={styles.formInputBox} type="text" name="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)}></input>
                     <label>Password</label>
                     <input className={styles.formInputBox} type="password" name="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)}></input>
                     <p>Don't Have an Account Yet? <Link to={"/signup"}>Create Account</Link></p>

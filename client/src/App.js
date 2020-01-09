@@ -25,9 +25,14 @@ function App() {
   };
 
   useEffect(() => {
+    // Auth.currentAuthenticatedUser()
+    //   .then(res => {
+    //     console.log(res)
+    //   })
     Auth.currentUserInfo()
       .then(res => {
         if (res !== null) {
+          console.log(res)
           getCurrentUser(res.attributes.email);
 
           axios

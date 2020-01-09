@@ -19,6 +19,7 @@ import CurrentUserEmail from "../../utils/CurrentUserEmail";
 import styles from "./CreateEvent.module.css";
 
 const CreateEvent = props => {
+  const { match, location } = props;
   const { currentUserData } = useContext(CurrentUserEmail);
 
   const [eventIsPublic, setEventIsPublic] = useState(true);
@@ -49,22 +50,42 @@ const CreateEvent = props => {
     }
   });
 
-  useEffect(() => {
-    if (window.navigator) {
+  useEffect(async () => {
+    let response;
+
+    if (match.params.eventId) {
+      response = await axios.get(`/api/events/${match.params.eventId}`)
+
+      setEventIsPublic(response.data.data.public);
+      setSelectedDate(response.data.data.time);
+      setEventDescription(response.data.data.description);
+      setHighlightsChecked(response.data.data.highlights.length ? true : false);
+      // setByoChecked(response.data.data.);
+      setLocationName(response.data.data.location.name);
+      setHighlight1(response.data.data.highlights[0] ? response.data.data.highlights[0] : null);
+      setHighlight2(response.data.data.highlights[1] ? response.data.data.highlights[1] : null);
+      setHighlight3(response.data.data.highlights[2] ? response.data.data.highlights[2] : null);
+      setHighlight4(response.data.data.highlights[3] ? response.data.data.highlights[3] : null);
+      setHighlight5(response.data.data.highlights[4] ? response.data.data.highlights[4] : null);
+      // setByoItemType(response.data.data.);
+      setEventTitle(response.data.data.title);
+    }
+
+    if (window.navigator || match.params.eventId) {
       window.navigator.geolocation.getCurrentPosition(function (pos) {
         const { latitude, longitude } = pos.coords;
         setLocationData({
-          address: "",
-          city: "",
-          state: "",
-          zipcode: "",
+          address: response.data.data.location.address ? response.data.data.location.address : '',
+          city: response.data.data.location.city ? response.data.data.location.city : '',
+          state: response.data.data.location.state ? response.data.data.location.state : '',
+          zipcode: response.data.data.location.zipcode ? response.data.data.location.zipcode : '',
           mapPosition: {
-            lat: latitude,
-            lng: longitude
+            lat: response.data.data.location.coordinates[1] ? response.data.data.location.coordinates[1] : latitude,
+            lng: response.data.data.location.coordinates[0] ? response.data.data.location.coordinates[0] : longitude
           },
           markerPosition: {
-            lat: latitude,
-            lng: longitude
+            lat: response.data.data.location.coordinates[1] ? response.data.data.location.coordinates[1] : latitude,
+            lng: response.data.data.location.coordinates[0] ? response.data.data.location.coordinates[0] : longitude
           }
         });
       });
@@ -101,25 +122,21 @@ const CreateEvent = props => {
       byoItemType: byoItemType
     };
 
+
+    console.log(eventData);
+
     axios
       .post("/api/events", eventData)
       .then(response => {
-        console.log("RESPONSE: ", response);
-        props.history.push(`/event/${response.data.data._id}`);
+        console.log(response);
       })
       .catch(err => console.log(err));
   };
 
-  //THIS IS HERE TO REMIND TO DO THE SHOW/HIDE
-  // showHideDiv({ checked, myDivId }) {
-  // console.log(checked)
-  // const myDisplay = document.getElementById(myDivId);
-  // if (checked) {
-  //   myDisplay.style.display = "inline";
-  // } else {
-  //   myDisplay.style.display = "none";
-  // }
-  // }
+  // THIS NEEDS TO BE SET TO A RELEVENT STATE
+  if (match.params.eventId && !eventTitle) {
+    return <h1>Loading...</h1>
+  }
 
   return (
     <Wrapper>
@@ -375,6 +392,7 @@ const CreateEvent = props => {
                 alignItems="center"
                 spacing={4}
               >
+
                 <Grid item>
                   <Button
                     onClick={createEventHandler}
@@ -384,6 +402,7 @@ const CreateEvent = props => {
                     Create Event
                   </Button>
                 </Grid>
+
                 <Grid item>
                   <Button variant="contained" color="primary">
                     Update Event
@@ -394,6 +413,7 @@ const CreateEvent = props => {
                     Cancel Event
                   </Button>
                 </Grid>
+
               </Grid>
               <Grid
                 container

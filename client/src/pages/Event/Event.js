@@ -10,7 +10,7 @@ import TextField from '@material-ui/core/TextField';
 
 import styles from "./Event.module.css"
 
-const Event = ({ match, location }) => {
+const Event = ({ match }) => {
   const [event, setEvent] = useState([]);
 
   useEffect(() => {

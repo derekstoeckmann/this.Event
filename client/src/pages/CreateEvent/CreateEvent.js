@@ -101,13 +101,11 @@ const CreateEvent = props => {
       byoItemType: byoItemType
     };
 
-
-    console.log(eventData);
-
     axios
       .post("/api/events", eventData)
       .then(response => {
-        console.log(response);
+        console.log("RESPONSE: ", response);
+        props.history.push(`/event/${response.data.data._id}`);
       })
       .catch(err => console.log(err));
   };

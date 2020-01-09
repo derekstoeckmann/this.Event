@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const Event = require("../models/Event");
 
 // @desc    Get all users
 // @route   GET /api/users
@@ -14,6 +15,12 @@ exports.getUser = async (req, res, next) => {
   const user = await User.findById(req.params.id);
 
   res.status(200).json({ success: true, data: user });
+};
+
+exports.getUserEventsHosting = async (req, res, next) => {
+  const events = await Event.find({ user: req.params.id });
+
+  res.status(200).json({ success: true, count: events.length, data: events });
 };
 
 // @desc    Create user

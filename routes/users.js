@@ -4,7 +4,8 @@ const {
   getUser,
   createUser,
   updateUser,
-  deleteUser
+  deleteUser,
+  getUserEventsHosting
 } = require("../controllers/users");
 
 const router = express.Router();
@@ -19,5 +20,7 @@ router
   .get(getUser)
   .put(updateUser)
   .delete(deleteUser);
+
+router.route("/:id/hosting").get(getUserEventsHosting);
 
 module.exports = router;

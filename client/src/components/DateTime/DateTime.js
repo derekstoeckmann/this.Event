@@ -18,6 +18,7 @@ function DateTime(props) {
         justify="center"
         alignItems="center"
         className="data-value-input"
+        minutesStep={15}
       />
     </MuiPickersUtilsProvider>
   );

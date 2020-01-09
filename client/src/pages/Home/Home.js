@@ -1,23 +1,42 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Moment from 'react-moment';
+import Moment from "react-moment";
+import axios from "axios";
 
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
-import Container from '@material-ui/core/Container';
-import TextField from '@material-ui/core/TextField';
+import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
+import Container from "@material-ui/core/Container";
+import TextField from "@material-ui/core/TextField";
 
 import Wrapper from "../../components/Wrapper/Wrapper";
-import RadiusSelect from '../../components/RadiusSelect';
-import DatePicker from '../../components/DatePicker/DatePicker';
-import MySingleEvent from '../../components/MySingleEvent/MySingleEvent';
+import RadiusSelect from "../../components/RadiusSelect";
+import DatePicker from "../../components/DatePicker/DatePicker";
+import MySingleEvent from "../../components/MySingleEvent/MySingleEvent";
 
-import styles from './Home.module.css';
+import CurrentUserEmail from "../../utils/CurrentUserEmail";
+
+import styles from "./Home.module.css";
 
 const Home = () => {
-  const [searchRadius, setSearchRadius] = useState("");
+  const { currentUserData } = useContext(CurrentUserEmail);
+  
+  const [events, setEvents] = useState([]);
+  const [searchRadius, setSearchRadius] = useState(25);
   const [searchZipcode, setSearchZipcode] = useState("");
   const [selectedDate, setSelectedDate] = useState(new Date());
+
+  useEffect(() => {
+    if (currentUserData) {
+      axios
+        .get(`/api/events?user=${currentUserData._id}`)
+        .then(response => {
+          setEvents([...response.data.data]);
+
+          console.log(events);
+        })
+        .catch(err => console.log(err));
+    }
+  }, [currentUserData]);
 
   const handleZipChange = event => {
     setSearchZipcode(event.target.value);
@@ -59,7 +78,9 @@ const Home = () => {
                   className={styles["main-events"]}
                 >
                   <div className={styles["searchScroll"]}>
-                    <MySingleEvent />
+                    <Link to="/event">
+                      <MySingleEvent />
+                    </Link>
                   </div>
                 </Grid>
                 <Grid

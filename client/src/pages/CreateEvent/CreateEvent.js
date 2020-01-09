@@ -1,25 +1,39 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 
 import Map from "../../components/Map/Map.js";
 import Wrapper from "../../components/Wrapper/Wrapper";
 import DateTime from "../../components/DateTime/DateTime";
+import EventHighlights from "../../components/EventHighlights/EventHighlights";
 
 import Grid from "@material-ui/core/Grid";
 import Switch from "@material-ui/core/Switch";
 import Button from "@material-ui/core/Button";
+import Checkbox from '@material-ui/core/Checkbox';
 import Container from "@material-ui/core/Container";
 import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 
+import CurrentUserEmail from "../../utils/CurrentUserEmail";
+
 import styles from "./CreateEvent.module.css";
 
 const CreateEvent = props => {
+  const { currentUserData } = useContext(CurrentUserEmail);
+
   const [eventIsPublic, setEventIsPublic] = useState(true);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [eventTitle, setEventTitle] = useState("");
   const [eventDescription, setEventDescription] = useState("");
+  const [highlightsChecked, setHighlightsChecked] = useState(false);
+  const [byoChecked, setByoChecked] = useState(false);
   const [locationName, setLocationName] = useState("");
+  const [highlight1, setHighlight1] = useState("");
+  const [highlight2, setHighlight2] = useState("");
+  const [highlight3, setHighlight3] = useState("");
+  const [highlight4, setHighlight4] = useState("");
+  const [highlight5, setHighlight5] = useState("");
+  const [byoItemType, setByoItemType] = useState("");
   const [locationData, setLocationData] = useState({
     address: "",
     city: "",
@@ -37,7 +51,7 @@ const CreateEvent = props => {
 
   useEffect(() => {
     if (window.navigator) {
-      window.navigator.geolocation.getCurrentPosition(function(pos) {
+      window.navigator.geolocation.getCurrentPosition(function (pos) {
         const { latitude, longitude } = pos.coords;
         setLocationData({
           address: "",
@@ -65,6 +79,7 @@ const CreateEvent = props => {
     event.preventDefault();
 
     const eventData = {
+      user: currentUserData._id,
       title: eventTitle,
       description: eventDescription,
       time: selectedDate,
@@ -74,13 +89,18 @@ const CreateEvent = props => {
           locationData.markerPosition.lng,
           locationData.markerPosition.lat
         ],
+        name: locationName,
         address: locationData.address,
         city: locationData.city,
         state: locationData.state,
         zipcode: locationData.zipcode
       },
-      public: eventIsPublic
+      public: eventIsPublic,
+      locationName: locationName,
+      highlights: [highlight1, highlight2, highlight3, highlight4, highlight5],
+      byoItemType: byoItemType
     };
+
 
     console.log(eventData);
 
@@ -284,78 +304,42 @@ const CreateEvent = props => {
             >
               <Grid item>
                 <span className={styles["data-key"]}>Highlights</span> (Up to 5){" "}
-                <input type="checkbox" />
-                {/* onClick={this.showHideDiv(this.checked, 'highlight-box')} /> */}
+                <Checkbox
+                  onChange={event => setHighlightsChecked(!highlightsChecked)}
+                  checked={highlightsChecked}
+                  value="highlightsCheck"
+                  color="primary"
+                  inputProps={{ 'aria-label': 'highlights checkbox' }}
+                />
               </Grid>
-              <Grid item xs={11}>
-                <Grid
-                  container
-                  direction="row"
-                  justify="left"
-                  alignItems="center"
-                  spacing={3}
-                >
-                  <Grid item md={6}>
-                    <TextField
-                      id="highlight-1"
-                      label="Event Highlight One"
-                      variant="outlined"
-                      size="small"
-                      className={styles["data-value-input"]}
-                    />
-                  </Grid>
-                  <Grid item md={6}>
-                    <TextField
-                      id="highlight-2"
-                      label="Event Highlight Two"
-                      variant="outlined"
-                      size="small"
-                      className={styles["data-value-input"]}
-                    />
-                  </Grid>
-                  <Grid item md={6}>
-                    <TextField
-                      id="highlight-3"
-                      label="Event Highlight Three"
-                      variant="outlined"
-                      size="small"
-                      className={styles["data-value-input"]}
-                    />
-                  </Grid>
-                  <Grid item md={6}>
-                    <TextField
-                      id="highlight-4"
-                      label="Event Highlight Four"
-                      variant="outlined"
-                      size="small"
-                      className={styles["data-value-input"]}
-                    />
-                  </Grid>
-                  <Grid item md={6}>
-                    <TextField
-                      id="highlight-5"
-                      label="Event Highlight Five"
-                      variant="outlined"
-                      size="small"
-                      className={styles["data-value-input"]}
-                    />
-                  </Grid>
-                </Grid>
-              </Grid>
+              {highlightsChecked ? <EventHighlights
+                highlight1={highlight1} setHighlight1={setHighlight1}
+                highlight2={highlight2} setHighlight2={setHighlight2}
+                highlight3={highlight3} setHighlight3={setHighlight3}
+                highlight4={highlight4} setHighlight4={setHighlight4}
+                highlight5={highlight5} setHighlight5={setHighlight5}
+              /> : null}
 
               <Grid item>
                 <span className={styles["data-key"]}>Bring your own?</span>{" "}
-                <input type="checkbox" />
-                <br />
-                <br />
-                {/* onClick={this.showHideDiv(this.checked, 'byo-box')} /><br /><br /> */}
-                <TextField
-                  id="byo"
-                  label="Bring Your Own ____"
-                  variant="outlined"
-                  size="small"
-                  className={styles["data-value-input"]}
+                <Checkbox
+                  onChange={event => setByoChecked(!byoChecked)}
+                  checked={byoChecked}
+                  value="byoCheck"
+                  color="primary"
+                  inputProps={{ 'aria-label': 'byo checkbox' }}
                 />
+                {byoChecked ?
+                  <TextField
+                    id="byo"
+                    label="Bring Your Own ____"
+                    value={byoItemType}
+                    onChange={event => setByoItemType(event.target.value)}
+                    variant="outlined"
+                    size="small"
+                    className={styles["data-value-input"]}
+                  />
+                  : null}
               </Grid>
 
               <Grid item xs={12} className={styles["tableFullWidth"]}>

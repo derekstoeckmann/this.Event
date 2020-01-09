@@ -31,6 +31,7 @@ const EventSchema = new mongoose.Schema(
         type: [Number],
         index: "2dsphere"
       },
+      name: String,
       address: String,
       city: String,
       state: String,

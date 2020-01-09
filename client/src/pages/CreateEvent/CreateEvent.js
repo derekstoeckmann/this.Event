@@ -79,6 +79,7 @@ const CreateEvent = props => {
           locationData.markerPosition.lng,
           locationData.markerPosition.lat
         ],
+        name: locationName,
         address: locationData.address,
         city: locationData.city,
         state: locationData.state,

@@ -36,15 +36,31 @@ const Search = () => {
   }, []);
 
   const handleSearchSubmit = async () => {
-    const location = await Geocode.fromAddress(searchZipcode);
-    const { lat, lng } = location.results[0].geometry.location;
-    // const params = { lat, lng, distance: searchRadius };
-    // console.log("params", params);
-    const events = await axios.get(
-      `/api/events/near?distance=${searchRadius}&lat=${lat}&lng=${lng}`
-    );
-    // console.log("events", events);
-    setEvents(events.data.data);
+    let events;
+    if (searchZipcode) {
+      console.log("zip")
+      const location = await Geocode.fromAddress(searchZipcode);
+      const { lat, lng } = location.results[0].geometry.location;
+      // const params = { lat, lng, distance: searchRadius };
+      // console.log("params", params);
+      events = await axios.get(
+        `/api/events/near?distance=${searchRadius}&lat=${lat}&lng=${lng}`
+      );
+      setEvents(events.data.data);
+    } else if (window.navigator) {
+      console.log("Nav")
+      window.navigator.geolocation.getCurrentPosition(async function (pos) {
+        console.log(pos)
+        const { latitude, longitude } = pos.coords;
+        console.log(latitude)
+        console.log(longitude)
+        events = await axios.get(
+          `/api/events/near?distance=${searchRadius}&lat=${latitude}&lng=${longitude}`
+        );
+        setEvents(events.data.data);
+      });
+    }
+
   };
 
   const handleZipChange = event => {

@@ -16,6 +16,7 @@ const Event = ({ match, location }) => {
   const { currentUserData } = useContext(CurrentUserEmail);
 
   const [event, setEvent] = useState([]);
+  const [eventAttending, setEventAttending] = useState([]);
 
   useEffect(() => {
     axios
@@ -27,6 +28,17 @@ const Event = ({ match, location }) => {
         console.log(err);
       });
   }, []);
+
+  useEffect(() => {
+    axios
+      .get(`/api/events/${match.params.eventId}/attending`)
+      .then(response => {
+        setEventAttending(response.data.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, [event]);
 
   const userIsAttending = async () => {
     const updatedAttending = [...event.attending, currentUserData._id];
@@ -232,21 +244,17 @@ const Event = ({ match, location }) => {
                   alignItems="left"
                   spacing={1}
                 >
-                  <Grid item xs={12} sm={6} md={4}>
-                    <li>Bill Inkman - Potato Salad</li>
-                  </Grid>
-                  <Grid item xs={12} sm={6} md={4}>
-                    <li>Steve Smith - Jello</li>
-                  </Grid>
-                  <Grid item xs={12} sm={6} md={4}>
-                    <li>Jill Wagner - Meatloaf</li>
-                  </Grid>
-                  <Grid item xs={12} sm={6} md={4}>
-                    <li>Liezl Neal - Chicken Adobo</li>
-                  </Grid>
-                  <Grid item xs={12} sm={6} md={4}>
-                    <li>Mike Milton - Potato Chips</li>
-                  </Grid>
+                  {eventAttending.length > 0 ? (
+                    eventAttending.map(user => (
+                      <Grid key={user._id} item xs={12} sm={6} md={4}>
+                        <li>
+                          {user.firstName} {user.lastName}
+                        </li>
+                      </Grid>
+                    ))
+                  ) : (
+                    <h1>No users attending yet!</h1>
+                  )}
                   <br />
                   <br />
                   <br />

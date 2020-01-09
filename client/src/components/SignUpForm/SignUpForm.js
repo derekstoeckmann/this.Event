@@ -8,19 +8,19 @@ import { Link } from "react-router-dom";
 const SignUpForm = (props) => {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
-    const [username, setUsername] = useState("");
+    // const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmationCode, setConfirmationCode] = useState("");
     const [signedup, setSignedUp] = useState("");
-    const [userId, setUserId] = useState("");
+    // const [userId, setUserId] = useState("");
     const [error, setError] = useState("");
 
     function handleSubmit(e) {
         e.preventDefault();
         if (!signedup) {
             Auth.signUp({
-                username: username,
+                username: email,
                 password: password,
                 attributes: {
                     email: email,
@@ -29,14 +29,13 @@ const SignUpForm = (props) => {
             })
                 .then(res => {
                     setError("")
-                    setUserId(res.userSub)
                     setSignedUp(true)
                 })
                 .catch(err => {
                     setError(err.message)
                 })
         } else {
-            Auth.confirmSignUp(username, confirmationCode)
+            Auth.confirmSignUp(email, confirmationCode)
                 .then((res) => {
                     const userData = {
                         firstName,
@@ -67,8 +66,8 @@ const SignUpForm = (props) => {
                     </ErrorBanner>
                     <h1 className={styles.title}>Confirm Your Account With Email</h1>
                     <form className={styles.formInput}>
-                        <label>Username</label>
-                        <input className={styles.formInputBox} type="text" name="username" placeholder="Username" value={username} onChange={e => setUsername(e.target.value)}></input>
+                        <label>Email</label>
+                        <input className={styles.formInputBox} type="text" name="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)}></input>
                         <label>Confirmation Email Code</label>
                         <input className={styles.formInputBox} type="text" name="confirmationCode" value={confirmationCode} onChange={e => setConfirmationCode(e.target.value)}></input>
                         <button className={styles.btn} onClick={handleSubmit}>Submit</button>
@@ -89,8 +88,8 @@ const SignUpForm = (props) => {
                         <input className={styles.formInputBox} type="text" name="firstname" placeholder="First Name" value={firstName} onChange={e => setFirstName(e.target.value)}></input>
                         <label>Last Name</label>
                         <input className={styles.formInputBox} type="text" name="lastname" placeholder="Last Name" value={lastName} onChange={e => setLastName(e.target.value)}></input>
-                        <label>Username</label>
-                        <input className={styles.formInputBox} type="text" name="username" placeholder="Username" value={username} onChange={e => setUsername(e.target.value)}></input>
+                        {/* <label>Username</label>
+                        <input className={styles.formInputBox} type="text" name="username" placeholder="Username" value={username} onChange={e => setUsername(e.target.value)}></input> */}
                         <label>Email</label>
                         <input className={styles.formInputBox} type="text" name="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)}></input>
                         <label>Password</label>

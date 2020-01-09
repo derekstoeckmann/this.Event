@@ -1,6 +1,6 @@
 {
 	"auth": {
-		"eventdd9a05d6": {
+		"meetingb031d78b": {
 			"service": "Cognito",
 			"providerPlugin": "awscloudformation",
 			"dependsOn": []

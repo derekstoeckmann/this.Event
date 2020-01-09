@@ -32,9 +32,8 @@ function App() {
     Auth.currentUserInfo()
       .then(res => {
         if (res !== null) {
-          console.log(res)
+          getLoggedIn(true)
           getCurrentUser(res.attributes.email);
-
           axios
             .get(`/api/users?email=${currentUser}`)
             .then(response => {
@@ -48,9 +47,9 @@ function App() {
       .catch(err => {
         console.log("error", err);
       });
-  }, [loggedIn]);
+  }, [currentUser]);
 
-  if (loggedIn || currentUser) {
+  if (loggedIn) {
     return (
       <CurrentUserEmail.Provider value={{ currentUserData }}>
         <IsLoggedIn.Provider value={{ loggedIn, isLoggedIn }}>

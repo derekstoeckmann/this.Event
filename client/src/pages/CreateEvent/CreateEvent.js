@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 
 import Map from "../../components/Map/Map.js";
@@ -14,9 +14,13 @@ import Container from "@material-ui/core/Container";
 import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 
+import CurrentUserEmail from "../../utils/CurrentUserEmail";
+
 import styles from "./CreateEvent.module.css";
 
 const CreateEvent = props => {
+  const { currentUserData } = useContext(CurrentUserEmail);
+
   const [eventIsPublic, setEventIsPublic] = useState(true);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [eventTitle, setEventTitle] = useState("");
@@ -75,6 +79,7 @@ const CreateEvent = props => {
     event.preventDefault();
 
     const eventData = {
+      user: currentUserData._id,
       title: eventTitle,
       description: eventDescription,
       time: selectedDate,
@@ -84,6 +89,7 @@ const CreateEvent = props => {
           locationData.markerPosition.lng,
           locationData.markerPosition.lat
         ],
+        name: locationName,
         address: locationData.address,
         city: locationData.city,
         state: locationData.state,

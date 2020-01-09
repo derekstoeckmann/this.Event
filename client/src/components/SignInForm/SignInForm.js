@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Auth } from "aws-amplify";
 import ErrorBanner from "../ErrorBanner/ErrorBanner";
-import styles from "./SignInForm.module.css"
+import styles from "../SignUpForm/SignUpForm.module.css";
+import { Link } from "react-router-dom"
 
 const SignInForm = (props) => {
     const [username, setUsername] = useState("");
@@ -17,7 +18,6 @@ const SignInForm = (props) => {
             password: password,
         })
             .then(res => {
-                console.log("signed in" + res)
                 isLoggedIn(true)
                 props.history.push("/")
             })
@@ -26,17 +26,21 @@ const SignInForm = (props) => {
             })
     }
     return (
-        <div className={styles.form}>
-            <ErrorBanner>
-                {error}
-            </ErrorBanner>
-            <form>
-                <label>Username</label>
-                <input type="text" name="username" placeholder="Username" value={username} onChange={e => setUsername(e.target.value)}></input>
-                <label>Password</label>
-                <input type="password" name="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)}></input>
-                <button onClick={handleSubmit}>Submit</button>
-            </form>
+        <div>
+            <div className={styles.form}>
+                <ErrorBanner>
+                    {error}
+                </ErrorBanner>
+                <h1 className={styles.title}>Sign In</h1>
+                <form className={styles.formInput}>
+                    <label>Username</label>
+                    <input className={styles.formInputBox} type="text" name="username" placeholder="Username" value={username} onChange={e => setUsername(e.target.value)}></input>
+                    <label>Password</label>
+                    <input className={styles.formInputBox} type="password" name="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)}></input>
+                    <p>Don't Have an Account Yet? <Link to={"/signup"}>Create Account</Link></p>
+                    <button className={styles.btn} onClick={handleSubmit}>Submit</button>
+                </form>
+            </div>
         </div>
     )
 }

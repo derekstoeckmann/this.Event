@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const app = express();
+const path = require("path");
 const PORT = process.env.PORT || 3001;
 const connectToDatabase = require("./config/db");
 const events = require("./routes/events");
@@ -16,7 +17,9 @@ app.use("/api/users", users);
 app.use("/", protected);
 
 // This will eventually be the React entrance route
-app.get("*", (req, res) => res.send("Hello world!"));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "./client/build/index.html"));
+});
 
 connectToDatabase();
 

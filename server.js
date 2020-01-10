@@ -16,6 +16,8 @@ app.use("/api/events", events);
 app.use("/api/users", users);
 app.use("/", protected);
 
+app.use(express.static("client/build"));
+
 // This will eventually be the React entrance route
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));

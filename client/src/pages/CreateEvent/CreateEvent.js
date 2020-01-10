@@ -50,81 +50,85 @@ const CreateEvent = props => {
     }
   });
 
-  useEffect(async () => {
-    let response;
-
-    if (match.params.eventId) {
-      response = await axios.get(`/api/events/${match.params.eventId}`);
-      if (window.navigator || match.params.eventId) {
-        window.navigator.geolocation.getCurrentPosition(function(pos) {
-          const { latitude, longitude } = pos.coords;
-          setLocationData({
-            address: response.data.data.location.address
-              ? response.data.data.location.address
-              : "",
-            city: response.data.data.location.city
-              ? response.data.data.location.city
-              : "",
-            state: response.data.data.location.state
-              ? response.data.data.location.state
-              : "",
-            zipcode: response.data.data.location.zipcode
-              ? response.data.data.location.zipcode
-              : "",
-            mapPosition: {
-              lat: response.data.data.location.coordinates[1]
-                ? response.data.data.location.coordinates[1]
-                : latitude,
-              lng: response.data.data.location.coordinates[0]
-                ? response.data.data.location.coordinates[0]
-                : longitude
-            },
-            markerPosition: {
-              lat: response.data.data.location.coordinates[1]
-                ? response.data.data.location.coordinates[1]
-                : latitude,
-              lng: response.data.data.location.coordinates[0]
-                ? response.data.data.location.coordinates[0]
-                : longitude
-            }
+  useEffect(() => {
+    const getEventIfExists = async () => {
+      if (match.params.eventId) {
+        const response = await axios.get(`/api/events/${match.params.eventId}`);
+        if (window.navigator || match.params.eventId) {
+          window.navigator.geolocation.getCurrentPosition(function(pos) {
+            const { latitude, longitude } = pos.coords;
+            setLocationData({
+              address: response.data.data.location.address
+                ? response.data.data.location.address
+                : "",
+              city: response.data.data.location.city
+                ? response.data.data.location.city
+                : "",
+              state: response.data.data.location.state
+                ? response.data.data.location.state
+                : "",
+              zipcode: response.data.data.location.zipcode
+                ? response.data.data.location.zipcode
+                : "",
+              mapPosition: {
+                lat: response.data.data.location.coordinates[1]
+                  ? response.data.data.location.coordinates[1]
+                  : latitude,
+                lng: response.data.data.location.coordinates[0]
+                  ? response.data.data.location.coordinates[0]
+                  : longitude
+              },
+              markerPosition: {
+                lat: response.data.data.location.coordinates[1]
+                  ? response.data.data.location.coordinates[1]
+                  : latitude,
+                lng: response.data.data.location.coordinates[0]
+                  ? response.data.data.location.coordinates[0]
+                  : longitude
+              }
+            });
           });
-        });
-      }
+        }
 
-      setEventIsPublic(response.data.data.public);
-      setSelectedDate(response.data.data.time);
-      setEventDescription(response.data.data.description);
-      setHighlightsChecked(response.data.data.highlights.length ? true : false);
-      // setByoChecked(response.data.data.);
-      setLocationName(response.data.data.location.name);
-      setHighlight1(
-        response.data.data.highlights[0]
-          ? response.data.data.highlights[0]
-          : null
-      );
-      setHighlight2(
-        response.data.data.highlights[1]
-          ? response.data.data.highlights[1]
-          : null
-      );
-      setHighlight3(
-        response.data.data.highlights[2]
-          ? response.data.data.highlights[2]
-          : null
-      );
-      setHighlight4(
-        response.data.data.highlights[3]
-          ? response.data.data.highlights[3]
-          : null
-      );
-      setHighlight5(
-        response.data.data.highlights[4]
-          ? response.data.data.highlights[4]
-          : null
-      );
-      // setByoItemType(response.data.data.);
-      setEventTitle(response.data.data.title);
-    }
+        setEventIsPublic(response.data.data.public);
+        setSelectedDate(response.data.data.time);
+        setEventDescription(response.data.data.description);
+        setHighlightsChecked(
+          response.data.data.highlights.length ? true : false
+        );
+        // setByoChecked(response.data.data.);
+        setLocationName(response.data.data.location.name);
+        setHighlight1(
+          response.data.data.highlights[0]
+            ? response.data.data.highlights[0]
+            : null
+        );
+        setHighlight2(
+          response.data.data.highlights[1]
+            ? response.data.data.highlights[1]
+            : null
+        );
+        setHighlight3(
+          response.data.data.highlights[2]
+            ? response.data.data.highlights[2]
+            : null
+        );
+        setHighlight4(
+          response.data.data.highlights[3]
+            ? response.data.data.highlights[3]
+            : null
+        );
+        setHighlight5(
+          response.data.data.highlights[4]
+            ? response.data.data.highlights[4]
+            : null
+        );
+        // setByoItemType(response.data.data.);
+        setEventTitle(response.data.data.title);
+      }
+    };
+
+    getEventIfExists();
   }, []);
 
   const toggleEventIsPublic = () => {
@@ -165,7 +169,7 @@ const CreateEvent = props => {
         .put(`/api/events/${match.params.eventId}`, eventData)
         .then(response => {
           console.log("event updated: ", response);
-          props.history.push(`/event/${match.params.eventId}`);
+          props.history.push(`/event/${response.data.data._id}`);
         })
         .catch(err => console.log(err));
     } else {

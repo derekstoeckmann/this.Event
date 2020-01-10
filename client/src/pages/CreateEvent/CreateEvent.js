@@ -55,7 +55,6 @@ const CreateEvent = props => {
 
     if (match.params.eventId) {
       response = await axios.get(`/api/events/${match.params.eventId}`)
-      console.log("RESPONSE: ", response)
       if (window.navigator || match.params.eventId) {
         window.navigator.geolocation.getCurrentPosition(function (pos) {
           const { latitude, longitude } = pos.coords;

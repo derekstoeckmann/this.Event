@@ -10,6 +10,9 @@ function SingleEvent(props) {
   const { _id, time, title, shortDescription } = props;
   return (
     <>
+      <Grid item>
+        {<Moment date={time} format="MM/DD/YYYY" />}
+      </Grid>
       <Link to={`/event/${_id}`}>
         <Grid item xs={12} className={styles["main-events-white"]}>
           <Grid container direction="row">

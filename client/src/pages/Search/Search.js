@@ -6,22 +6,15 @@ import Moment from "react-moment";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
-import TextField from "@material-ui/core/TextField";
 
 import Wrapper from "../../components/Wrapper/Wrapper";
-import RadiusSelect from "../../components/RadiusSelect";
-import DatePicker from "../../components/DatePicker/DatePicker";
 import NoEvent from "../../components/NoEvent/NoEvent";
 import SingleEvent from "../../components/SingleEvent/SingleEvent";
+import SearchOptions from "../../components/SearchOptions/SearchOptions";
 import styles from "./Search.module.css";
-import Geocode from "react-geocode";
-Geocode.setApiKey(process.env.REACT_APP_GOOGLE_KEY);
-Geocode.enableDebug();
 
 const Search = () => {
   const [events, setEvents] = useState([]);
-  const [searchRadius, setSearchRadius] = useState(25);
-  const [searchZipcode, setSearchZipcode] = useState("");
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   useEffect(() => {
@@ -34,42 +27,6 @@ const Search = () => {
         console.log(err);
       });
   }, []);
-
-  const handleSearchSubmit = async () => {
-    let events;
-    if (searchZipcode) {
-      console.log("zip")
-      const location = await Geocode.fromAddress(searchZipcode);
-      const { lat, lng } = location.results[0].geometry.location;
-      // const params = { lat, lng, distance: searchRadius };
-      // console.log("params", params);
-      events = await axios.get(
-        `/api/events/near?distance=${searchRadius}&lat=${lat}&lng=${lng}`
-      );
-      setEvents(events.data.data);
-    } else if (window.navigator) {
-      console.log("Nav")
-      window.navigator.geolocation.getCurrentPosition(async function (pos) {
-        console.log(pos)
-        const { latitude, longitude } = pos.coords;
-        console.log(latitude)
-        console.log(longitude)
-        events = await axios.get(
-          `/api/events/near?distance=${searchRadius}&lat=${latitude}&lng=${longitude}`
-        );
-        setEvents(events.data.data);
-      });
-    }
-
-  };
-
-  const handleZipChange = event => {
-    setSearchZipcode(event.target.value);
-  };
-
-  const handleRadiusChange = event => {
-    setSearchRadius(event.target.value);
-  };
 
   const handleDateChange = date => {
     setSelectedDate(date);
@@ -106,7 +63,7 @@ const Search = () => {
                   className={styles["main-events"]}
                 >
                   <div className={styles["searchScroll"]}>
-                    {events.length > 0 ? (
+                    {events.length ? (
                       events.map(event => (
                         <SingleEvent key={event._id} {...event} />
                       ))
@@ -130,69 +87,35 @@ const Search = () => {
               <Grid item md={6}>
                 <Grid
                   container
-                  direction="column"
+                  direction="row"
                   justify="center"
                   alignItems="center"
+                  spacing={6}
                 >
-                  <h1>Search Upcoming Events</h1>
-                  <Grid
-                    container
-                    direction="column"
-                    justify="center"
-                    alignItems="center"
-                    spacing={2}
-                  >
-                    <Grid item>
-                      <DatePicker
-                        selectedDate={selectedDate}
-                        handleDateChange={handleDateChange}
-                      />
-                    </Grid>
-                    <Grid item>
-                      <TextField
-                        type="number"
-                        id="search-zip"
-                        label="Zipcode"
-                        variant="outlined"
-                        size="small"
-                        value={searchZipcode}
-                        onChange={handleZipChange}
-                      />
-                    </Grid>
-                    <Grid item>
-                      <RadiusSelect
-                        searchRadius={searchRadius}
-                        handleRadiusChange={handleRadiusChange}
-                      />
-                    </Grid>
-                    <Grid item>
-                      <Link to="/search">
-                        <Button
-                          onClick={handleSearchSubmit}
-                          variant="contained"
-                          color="primary"
-                        >
-                          Search
-                        </Button>
-                      </Link>
-                    </Grid>
+                  <Grid item>
+                    <SearchOptions
+                      selectedDate={selectedDate}
+                      handleDateChange={handleDateChange}
+                      events={events}
+                      setEvents={setEvents}
+                    />
                   </Grid>
-                  <br />
-                  <br />
-                  <h1>Planning an Event?</h1>
-                  <Grid
-                    container
-                    direction="column"
-                    justify="center"
-                    alignItems="center"
-                    spacing={2}
-                  >
-                    <Grid item>
-                      <Link to="/createEvent">
-                        <Button variant="contained" color="primary">
-                          Create New Event
+                  <Grid item>
+                    <h1>Planning an Event?</h1>
+                    <Grid
+                      container
+                      direction="column"
+                      justify="center"
+                      alignItems="center"
+                      spacing={2}
+                    >
+                      <Grid item>
+                        <Link to="/createEvent">
+                          <Button variant="contained" color="primary">
+                            Create New Event
                         </Button>
-                      </Link>
+                        </Link>
+                      </Grid>
                     </Grid>
                   </Grid>
                 </Grid>

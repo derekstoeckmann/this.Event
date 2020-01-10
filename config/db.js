@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const connectToDatabase = async () => {
   const connection = await mongoose.connect(
-    "mongodb://localhost/event_app_db",
+    process.env.MONGODB_URI || "mongodb://localhost/event_app_db",
     {
       useCreateIndex: true,
       useNewUrlParser: true,

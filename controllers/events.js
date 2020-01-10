@@ -1,5 +1,6 @@
 const Event = require("../models/Event");
 const Post = require("../models/Post");
+const IsAuthenticated = require("../routes/IsAuthenticated")
 
 // @desc    Get all events
 // @route   GET /api/events

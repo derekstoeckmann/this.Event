@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const IsAuthenticated = require("../routes/IsAuthenticated");
 
 // @desc    Get all users
 // @route   GET /api/users

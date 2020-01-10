@@ -1,4 +1,5 @@
 const express = require("express");
+const { Validate } = require("./IsAuthenticated")
 const {
   getEvents,
   getEvent,
@@ -18,28 +19,28 @@ const router = express.Router();
 
 router
   .route("/")
-  .get(getEvents)
-  .post(createEvent);
+  .get(getEvents, Validate)
+  .post(createEvent, Validate);
 
-router.route("/near").get(getEventsNear);
+router.route("/near").get(getEventsNear, Validate);
 
 router
   .route("/:id")
-  .get(getEvent)
-  .put(updateEvent)
-  .delete(deleteEvent);
+  .get(getEvent, Validate)
+  .put(updateEvent, Validate)
+  .delete(deleteEvent, Validate);
 
-router.route("/:id/attending").get(getEventAttending);
+router.route("/:id/attending").get(getEventAttending, Validate);
 
 router
   .route("/:id/posts")
-  .get(getEventPosts)
-  .post(createEventPost);
+  .get(getEventPosts, Validate)
+  .post(createEventPost, Validate);
 
 router
   .route("/:id/posts/:postid")
-  .get(getEventPost)
-  .put(updateEventPost)
-  .delete(deleteEventPost);
+  .get(getEventPost, Validate)
+  .put(updateEventPost, Validate)
+  .delete(deleteEventPost, Validate);
 
 module.exports = router;

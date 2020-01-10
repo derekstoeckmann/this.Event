@@ -18,14 +18,19 @@ Amplify.configure(aws_exports);
 function App() {
   const [currentUserData, setCurrentUserData] = useState();
   const [loggedIn, getLoggedIn] = useState("");
+  const [signedIn, getSignedIn] = useState(false);
 
   const isLoggedIn = value => {
     getLoggedIn(value);
+  };
+  const isSignedIn = value => {
+    getSignedIn(value);
   };
 
   useEffect(() => {
     Auth.currentAuthenticatedUser()
       .then(res => {
+        console.log(res)
         getLoggedIn(true)
         console.log(res.attributes.email)
         const email = res.attributes.email
@@ -51,9 +56,10 @@ function App() {
           })
       })
       .catch(err => {
+        getLoggedIn(false)
         console.log(err)
       })
-  }, []);
+  }, [signedIn]);
 
   if (loggedIn) {
     return (
@@ -80,7 +86,7 @@ function App() {
           <Route
             exact
             path="/login"
-            render={props => <SignInForm {...props} value={isLoggedIn} />}
+            render={props => <SignInForm {...props} value={isLoggedIn} signed={isSignedIn} />}
           />
           <Route
             exact

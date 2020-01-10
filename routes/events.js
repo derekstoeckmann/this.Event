@@ -19,28 +19,28 @@ const router = express.Router();
 
 router
   .route("/")
-  .get(getEvents, Validate)
-  .post(createEvent, Validate);
+  .get(Validate, getEvents)
+  .post(Validate, createEvent);
 
-router.route("/near").get(getEventsNear, Validate);
+router.route("/near").get(Validate, getEventsNear);
 
 router
   .route("/:id")
-  .get(getEvent, Validate)
-  .put(updateEvent, Validate)
-  .delete(deleteEvent, Validate);
+  .get(Validate, getEvent)
+  .put(Validate, updateEvent)
+  .delete(Validate, deleteEvent);
 
-router.route("/:id/attending").get(getEventAttending, Validate);
+router.route("/:id/attending").get(Validate, getEventAttending);
 
 router
   .route("/:id/posts")
-  .get(getEventPosts, Validate)
-  .post(createEventPost, Validate);
+  .get(Validate, getEventPosts)
+  .post(Validate, createEventPost);
 
 router
   .route("/:id/posts/:postid")
-  .get(getEventPost, Validate)
-  .put(updateEventPost, Validate)
-  .delete(deleteEventPost, Validate);
+  .get(Validate, getEventPost)
+  .put(Validate, updateEventPost)
+  .delete(Validate, deleteEventPost);
 
 module.exports = router;

@@ -3,7 +3,6 @@ var jwt = require('jsonwebtoken');
 var jwkToPem = require('jwk-to-pem');
 
 exports.Validate = function (req, res, next) {
-    console.log(req.headers.authorization)
     var token = req.headers['authorization'];
     request({
         url: `https://cognito-idp.us-east-2.amazonaws.com/us-east-2_YoEWTP0N0/.well-known/jwks.json`,

@@ -6,7 +6,6 @@ import TextField from "@material-ui/core/TextField";
 import styles from "./EventHighlights.module.css";
 
 function EventHighlights(props) {
-  const { time, title, description } = props;
   return (
     <>
       <Grid item xs={11}>

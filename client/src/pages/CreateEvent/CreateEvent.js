@@ -9,7 +9,7 @@ import EventHighlights from "../../components/EventHighlights/EventHighlights";
 import Grid from "@material-ui/core/Grid";
 import Switch from "@material-ui/core/Switch";
 import Button from "@material-ui/core/Button";
-import Checkbox from '@material-ui/core/Checkbox';
+import Checkbox from "@material-ui/core/Checkbox";
 import Container from "@material-ui/core/Container";
 import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -19,6 +19,7 @@ import CurrentUserEmail from "../../utils/CurrentUserEmail";
 import styles from "./CreateEvent.module.css";
 
 const CreateEvent = props => {
+  const { match, location } = props;
   const { currentUserData } = useContext(CurrentUserEmail);
 
   const [eventIsPublic, setEventIsPublic] = useState(true);
@@ -50,32 +51,91 @@ const CreateEvent = props => {
   });
 
   useEffect(() => {
-    if (window.navigator) {
-      window.navigator.geolocation.getCurrentPosition(function (pos) {
-        const { latitude, longitude } = pos.coords;
-        setLocationData({
-          address: "",
-          city: "",
-          state: "",
-          zipcode: "",
-          mapPosition: {
-            lat: latitude,
-            lng: longitude
-          },
-          markerPosition: {
-            lat: latitude,
-            lng: longitude
-          }
-        });
-      });
-    }
+    const getEventIfExists = async () => {
+      if (match.params.eventId) {
+        const response = await axios.get(`/api/events/${match.params.eventId}`);
+        if (window.navigator || match.params.eventId) {
+          window.navigator.geolocation.getCurrentPosition(function(pos) {
+            const { latitude, longitude } = pos.coords;
+            setLocationData({
+              address: response.data.data.location.address
+                ? response.data.data.location.address
+                : "",
+              city: response.data.data.location.city
+                ? response.data.data.location.city
+                : "",
+              state: response.data.data.location.state
+                ? response.data.data.location.state
+                : "",
+              zipcode: response.data.data.location.zipcode
+                ? response.data.data.location.zipcode
+                : "",
+              mapPosition: {
+                lat: response.data.data.location.coordinates[1]
+                  ? response.data.data.location.coordinates[1]
+                  : latitude,
+                lng: response.data.data.location.coordinates[0]
+                  ? response.data.data.location.coordinates[0]
+                  : longitude
+              },
+              markerPosition: {
+                lat: response.data.data.location.coordinates[1]
+                  ? response.data.data.location.coordinates[1]
+                  : latitude,
+                lng: response.data.data.location.coordinates[0]
+                  ? response.data.data.location.coordinates[0]
+                  : longitude
+              }
+            });
+          });
+        }
+
+        setEventIsPublic(response.data.data.public);
+        setSelectedDate(response.data.data.time);
+        setEventDescription(response.data.data.description);
+        setHighlightsChecked(
+          response.data.data.highlights.length ? true : false
+        );
+        // setByoChecked(response.data.data.);
+        setLocationName(response.data.data.location.name);
+        setHighlight1(
+          response.data.data.highlights[0]
+            ? response.data.data.highlights[0]
+            : null
+        );
+        setHighlight2(
+          response.data.data.highlights[1]
+            ? response.data.data.highlights[1]
+            : null
+        );
+        setHighlight3(
+          response.data.data.highlights[2]
+            ? response.data.data.highlights[2]
+            : null
+        );
+        setHighlight4(
+          response.data.data.highlights[3]
+            ? response.data.data.highlights[3]
+            : null
+        );
+        setHighlight5(
+          response.data.data.highlights[4]
+            ? response.data.data.highlights[4]
+            : null
+        );
+        // setByoItemType(response.data.data.);
+        setEventTitle(response.data.data.title);
+      }
+    };
+
+    getEventIfExists();
   }, []);
 
   const toggleEventIsPublic = () => {
     setEventIsPublic(!eventIsPublic);
   };
 
-  const createEventHandler = event => {
+  const submitHandler = event => {
     event.preventDefault();
 
     const eventData = {
@@ -101,25 +161,33 @@ const CreateEvent = props => {
       byoItemType: byoItemType
     };
 
-    axios
-      .post("/api/events", eventData)
-      .then(response => {
-        console.log("RESPONSE: ", response);
-        props.history.push(`/event/${response.data.data._id}`);
-      })
-      .catch(err => console.log(err));
+    console.log(eventData);
+
+    if (match.params.eventId) {
+      console.log("you hit the UPDATE condition");
+      axios
+        .put(`/api/events/${match.params.eventId}`, eventData)
+        .then(response => {
+          console.log("event updated: ", response);
+          props.history.push(`/event/${response.data.data._id}`);
+        })
+        .catch(err => console.log(err));
+    } else {
+      console.log("you hit the POST condition");
+      axios
+        .post("/api/events", eventData)
+        .then(response => {
+          console.log("event posted: ", response);
+          props.history.push(`/event/${response.data.data._id}`);
+        })
+        .catch(err => console.log(err));
+    }
   };
 
-  //THIS IS HERE TO REMIND TO DO THE SHOW/HIDE
-  // showHideDiv({ checked, myDivId }) {
-  // console.log(checked)
-  // const myDisplay = document.getElementById(myDivId);
-  // if (checked) {
-  //   myDisplay.style.display = "inline";
-  // } else {
-  //   myDisplay.style.display = "none";
-  // }
-  // }
+  // THIS NEEDS TO BE SET TO A RELEVENT STATE
+  if (match.params.eventId && !locationData.address) {
+    return <h1>Loading...</h1>;
+  }
 
   return (
     <Wrapper>
@@ -307,16 +375,23 @@ const CreateEvent = props => {
                   checked={highlightsChecked}
                   value="highlightsCheck"
                   color="primary"
-                  inputProps={{ 'aria-label': 'highlights checkbox' }}
+                  inputProps={{ "aria-label": "highlights checkbox" }}
                 />
               </Grid>
-              {highlightsChecked ? <EventHighlights
-                highlight1={highlight1} setHighlight1={setHighlight1}
-                highlight2={highlight2} setHighlight2={setHighlight2}
-                highlight3={highlight3} setHighlight3={setHighlight3}
-                highlight4={highlight4} setHighlight4={setHighlight4}
-                highlight5={highlight5} setHighlight5={setHighlight5}
-              /> : null}
+              {highlightsChecked ? (
+                <EventHighlights
+                  highlight1={highlight1}
+                  setHighlight1={setHighlight1}
+                  highlight2={highlight2}
+                  setHighlight2={setHighlight2}
+                  highlight3={highlight3}
+                  setHighlight3={setHighlight3}
+                  highlight4={highlight4}
+                  setHighlight4={setHighlight4}
+                  highlight5={highlight5}
+                  setHighlight5={setHighlight5}
+                />
+              ) : null}
 
               <Grid item>
                 <span className={styles["data-key"]}>Bring your own?</span>{" "}
@@ -325,19 +400,19 @@ const CreateEvent = props => {
                   checked={byoChecked}
                   value="byoCheck"
                   color="primary"
-                  inputProps={{ 'aria-label': 'byo checkbox' }}
+                  inputProps={{ "aria-label": "byo checkbox" }}
                 />
-                {byoChecked ?
+                {byoChecked ? (
                   <TextField
                     id="byo"
-                    label="Bring Your Own ____"
+                    label="Type of item people should bring"
                     value={byoItemType}
                     onChange={event => setByoItemType(event.target.value)}
                     variant="outlined"
                     size="small"
                     className={styles["data-value-input"]}
                   />
-                  : null}
+                ) : null}
               </Grid>
 
               <Grid item xs={12} className={styles["tableFullWidth"]}>
@@ -375,25 +450,36 @@ const CreateEvent = props => {
                 alignItems="center"
                 spacing={4}
               >
-                <Grid item>
-                  <Button
-                    onClick={createEventHandler}
-                    variant="contained"
-                    color="primary"
-                  >
-                    Create Event
-                  </Button>
-                </Grid>
-                <Grid item>
-                  <Button variant="contained" color="primary">
-                    Update Event
-                  </Button>
-                </Grid>
-                <Grid item>
-                  <Button variant="contained" color="secondary">
-                    Cancel Event
-                  </Button>
-                </Grid>
+                {!match.params.eventId ? (
+                  <>
+                    <Grid item>
+                      <Button
+                        onClick={submitHandler}
+                        variant="contained"
+                        color="primary"
+                      >
+                        Create Event
+                      </Button>
+                    </Grid>
+                  </>
+                ) : (
+                  <>
+                    <Grid item>
+                      <Button
+                        onClick={submitHandler}
+                        variant="contained"
+                        color="primary"
+                      >
+                        Update Event
+                      </Button>
+                    </Grid>
+                    <Grid item>
+                      <Button variant="contained" color="secondary">
+                        Cancel Event
+                      </Button>
+                    </Grid>
+                  </>
+                )}
               </Grid>
               <Grid
                 container

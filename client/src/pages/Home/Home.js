@@ -6,12 +6,11 @@ import axios from "axios";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
-import TextField from "@material-ui/core/TextField";
 
 import Wrapper from "../../components/Wrapper/Wrapper";
-import RadiusSelect from "../../components/RadiusSelect";
-import DatePicker from "../../components/DatePicker/DatePicker";
-import MySingleEvent from "../../components/MySingleEvent/MySingleEvent";
+import NoEvent from "../../components/NoEvent/NoEvent";
+import SingleEvent from "../../components/SingleEvent/SingleEvent";
+import SearchOptions from "../../components/SearchOptions/SearchOptions";
 
 import CurrentUserEmail from "../../utils/CurrentUserEmail";
 
@@ -19,32 +18,29 @@ import styles from "./Home.module.css";
 
 const Home = () => {
   const { currentUserData } = useContext(CurrentUserEmail);
-  
-  const [events, setEvents] = useState([]);
-  const [searchRadius, setSearchRadius] = useState(25);
-  const [searchZipcode, setSearchZipcode] = useState("");
-  const [selectedDate, setSelectedDate] = useState(new Date());
+
+  const [events, setEvents] = useState([]); //For the search options
+  const [selectedDate, setSelectedDate] = useState(new Date()); //Part of the search
+  const [eventsAttend, setEventsAttend] = useState([]); //Events user is attending
+  const [eventsHost, setEventsHost] = useState([]); //Events the user is hosting
 
   useEffect(() => {
     if (currentUserData) {
       axios
-        .get(`/api/events?user=${currentUserData._id}`)
+        .get(`/api/users/${currentUserData._id}/attending`)
         .then(response => {
-          setEvents([...response.data.data]);
+          setEventsAttend([...response.data.data]);
+        })
+        .catch(err => console.log(err));
 
-          console.log(events);
+      axios
+        .get(`/api/users/${currentUserData._id}/hosting`)
+        .then(response => {
+          setEventsHost([...response.data.data]);
         })
         .catch(err => console.log(err));
     }
   }, [currentUserData]);
-
-  const handleZipChange = event => {
-    setSearchZipcode(event.target.value);
-  };
-
-  const handleRadiusChange = event => {
-    setSearchRadius(event.target.value);
-  };
 
   const handleDateChange = date => {
     setSelectedDate(date);
@@ -68,109 +64,92 @@ const Home = () => {
               spacing={4}
               className={styles["tableFullWidth"]}
             >
-              <Grid item md={6}>
-                <h1>Your Upcoming Events</h1>
-                <Grid
-                  container
-                  direction="column"
-                  justify="center"
-                  spacing={2}
-                  className={styles["main-events"]}
-                >
-                  <div className={styles["searchScroll"]}>
-                    <Link to="/event">
-                      <MySingleEvent />
-                    </Link>
-                  </div>
-                </Grid>
-                <Grid
-                  container
-                  direction="row"
-                  justify="center"
-                  alignItems="center"
-                  spacing={3}
-                >
-                  <br />
-                  <br />
-                  <br />
-                </Grid>
-              </Grid>
-              <Grid item md={6}>
-                <Grid
-                  container
-                  direction="column"
-                  justify="center"
-                  alignItems="center"
-                >
-                  <h1>Search Upcoming Events</h1>
+              {eventsAttend.length ? (
+                <Grid item md={6}>
+                  <h1>Events you plan to attend</h1>
                   <Grid
                     container
                     direction="column"
                     justify="center"
-                    alignItems="center"
                     spacing={2}
+                    className={styles["main-events"]}
                   >
-                    <Grid item>
-                      <DatePicker
-                        selectedDate={selectedDate}
-                        handleDateChange={handleDateChange}
-                      />
-                    </Grid>
-                    <Grid item>
-                      <TextField
-                        type="number"
-                        id="search-zip"
-                        label="Zipcode"
-                        variant="outlined"
-                        size="small"
-                        value={searchZipcode}
-                        onChange={handleZipChange}
-                      />
-                    </Grid>
-                    <Grid item>
-                      <RadiusSelect
-                        searchRadius={searchRadius}
-                        handleRadiusChange={handleRadiusChange}
-                      />
-                    </Grid>
-                    <Grid item>
-                      <Link to="/search">
-                        <Button variant="contained" color="primary">
-                          Search
-                        </Button>
-                      </Link>
-                    </Grid>
+                    <div className={styles["searchScroll"]}>
+                      {eventsAttend.length ? (
+                        eventsAttend.map(event => (
+                          <SingleEvent key={event._id} {...event} />
+                        ))
+                      ) : (
+                          <NoEvent />
+                        )}
+                    </div>
                   </Grid>
                   <br />
                   <br />
-                  <h1>Planning an Event?</h1>
+                </Grid>
+              ) : null}
+              {eventsHost.length ? (
+                <Grid item md={6}>
+                  <h1>Events You have organized</h1>
                   <Grid
                     container
                     direction="column"
                     justify="center"
-                    alignItems="center"
                     spacing={2}
+                    className={styles["main-events"]}
                   >
-                    <Grid item>
-                      <Link to="/createEvent">
-                        <Button variant="contained" color="primary">
-                          Create New Event
+                    <div className={styles["searchScroll"]}>
+                      {eventsHost.length ? (
+                        eventsHost.map(event => (
+                          <SingleEvent key={event._id} {...event} />
+                        ))
+                      ) : (
+                          <NoEvent />
+                        )}
+                    </div>
+                  </Grid>
+                  <br />
+                  <br />
+                </Grid>
+              ) : null}
+              <Grid item md={6}>
+                <Grid
+                  container
+                  direction="column"
+                  justify="center"
+                  alignItems="center"
+                  spacing={6}
+                >
+                  <Grid item>
+                    <SearchOptions
+                      selectedDate={selectedDate}
+                      handleDateChange={handleDateChange}
+                      events={events}
+                      setEvents={setEvents}
+                    />
+                  </Grid>
+                  <Grid item>
+                    <h1>Planning an Event?</h1>
+                    <Grid
+                      container
+                      direction="column"
+                      justify="center"
+                      alignItems="center"
+                      spacing={2}
+                    >
+                      <Grid item>
+                        <Link to="/createEvent">
+                          <Button variant="contained" color="primary">
+                            Create New Event
                         </Button>
-                      </Link>
+                        </Link>
+                      </Grid>
                     </Grid>
                   </Grid>
                 </Grid>
-                <Grid
-                  container
-                  direction="row"
-                  justify="center"
-                  alignItems="center"
-                  spacing={3}
-                >
-                  <br />
-                  <br />
-                  <br />
-                </Grid>
+                <br />
+                <br />
+                <br />
               </Grid>
             </Grid>
           </div>

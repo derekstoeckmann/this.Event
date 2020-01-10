@@ -14,17 +14,17 @@ const router = express.Router();
 
 router
   .route("/")
-  .get(getUsers, Validate)
-  .post(createUser, Validate);
+  .get(Validate, getUsers)
+  .post(createUser);
 
 router
   .route("/:id")
-  .get(getUser, Validate)
-  .put(updateUser, Validate)
-  .delete(deleteUser, Validate);
+  .get(Validate, getUser)
+  .put(Validate, updateUser)
+  .delete(Validate, deleteUser);
 
-router.route("/:id/hosting").get(getUserEventsHosting);
+router.route("/:id/hosting").get(Validate, getUserEventsHosting);
 
-router.route("/:id/attending").get(getUserEventsAttending);
+router.route("/:id/attending").get(Validate, getUserEventsAttending);
 
 module.exports = router;

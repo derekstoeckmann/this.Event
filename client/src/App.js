@@ -16,7 +16,6 @@ import CurrentUserEmail from "./utils/CurrentUserEmail";
 Amplify.configure(aws_exports);
 
 function App() {
-  const [currentUser, getCurrentUser] = useState("");
   const [currentUserData, setCurrentUserData] = useState();
   const [loggedIn, getLoggedIn] = useState("");
 
@@ -25,29 +24,36 @@ function App() {
   };
 
   useEffect(() => {
-    // Auth.currentAuthenticatedUser()
-    //   .then(res => {
-    //     console.log(res)
-    //   })
-    Auth.currentUserInfo()
+    Auth.currentAuthenticatedUser()
       .then(res => {
-        if (res !== null) {
-          getLoggedIn(true)
-          getCurrentUser(res.attributes.email);
-          axios
-            .get(`/api/users?email=${currentUser}`)
-            .then(response => {
-              setCurrentUserData({ ...response.data.data[0] });
-            })
-            .catch(err => console.log(err));
-        } else {
-          getCurrentUser(null);
-        }
+        getLoggedIn(true)
+        console.log(res.attributes.email)
+        const email = res.attributes.email
+        const jwt = res.signInUserSession.idToken.jwtToken
+
+        axios.interceptors.request.use(function (config) {
+          config.headers.authorization = jwt
+          return config;
+        }, function (error) {
+          return Promise.reject(error);
+        });
+
+        axios.post("/auth/validate", { jwt })
+          .then(res => {
+            axios.get(`/api/users?email=${email}`)
+              .then(response => {
+                setCurrentUserData({ ...response.data.data[0] });
+              })
+              .catch(err => console.log(err));
+          })
+          .catch(err => {
+            console.log("JWT" + err)
+          })
       })
       .catch(err => {
-        console.log("error", err);
-      });
-  }, [currentUser]);
+        console.log(err)
+      })
+  }, []);
 
   if (loggedIn) {
     return (

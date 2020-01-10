@@ -1,4 +1,5 @@
 const express = require("express");
+const { Validate } = require("./IsAuthenticated")
 const {
   getUsers,
   getUser,
@@ -13,14 +14,14 @@ const router = express.Router();
 
 router
   .route("/")
-  .get(getUsers)
-  .post(createUser);
+  .get(getUsers, Validate)
+  .post(createUser, Validate);
 
 router
   .route("/:id")
-  .get(getUser)
-  .put(updateUser)
-  .delete(deleteUser);
+  .get(getUser, Validate)
+  .put(updateUser, Validate)
+  .delete(deleteUser, Validate);
 
 router.route("/:id/hosting").get(getUserEventsHosting);
 

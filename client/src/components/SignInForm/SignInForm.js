@@ -8,11 +8,13 @@ const SignInForm = (props) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const isLoggedIn = props.value;
 
     function handleSubmit(e) {
         e.preventDefault();
+        setLoading(true)
         Auth.signIn({
             username: username,
             password: password,
@@ -22,6 +24,7 @@ const SignInForm = (props) => {
                 props.history.push("/")
             })
             .catch(err => {
+                setLoading(false)
                 setError(err.message)
             })
     }
@@ -38,7 +41,10 @@ const SignInForm = (props) => {
                     <label>Password</label>
                     <input className={styles.formInputBox} type="password" name="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)}></input>
                     <p>Don't Have an Account Yet? <Link to={"/signup"}>Create Account</Link></p>
-                    <button className={styles.btn} onClick={handleSubmit}>Submit</button>
+                    <button className={styles.btn} onClick={handleSubmit} disabled={loading}>
+                        {loading && <img className={styles.loading} src={require("./refresh.png")} />}
+                        {!loading && "Submit"}
+                    </button>
                 </form>
             </div>
         </div>

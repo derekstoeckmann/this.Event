@@ -7,3 +7,4 @@ exports.validate_token = function (req, res) {
         res.send(result);
     })
 }
+

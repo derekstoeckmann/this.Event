@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 import Wrapper from "../../components/Wrapper/Wrapper";
@@ -215,7 +216,8 @@ const Event = ({ match }) => {
                 <span className={styles["data-key"]}>Description</span>
               </Grid>
               <Grid item xs={11}>
-                {event.description}
+                {console.log(event.description.replace(/\r\n/g, '<br>'))}
+                {event.description.replace(/(?:\r\n|\r|\n)/g, '<br \/>')}
                 <br />
                 <br />
                 <hr />
@@ -252,8 +254,8 @@ const Event = ({ match }) => {
                       </Grid>
                     ))
                   ) : (
-                    <h1>No users attending yet!</h1>
-                  )}
+                      <h1>No users attending yet!</h1>
+                    )}
                   <br />
                   <br />
                   <br />
@@ -279,9 +281,11 @@ const Event = ({ match }) => {
                 </Grid>
                 <Grid item>
                   {currentUserData._id === event.user._id && (
-                    <Button variant="contained" color="primary">
-                      Edit Event
+                    <Link to={`/createEvent/${event._id}`}>
+                      <Button variant="contained" color="primary">
+                        Edit Event
                     </Button>
+                    </Link>
                   )}
                 </Grid>
                 <Grid item>

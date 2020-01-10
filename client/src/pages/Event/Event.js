@@ -216,7 +216,6 @@ const Event = ({ match }) => {
                 <span className={styles["data-key"]}>Description</span>
               </Grid>
               <Grid item xs={11}>
-                {console.log(event.description.replace(/\r\n/g, '<br>'))}
                 {event.description.replace(/(?:\r\n|\r|\n)/g, '<br \/>')}
                 <br />
                 <br />

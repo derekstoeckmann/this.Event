@@ -4,10 +4,7 @@ import axios from "axios";
 
 import Wrapper from "../../components/Wrapper/Wrapper";
 
-import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
-import Container from "@material-ui/core/Container";
-import TextField from "@material-ui/core/TextField";
+import { Grid, Button, TextField, Container } from "@material-ui/core";
 
 import CurrentUserEmail from "../../utils/CurrentUserEmail";
 
@@ -27,7 +24,7 @@ const Event = ({ match }) => {
       .catch(err => {
         console.log(err);
       });
-  }, []);
+  }, [match.params.eventId]);
 
   useEffect(() => {
     axios
@@ -38,13 +35,13 @@ const Event = ({ match }) => {
       .catch(err => {
         console.log(err);
       });
-  }, [event]);
+  }, [match.params.eventId]);
 
   const userIsAttending = async () => {
     const updatedAttending = [...event.attending, currentUserData._id];
 
     try {
-      const response = await axios.put(`/api/events/${event._id}`, {
+      await axios.put(`/api/events/${event._id}`, {
         attending: updatedAttending
       });
 
@@ -60,7 +57,7 @@ const Event = ({ match }) => {
     );
 
     try {
-      const response = await axios.put(`/api/events/${event._id}`, {
+      await axios.put(`/api/events/${event._id}`, {
         attending: updatedAttending
       });
 
@@ -70,9 +67,9 @@ const Event = ({ match }) => {
     }
   };
 
-  console.log("event", event);
-  console.log("user ", currentUserData);
-  if (!event.title || !currentUserData._id) {
+  console.log("EVENT: ", event);
+  console.log("USER: ", currentUserData);
+  if (!event.title || !currentUserData) {
     return <h1>Loading...</h1>;
   }
 
@@ -137,7 +134,7 @@ const Event = ({ match }) => {
                 >
                   <Grid item>
                     <span className={styles["data-key"]}>
-                      LOCATION NAME TO COME
+                      {event.location.name}
                     </span>
                   </Grid>
                   <Grid item>
@@ -216,13 +213,13 @@ const Event = ({ match }) => {
                 <span className={styles["data-key"]}>Description</span>
               </Grid>
               <Grid item xs={11}>
-                {event.description.replace(/(?:\r\n|\r|\n)/g, '<br \/>')}
+                {event.description.replace(/(?:\r\n|\r|\n)/g, '<br />')}
                 <br />
                 <br />
                 <hr />
               </Grid>
 
-              <Grid item xs={11} md={5}>
+              {/* <Grid item xs={11} md={5}>
                 <span className={styles["data-key"]}>
                   Bring your own item_to_bring
                 </span>
@@ -235,7 +232,7 @@ const Event = ({ match }) => {
                   size="small"
                   className={styles["data-value-input"]}
                 />
-              </Grid>
+              </Grid> */}
               <Grid item xs={11}>
                 <Grid
                   container

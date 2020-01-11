@@ -1,25 +1,19 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 
+import { Grid, Switch, Button, Checkbox, Container, TextField, FormControlLabel } from "@material-ui/core";
+
 import Map from "../../components/Map/Map.js";
 import Wrapper from "../../components/Wrapper/Wrapper";
 import DateTime from "../../components/DateTime/DateTime";
 import EventHighlights from "../../components/EventHighlights/EventHighlights";
-
-import Grid from "@material-ui/core/Grid";
-import Switch from "@material-ui/core/Switch";
-import Button from "@material-ui/core/Button";
-import Checkbox from "@material-ui/core/Checkbox";
-import Container from "@material-ui/core/Container";
-import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
 
 import CurrentUserEmail from "../../utils/CurrentUserEmail";
 
 import styles from "./CreateEvent.module.css";
 
 const CreateEvent = props => {
-  const { match, location } = props;
+  const { match } = props;
   const { currentUserData } = useContext(CurrentUserEmail);
 
   const [eventIsPublic, setEventIsPublic] = useState(true);
@@ -55,7 +49,7 @@ const CreateEvent = props => {
       if (match.params.eventId) {
         const response = await axios.get(`/api/events/${match.params.eventId}`);
         if (window.navigator || match.params.eventId) {
-          window.navigator.geolocation.getCurrentPosition(function(pos) {
+          window.navigator.geolocation.getCurrentPosition(function (pos) {
             const { latitude, longitude } = pos.coords;
             setLocationData({
               address: response.data.data.location.address
@@ -129,7 +123,7 @@ const CreateEvent = props => {
     };
 
     getEventIfExists();
-  }, []);
+  }, [match.params.eventId]);
 
   const toggleEventIsPublic = () => {
     setEventIsPublic(!eventIsPublic);
@@ -137,7 +131,6 @@ const CreateEvent = props => {
 
   const submitHandler = event => {
     event.preventDefault();
-
     const eventData = {
       user: currentUserData._id,
       title: eventTitle,
@@ -161,14 +154,11 @@ const CreateEvent = props => {
       byoItemType: byoItemType
     };
 
-    console.log(eventData);
-
     if (match.params.eventId) {
       console.log("you hit the UPDATE condition");
       axios
         .put(`/api/events/${match.params.eventId}`, eventData)
         .then(response => {
-          console.log("event updated: ", response);
           props.history.push(`/event/${response.data.data._id}`);
         })
         .catch(err => console.log(err));
@@ -463,23 +453,23 @@ const CreateEvent = props => {
                     </Grid>
                   </>
                 ) : (
-                  <>
-                    <Grid item>
-                      <Button
-                        onClick={submitHandler}
-                        variant="contained"
-                        color="primary"
-                      >
-                        Update Event
+                    <>
+                      <Grid item>
+                        <Button
+                          onClick={submitHandler}
+                          variant="contained"
+                          color="primary"
+                        >
+                          Update Event
                       </Button>
-                    </Grid>
-                    <Grid item>
-                      <Button variant="contained" color="secondary">
-                        Cancel Event
+                      </Grid>
+                      <Grid item>
+                        <Button variant="contained" color="secondary">
+                          Cancel Event
                       </Button>
-                    </Grid>
-                  </>
-                )}
+                      </Grid>
+                    </>
+                  )}
               </Grid>
               <Grid
                 container

@@ -72,9 +72,9 @@ const Event = ({ match }) => {
 
   console.log("event", event);
   console.log("user ", currentUserData);
-  if (!event.title || !currentUserData._id) {
-    return <h1>Loading...</h1>;
-  }
+  // if (!event.title || !currentUserData._id) {
+  //   return <h1>Loading...</h1>;
+  // }
 
   return (
     <Wrapper>
@@ -216,8 +216,8 @@ const Event = ({ match }) => {
                 <span className={styles["data-key"]}>Description</span>
               </Grid>
               <Grid item xs={11}>
-                {console.log(event.description.replace(/\r\n/g, '<br>'))}
-                {event.description.replace(/(?:\r\n|\r|\n)/g, '<br \/>')}
+                {console.log(event.description.replace(/\r\n/g, "<br>"))}
+                {event.description.replace(/(?:\r\n|\r|\n)/g, "<br />")}
                 <br />
                 <br />
                 <hr />
@@ -254,8 +254,8 @@ const Event = ({ match }) => {
                       </Grid>
                     ))
                   ) : (
-                      <h1>No users attending yet!</h1>
-                    )}
+                    <h1>No users attending yet!</h1>
+                  )}
                   <br />
                   <br />
                   <br />
@@ -284,7 +284,7 @@ const Event = ({ match }) => {
                     <Link to={`/createEvent/${event._id}`}>
                       <Button variant="contained" color="primary">
                         Edit Event
-                    </Button>
+                      </Button>
                     </Link>
                   )}
                 </Grid>

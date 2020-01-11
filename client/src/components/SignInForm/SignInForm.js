@@ -77,7 +77,6 @@ const SignInForm = (props) => {
                   onChange={e => setUsername(e.target.value)}
                   variant="outlined"
                   color="primary"
-                  size="small"
                   className={styles["data-value-input"]}
                 />
               </Grid>
@@ -94,7 +93,6 @@ const SignInForm = (props) => {
                   onChange={e => setPassword(e.target.value)}
                   variant="outlined"
                   color="primary"
-                  size="small"
                   className={styles["data-value-input"]}
                 />
               </Grid>

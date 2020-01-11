@@ -1,61 +1,89 @@
-.form{
-    margin: 10px;
+.main-top {
     background-color: #ADCBE3;
-    background: rgba(173, 203, 227, 0.8);
+    background: rgba(173, 203, 227, 0.7);
+    width: 100%;
     border-radius: 15px;
     padding: 20px;
     box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    margin-top: 50px;
-}
-.formInput{
-    display: flex;
-    flex-direction: column;
-    width: 50%;
-    margin: auto;
-    border: solid 2px #d2e3f1;
-    border-radius: 5px;
-    padding: 20px;
-    margin-bottom: 50px;
-}
-.formInputBox{
-    border: none;
-    height: 30px;
-    border-radius: 5px;
-    margin: 5px;
-    background-color: white;
-}
-.title{
-    text-align: center;
-}
-.btn{
-    background-color: #3f51b5;
-    border: none;
-    border-radius: 10px;
-    text-decoration: none;
-    padding: 10px;
-    font-weight: 500;
-    font-size: 18px;
-    width: 50%;
-    margin: auto;
-    color: white;
-    margin-top: 50px;
-}
-.btn:hover{
-    background-color: #4e62d8;
-    cursor: pointer;
-    box-shadow: 1px 1px 1px 1px rgba(0,0,0,.2);
-}
-.loading{
-    height: 24px;
-    animation: spin 2s infinite linear;
-}
-@keyframes spin {
-    0%  {-webkit-transform: rotate(360deg);}
-    100% {-webkit-transform: rotate(0deg);}   
 }
 
-@media only screen and (max-width: 800px){
-.formInput{
-    width: 90%;
+/* div {
+    border: 1px solid black;
+} */
+
+.main {
+    background-color: #ADCBE3;
+    background: rgba(173, 203, 227, 0.7);
+    width: 100%;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+
+.main-top-inner {
+    color: #fff;
+    width: 95%;
+    height: 95%;
+}
+
+.textfield-wrapper {
+    background-color: #fff;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 15px;
+    margin: 10px;
+    padding: 20px;
+    box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.pageDiv {
+    width: 95%;
+}
+
+.tableFullWidth {
+    width: 95%;
+}
+
+.white {
+    color: #fff;
+}
+
+.blue {
+    color: #03396C;
+}
+
+.center {
+    text-align: center;
+}
+
+.shadow {
+    text-shadow: 5px 5px 5px #03396C;
+}
+
+h1 {
+    font-family: 'Courier Prime', monospace;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+h2 {
+    font-family: 'Courier Prime', monospace;
+    font-size: 21px;
+    font-weight: bold;
+}
+
+.small-letters {
+    font-family: 'Courier Prime', monospace;
+    font-size: 75px;
+    color: #fff;
+}
+
+.large-letters {
+    font-family: 'Courier Prime', monospace;
+    font-size: 100px;
+    color: #fff;
+}
+
+.data-value-input {
+    width: 350px;
+    box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }

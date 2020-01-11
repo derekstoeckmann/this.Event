@@ -4,10 +4,7 @@ import axios from "axios";
 
 import Wrapper from "../../components/Wrapper/Wrapper";
 
-import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
-import Container from "@material-ui/core/Container";
-import TextField from "@material-ui/core/TextField";
+import { Grid, Button, TextField, Container } from "@material-ui/core";
 
 import CurrentUserEmail from "../../utils/CurrentUserEmail";
 
@@ -27,7 +24,7 @@ const Event = ({ match }) => {
       .catch(err => {
         console.log(err);
       });
-  }, []);
+  }, [match.params.eventId]);
 
   useEffect(() => {
     axios
@@ -38,13 +35,13 @@ const Event = ({ match }) => {
       .catch(err => {
         console.log(err);
       });
-  }, [event]);
+  }, [match.params.eventId]);
 
   const userIsAttending = async () => {
     const updatedAttending = [...event.attending, currentUserData._id];
 
     try {
-      const response = await axios.put(`/api/events/${event._id}`, {
+      await axios.put(`/api/events/${event._id}`, {
         attending: updatedAttending
       });
 
@@ -60,7 +57,7 @@ const Event = ({ match }) => {
     );
 
     try {
-      const response = await axios.put(`/api/events/${event._id}`, {
+      await axios.put(`/api/events/${event._id}`, {
         attending: updatedAttending
       });
 
@@ -70,11 +67,17 @@ const Event = ({ match }) => {
     }
   };
 
+<<<<<<< HEAD
   console.log("event", event);
   console.log("user ", currentUserData);
   // if (!event.title || !currentUserData._id) {
   //   return <h1>Loading...</h1>;
   // }
+=======
+  if (!event.title || !currentUserData) {
+    return <h1>Loading...</h1>;
+  }
+>>>>>>> ebf201b82899fa35dcff523a0f08fe97fc9b6561
 
   return (
     <Wrapper>
@@ -137,7 +140,7 @@ const Event = ({ match }) => {
                 >
                   <Grid item>
                     <span className={styles["data-key"]}>
-                      LOCATION NAME TO COME
+                      {event.location.name}
                     </span>
                   </Grid>
                   <Grid item>
@@ -164,34 +167,31 @@ const Event = ({ match }) => {
                   <br />
                   <br />
                 </Grid>
-                <Grid item xs={11}>
-                  <span className={styles["data-key"]}>Event Highlights</span>
-                </Grid>
-                <Grid item xs={11}>
-                  <Grid
-                    container
-                    direction="row"
-                    justify="left"
-                    alignItems="left"
-                    spacing={1}
-                  >
-                    <Grid item xs={12} sm={6}>
-                      <li>Event Highlight One</li>
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <li>Event Highlight Two</li>
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <li>Event Highlight Three</li>
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <li>Event Highlight Four</li>
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <li>Event Highlight Five</li>
-                    </Grid>
-                  </Grid>
-                </Grid>
+                {event.highlights[0] ||
+                  event.highlights[1] ||
+                  event.highlights[2] ||
+                  event.highlights[3] ||
+                  event.highlights[4]
+                  ? (
+                    <>
+                      <Grid item xs={11}>
+                        <span className={styles["data-key"]}>Event Highlights</span>
+                      </Grid>
+                      <Grid item xs={11}>
+                        <Grid
+                          container
+                          direction="row"
+                          spacing={1}
+                        >
+                          {event.highlights.map(highlight => (
+                            <Grid item>
+                              <li>{highlight}</li>
+                            </Grid>
+                          ))}
+                        </Grid>
+                      </Grid>
+                    </>
+                  ) : null}
               </Grid>
             </Grid>
             <Grid
@@ -215,15 +215,20 @@ const Event = ({ match }) => {
                 <br />
                 <span className={styles["data-key"]}>Description</span>
               </Grid>
+<<<<<<< HEAD
               <Grid item xs={11}>
                 {console.log(event.description.replace(/\r\n/g, "<br>"))}
                 {event.description.replace(/(?:\r\n|\r|\n)/g, "<br />")}
+=======
+              <Grid item xs={11} className={styles["description"]}>
+                {event.description}
+>>>>>>> ebf201b82899fa35dcff523a0f08fe97fc9b6561
                 <br />
                 <br />
                 <hr />
               </Grid>
 
-              <Grid item xs={11} md={5}>
+              {/* <Grid item xs={11} md={5}>
                 <span className={styles["data-key"]}>
                   Bring your own item_to_bring
                 </span>
@@ -236,13 +241,11 @@ const Event = ({ match }) => {
                   size="small"
                   className={styles["data-value-input"]}
                 />
-              </Grid>
+              </Grid> */}
               <Grid item xs={11}>
                 <Grid
                   container
                   direction="row"
-                  justify="left"
-                  alignItems="left"
                   spacing={1}
                 >
                   {eventAttending.length > 0 ? (

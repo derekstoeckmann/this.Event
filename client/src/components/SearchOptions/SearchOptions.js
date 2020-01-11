@@ -1,17 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import Moment from "react-moment";
 
-import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
+import { Grid, Button, TextField } from "@material-ui/core";
 
 import RadiusSelect from "../../components/RadiusSelect";
 import DatePicker from "../../components/DatePicker/DatePicker";
 
 import Geocode from "react-geocode";
-import { LinearProgress } from "@material-ui/core";
 Geocode.setApiKey(process.env.REACT_APP_GOOGLE_KEY);
 Geocode.enableDebug();
 

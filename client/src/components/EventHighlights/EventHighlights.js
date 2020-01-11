@@ -1,7 +1,6 @@
 import React from "react";
 
-import Grid from "@material-ui/core/Grid";
-import TextField from "@material-ui/core/TextField";
+import { Grid, TextField } from "@material-ui/core";
 
 import styles from "./EventHighlights.module.css";
 
@@ -12,7 +11,6 @@ function EventHighlights(props) {
         <Grid
           container
           direction="row"
-          alignItems="center"
           spacing={3}
         >
           <Grid item md={6}>

@@ -16,7 +16,6 @@ function DateTime(props) {
         label="Event Date and Time"
         variant="outlined"
         justify="center"
-        alignItems="center"
         className="data-value-input"
         minutesStep={15}
       />

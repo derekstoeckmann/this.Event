@@ -21,14 +21,14 @@ const CreateEvent = props => {
   const [eventTitle, setEventTitle] = useState("");
   const [eventDescription, setEventDescription] = useState("");
   const [highlightsChecked, setHighlightsChecked] = useState(false);
-  const [byoChecked, setByoChecked] = useState(false);
+  // const [byoChecked, setByoChecked] = useState(false);
   const [locationName, setLocationName] = useState("");
   const [highlight1, setHighlight1] = useState("");
   const [highlight2, setHighlight2] = useState("");
   const [highlight3, setHighlight3] = useState("");
   const [highlight4, setHighlight4] = useState("");
   const [highlight5, setHighlight5] = useState("");
-  const [byoItemType, setByoItemType] = useState("");
+  // const [byoItemType, setByoItemType] = useState("");
   const [locationData, setLocationData] = useState({
     address: "",
     city: "",
@@ -48,6 +48,7 @@ const CreateEvent = props => {
     const getEventIfExists = async () => {
       if (match.params.eventId) {
         const response = await axios.get(`/api/events/${match.params.eventId}`);
+        console.log("RESPONSE: ", response)
         if (window.navigator || match.params.eventId) {
           window.navigator.geolocation.getCurrentPosition(function (pos) {
             const { latitude, longitude } = pos.coords;
@@ -87,11 +88,17 @@ const CreateEvent = props => {
         setEventIsPublic(response.data.data.public);
         setSelectedDate(response.data.data.time);
         setEventDescription(response.data.data.description);
-        setHighlightsChecked(
-          response.data.data.highlights.length ? true : false
-        );
         // setByoChecked(response.data.data.);
         setLocationName(response.data.data.location.name);
+        console.log(response.data.data.highlights[0]);
+        setHighlightsChecked(
+          response.data.data.highlights[0] ||
+            response.data.data.highlights[1] ||
+            response.data.data.highlights[2] ||
+            response.data.data.highlights[3] ||
+            response.data.data.highlights[4]
+            ? true : false
+        );
         setHighlight1(
           response.data.data.highlights[0]
             ? response.data.data.highlights[0]
@@ -151,7 +158,7 @@ const CreateEvent = props => {
       public: eventIsPublic,
       locationName: locationName,
       highlights: [highlight1, highlight2, highlight3, highlight4, highlight5],
-      byoItemType: byoItemType
+      // byoItemType: byoItemType
     };
 
     if (match.params.eventId) {
@@ -193,7 +200,6 @@ const CreateEvent = props => {
               container
               direction="row"
               justify="center"
-              alignItems="center"
             >
               <Grid item md={5}>
                 <h1>Create Event</h1>
@@ -220,7 +226,6 @@ const CreateEvent = props => {
               container
               direction="row"
               justify="center"
-              alignItems="center"
               spacing={3}
             >
               <Grid item md={6}>
@@ -229,7 +234,6 @@ const CreateEvent = props => {
                   spacing={3}
                   direction="column"
                   justify="space-around"
-                  alignItems="center"
                 >
                   <Grid item>
                     <TextField
@@ -257,7 +261,6 @@ const CreateEvent = props => {
                     <TextField
                       id="address"
                       label="Address"
-                      defaultValue=""
                       value={locationData.address}
                       InputProps={{
                         readOnly: true
@@ -271,7 +274,6 @@ const CreateEvent = props => {
                     <TextField
                       id="city"
                       label="City"
-                      defaultValue=""
                       value={locationData.city}
                       InputProps={{
                         readOnly: true
@@ -285,7 +287,6 @@ const CreateEvent = props => {
                     <TextField
                       id="state"
                       label="State"
-                      defaultValue=""
                       value={locationData.state}
                       InputProps={{
                         readOnly: true
@@ -299,7 +300,6 @@ const CreateEvent = props => {
                     <TextField
                       id="zip"
                       label="Zip Code"
-                      defaultValue=""
                       value={locationData.zipcode}
                       InputProps={{
                         readOnly: true
@@ -317,7 +317,6 @@ const CreateEvent = props => {
                   spacing={3}
                   direction="column"
                   justify="space-around"
-                  alignItems="center"
                 >
                   <Grid item>
                     <DateTime
@@ -342,7 +341,6 @@ const CreateEvent = props => {
               container
               direction="row"
               justify="center"
-              alignItems="center"
               spacing={3}
             >
               <br />
@@ -354,12 +352,11 @@ const CreateEvent = props => {
               container
               direction="column"
               justify="center"
-              alignItems="center"
               spacing={3}
               width="100%"
             >
               <Grid item>
-                <span className={styles["data-key"]}>Highlights</span> (Up to 5){" "}
+                <span className={styles["data-key"]}>Event Highlights</span> (Up to 5){" "}
                 <Checkbox
                   onChange={event => setHighlightsChecked(!highlightsChecked)}
                   checked={highlightsChecked}
@@ -383,7 +380,7 @@ const CreateEvent = props => {
                 />
               ) : null}
 
-              <Grid item>
+              {/* <Grid item>
                 <span className={styles["data-key"]}>Bring your own?</span>{" "}
                 <Checkbox
                   onChange={event => setByoChecked(!byoChecked)}
@@ -403,7 +400,7 @@ const CreateEvent = props => {
                     className={styles["data-value-input"]}
                   />
                 ) : null}
-              </Grid>
+              </Grid> */}
 
               <Grid item xs={12} className={styles["tableFullWidth"]}>
                 <br />
@@ -413,7 +410,6 @@ const CreateEvent = props => {
                   multiline
                   fullWidth
                   rows="7"
-                  defaultValue=""
                   value={eventDescription}
                   onChange={event => setEventDescription(event.target.value)}
                   variant="outlined"
@@ -427,7 +423,6 @@ const CreateEvent = props => {
                 container
                 direction="row"
                 justify="center"
-                alignItems="center"
                 spacing={3}
               >
                 <br />
@@ -437,7 +432,6 @@ const CreateEvent = props => {
                 container
                 direction="row"
                 justify="center"
-                alignItems="center"
                 spacing={4}
               >
                 {!match.params.eventId ? (
@@ -475,7 +469,6 @@ const CreateEvent = props => {
                 container
                 direction="row"
                 justify="center"
-                alignItems="center"
                 spacing={3}
               >
                 <br />

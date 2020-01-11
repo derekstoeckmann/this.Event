@@ -11,7 +11,6 @@ function EventHighlights(props) {
         <Grid
           container
           direction="row"
-          alignItems="center"
           spacing={3}
         >
           <Grid item md={6}>

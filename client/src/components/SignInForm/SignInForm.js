@@ -44,7 +44,7 @@ const SignInForm = (props) => {
                     <input className={styles.formInputBox} type="password" name="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)}></input>
                     <p>Don't Have an Account Yet? <Link to={"/signup"}>Create Account</Link></p>
                     <button className={styles.btn} onClick={handleSubmit} disabled={loading}>
-                        {loading && <img className={styles.loading} src={require("./refresh.png")} />}
+                        {loading && <img className={styles.loading} alt="submit button" src={require("./refresh.png")} />}
                         {!loading && "Submit"}
                     </button>
                 </form>

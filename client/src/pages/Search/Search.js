@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import Moment from "react-moment";
 
-import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
-import Container from "@material-ui/core/Container";
+import { Grid, Button, Container } from "@material-ui/core";
 
 import Wrapper from "../../components/Wrapper/Wrapper";
 import NoEvent from "../../components/NoEvent/NoEvent";
@@ -52,8 +49,7 @@ const Search = () => {
             >
               <Grid item md={6}>
                 <h1>
-                  Events on{" "}
-                  <Moment date={selectedDate} format="Do of MMM, YYYY" />
+                  Search Results
                 </h1>
                 <Grid
                   container

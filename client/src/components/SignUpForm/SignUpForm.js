@@ -5,97 +5,246 @@ import ErrorBanner from "../ErrorBanner/ErrorBanner";
 import styles from "./SignUpForm.module.css";
 import { Link } from "react-router-dom";
 
-const SignUpForm = (props) => {
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [confirmationCode, setConfirmationCode] = useState("");
-    const [signedup, setSignedUp] = useState("");
-    const [error, setError] = useState("");
+import { Grid, Button, Container, TextField } from "@material-ui/core";
 
-    function handleSubmit(e) {
-        e.preventDefault();
-        if (!signedup) {
-            Auth.signUp({
-                username: email,
-                password: password,
-                attributes: {
-                    phone_number: "+11234561234"
-                }
-            })
-                .then(res => {
-                    setError("")
-                    setSignedUp(true)
-                })
-                .catch(err => {
-                    setError(err.message)
-                })
-        } else {
-            Auth.confirmSignUp(email, confirmationCode)
-                .then((res) => {
-                    const userData = {
-                        firstName,
-                        lastName,
-                        email
-                    }
-                    axios.post("/api/users", userData)
-                        .then(res => {
-                            props.history.push("/login")
-                        })
-                        .catch(err => {
-                            console.log("axios Error")
-                            console.log(err)
-                            setError("Email May Already Be Registered In Database")
-                        })
-                })
-                .catch(err => {
-                    setError(err.message)
-                })
+const SignUpForm = (props) => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmationCode, setConfirmationCode] = useState("");
+  const [signedup, setSignedUp] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (!signedup) {
+      Auth.signUp({
+        username: email,
+        password: password,
+        attributes: {
+          phone_number: "+11234561234"
         }
-    }
-    if (signedup) {
-        return (
-            <div>
-                <div className={styles.form} >
-                    <ErrorBanner >
-                        {error}
-                    </ErrorBanner>
-                    <h1 className={styles.title}>Confirm Your Account With Email</h1>
-                    <form className={styles.formInput}>
-                        <label>Email</label>
-                        <input className={styles.formInputBox} type="text" name="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)}></input>
-                        <label>Confirmation Email Code</label>
-                        <input className={styles.formInputBox} type="text" name="confirmationCode" value={confirmationCode} onChange={e => setConfirmationCode(e.target.value)}></input>
-                        <button className={styles.btn} onClick={handleSubmit}>Submit</button>
-                    </form>
-                </div >
-            </div>
-        )
+      })
+        .then(res => {
+          setError("")
+          setSignedUp(true)
+        })
+        .catch(err => {
+          setError(err.message)
+        })
     } else {
-        return (
-            <div>
-                <div className={styles.form}>
-                    <ErrorBanner>
-                        {error}
-                    </ErrorBanner>
-                    <h1 className={styles.title}>Sign Up</h1>
-                    <form className={styles.formInput}>
-                        <label>First Name</label>
-                        <input className={styles.formInputBox} type="text" name="firstname" placeholder="First Name" value={firstName} onChange={e => setFirstName(e.target.value)}></input>
-                        <label>Last Name</label>
-                        <input className={styles.formInputBox} type="text" name="lastname" placeholder="Last Name" value={lastName} onChange={e => setLastName(e.target.value)}></input>
-                        <label>Email</label>
-                        <input className={styles.formInputBox} type="text" name="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)}></input>
-                        <label>Password</label>
-                        <input className={styles.formInputBox} type="password" name="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)}></input>
-                        <p>Already Have an Account? <Link to={"/login"}>Sign In</Link></p>
-                        <button className={styles.btn} onClick={handleSubmit}>Submit</button>
-                    </form>
-                </div>
-            </div>
-        )
+      Auth.confirmSignUp(email, confirmationCode)
+        .then((res) => {
+          const userData = {
+            firstName,
+            lastName,
+            email
+          }
+          axios.post("/api/users", userData)
+            .then(res => {
+              props.history.push("/login")
+            })
+            .catch(err => {
+              console.log("axios Error")
+              console.log(err)
+              setError("Email May Already Be Registered In Database")
+            })
+        })
+        .catch(err => {
+          setError(err.message)
+        })
     }
+  }
+  if (signedup) {
+    return (
+      <div>
+        <br />
+        <br />
+        <br />
+        <Container maxWidth="lg" className={styles["main-top"]}>
+          <form>
+            <Grid
+              container
+              direction="row"
+              justify="center"
+              alignItems="center"
+              alignContent="center"
+              className={styles["main-top-inner"]}
+            >
+              <Grid item xs={12} className={styles["center"]}>
+                <ErrorBanner>
+                  {error}
+                </ErrorBanner>
+              </Grid>
+              <Grid item xs={12} className={styles["center"]}>
+                <span className={styles["small-letters"] + " " + styles["shadow"]}>this.</span><span className={styles["large-letters"] + " " + styles["shadow"]}>E</span><span
+                  className={styles["small-letters"] + " " + styles["shadow"]}>vent</span><br />
+              </Grid>
+              <Grid item xs={12} className={styles["center"]}>
+                <h1 className={styles["white"] + " " + styles["shadow"]}>Sign UP</h1>
+              </Grid>
+              <Grid
+                container
+                direction="column"
+                justify="center"
+                alignItems="center"
+                alignContent="center"
+                className={styles["textfield-wrapper"]}
+              >
+                <Grid item xs={11} className={styles["center"]}>
+                  <TextField
+                    name="email"
+                    id="email"
+                    label="Email"
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
+                    variant="outlined"
+                    color="primary"
+                    className={styles["data-value-input"]}
+                  />
+                </Grid>
+                <Grid item xs={11} className={styles["center"]}>
+                  <br />
+                </Grid>
+                <Grid item xs={11} className={styles["center"]}>
+                  <TextField
+                    name="confirmationCode"
+                    id="confirmationCode"
+                    label="Confirmation Email Code"
+                    value={confirmationCode}
+                    onChange={e => setConfirmationCode(e.target.value)}
+                    variant="outlined"
+                    color="primary"
+                    className={styles["data-value-input"]}
+                  />
+                </Grid>
+              </Grid>
+              <Grid item xs={11} className={styles["center"]}>
+                <p className={styles["blue"]}>Already Have an Account? <Link to={"/login"}>Sign In</Link></p>
+              </Grid>
+              <Grid item xs={11} className={styles["center"]}>
+                <Button variant="contained" color="primary" onClick={handleSubmit} disabled={loading}>
+                  {loading && <img className={styles.loading} alt="submit button" src={require("./refresh.png")} />}
+                  {!loading && "Submit"}
+                </Button>
+              </Grid>
+            </Grid>
+          </form>
+        </Container>
+      </div>
+    )
+  } else {
+    return (
+      <div>
+        <br />
+        <br />
+        <br />
+        <Container maxWidth="lg" className={styles["main-top"]}>
+          <form>
+            <Grid
+              container
+              direction="row"
+              justify="center"
+              alignItems="center"
+              alignContent="center"
+              className={styles["main-top-inner"]}
+            >
+              <Grid item xs={12} className={styles["center"]}>
+                <ErrorBanner>
+                  {error}
+                </ErrorBanner>
+              </Grid>
+              <Grid item xs={12} className={styles["center"]}>
+                <span className={styles["small-letters"] + " " + styles["shadow"]}>this.</span><span className={styles["large-letters"] + " " + styles["shadow"]}>E</span><span
+                  className={styles["small-letters"] + " " + styles["shadow"]}>vent</span><br />
+              </Grid>
+              <Grid item xs={12} className={styles["center"]}>
+                <h1 className={styles["white"] + " " + styles["shadow"]}>Sign UP</h1>
+              </Grid>
+              <Grid
+                container
+                direction="column"
+                justify="center"
+                alignItems="center"
+                alignContent="center"
+                className={styles["textfield-wrapper"]}
+              >
+                <Grid item xs={11} className={styles["center"]}>
+                  <TextField
+                    name="firstname"
+                    id="firstname"
+                    label="First Name"
+                    value={firstName}
+                    onChange={e => setFirstName(e.target.value)}
+                    variant="outlined"
+                    color="primary"
+                    className={styles["data-value-input"]}
+                  />
+                </Grid>
+                <Grid item xs={11} className={styles["center"]}>
+                  <br />
+                </Grid>
+                <Grid item xs={11} className={styles["center"]}>
+                  <TextField
+                    name="lastname"
+                    id="lastname"
+                    label="Last Name"
+                    value={lastName}
+                    onChange={e => setLastName(e.target.value)}
+                    variant="outlined"
+                    color="primary"
+                    className={styles["data-value-input"]}
+                  />
+                </Grid>
+                <Grid item xs={11} className={styles["center"]}>
+                  <br />
+                </Grid>
+                <Grid item xs={11} className={styles["center"]}>
+                  <TextField
+                    name="email"
+                    id="email"
+                    label="Email"
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
+                    variant="outlined"
+                    color="primary"
+                    className={styles["data-value-input"]}
+                  />
+                </Grid>
+                <Grid item xs={11} className={styles["center"]}>
+                  <br />
+                </Grid>
+                <Grid item xs={11} className={styles["center"]}>
+                  <TextField
+                    name="password"
+                    type="password"
+                    id="password"
+                    label="Password"
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                    variant="outlined"
+                    color="primary"
+                    className={styles["data-value-input"]}
+                  />
+                </Grid>
+              </Grid>
+              <Grid item xs={11} className={styles["center"]}>
+                <p className={styles["blue"]}>Already Have an Account? <Link to={"/login"}>Sign In</Link></p>
+              </Grid>
+              <Grid item xs={11} className={styles["center"]}>
+                <Button variant="contained" color="primary" onClick={handleSubmit} disabled={loading}>
+                  {loading && <img className={styles.loading} alt="submit button" src={require("./refresh.png")} />}
+                  {!loading && "Submit"}
+                </Button>
+              </Grid>
+            </Grid>
+          </form>
+        </Container>
+      </div>
+    )
+  }
 }
 
 export default SignUpForm;

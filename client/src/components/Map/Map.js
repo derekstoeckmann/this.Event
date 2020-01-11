@@ -48,7 +48,7 @@ class Map extends Component {
   // Component should only rerender when user selects address or drags map marker.
   shouldComponentUpdate(nextProps, nextState) {
     if (
-      this.props.markerPosition.lat !== this.props.markerPosition.lat ||
+      this.props.markerPosition.lat !== nextProps.markerPosition.lat ||
       this.props.address !== nextProps.address ||
       this.props.city !== nextProps.city ||
       this.props.state !== nextProps.state ||
@@ -121,7 +121,7 @@ class Map extends Component {
   };
 
   // Event when map marker window is closed.
-  onInfoWindowClose = event => {};
+  onInfoWindowClose = event => { };
 
   // We don't use this...
   onChange = event => {

@@ -11,20 +11,20 @@ function SingleEvent(props) {
   return (
     <>
       <Grid item>
-        {<Moment date={time} format="MM/DD/YYYY" />}
+        <span className={styles["data-key"]}>{<Moment date={time} format="MM/DD/YYYY" />}</span>
       </Grid>
       <Link to={`/event/${_id}`}>
         <Grid item xs={12} className={styles["main-events-white"]}>
           <Grid container direction="row">
             <Grid
               item
-              xs={2}
+              xs={3} sm={2}
               style={{ borderRight: "1px solid #ccc", padding: "3px" }}
             >
               <Moment date={time} format="hh:mm a" />
               <br />
             </Grid>
-            <Grid item xs={10}>
+            <Grid item xs={9} sm={10}>
               <Grid container direction="row">
                 <Grid
                   item

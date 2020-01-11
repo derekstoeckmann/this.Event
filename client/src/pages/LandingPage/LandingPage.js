@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Grid, Switch, Button, Checkbox, Container, TextField, FormControlLabel } from "@material-ui/core";
+import { Grid, Button, Container } from "@material-ui/core";
 
 import styles from "./LandingPage.module.css";
 import { Link } from "react-router-dom";

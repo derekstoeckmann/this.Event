@@ -12,26 +12,37 @@ const SignInForm = (props) => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [badPassword, setBadPassword] = useState(false);
+  const [badEmail, setBadEmail] = useState(false);
 
   const isLoggedIn = props.value;
   const isSignedIn = props.signed
 
   function handleSubmit(e) {
     e.preventDefault();
-    setLoading(true)
-    Auth.signIn({
-      username: username,
-      password: password,
-    })
-      .then(res => {
-        isLoggedIn(true)
-        isSignedIn(true)
-        props.history.push("/")
+
+    if (!password.match("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})")) {
+      setBadPassword(true)
+    } else { setBadPassword(false) }
+    if (!/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(username)) {
+      setBadEmail(true)
+    } else { setBadEmail(false) }
+    if (!badPassword && !badEmail) {
+      setLoading(true)
+      Auth.signIn({
+        username: username,
+        password: password,
       })
-      .catch(err => {
-        setLoading(false)
-        setError(err.message)
-      })
+        .then(res => {
+          isLoggedIn(true)
+          isSignedIn(true)
+          props.history.push("/")
+        })
+        .catch(err => {
+          setLoading(false)
+          setError(err.message)
+        })
+    }
   }
   return (
     <div>
@@ -70,6 +81,9 @@ const SignInForm = (props) => {
             >
               <Grid item xs={11} className={styles["center"]}>
                 <TextField
+                  required
+                  error={badEmail}
+                  helperText={badEmail ? "Your username is your email address" : ""}
                   name="username"
                   id="username"
                   label="Username"
@@ -85,6 +99,9 @@ const SignInForm = (props) => {
               </Grid>
               <Grid item xs={11} className={styles["center"]}>
                 <TextField
+                  required
+                  error={badPassword}
+                  helperText={badPassword ? "Please Enter a valid password" : ""}
                   name="password"
                   type="password"
                   id="password"

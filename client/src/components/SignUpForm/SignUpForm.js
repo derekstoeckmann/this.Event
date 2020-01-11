@@ -29,7 +29,6 @@ const SignUpForm = (props) => {
     if (!/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(email)) {
       setBadEmail(true)
     } else { setBadEmail(false) }
-    { console.log(lastName, firstName) }
     if (signedup && (!lastName || lastName === " " || !firstName || firstName === " ")) {
       setValidatingForm(true)
     } else { setValidatingForm(false) }

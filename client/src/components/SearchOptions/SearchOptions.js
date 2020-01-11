@@ -14,6 +14,7 @@ Geocode.enableDebug();
 export default function SearchOptions(props) {
   const [searchRadius, setSearchRadius] = useState(25);
   const [searchZipcode, setSearchZipcode] = useState("");
+  const [cantFindYou, setCantFindYou] = useState(false);
 
 
   const handleZipChange = event => {
@@ -25,10 +26,8 @@ export default function SearchOptions(props) {
   };
 
   const handleSearchSubmit = async () => {
-
     let events;
     if (searchZipcode) {
-      console.log("zip")
       const location = await Geocode.fromAddress(searchZipcode);
       const { lat, lng } = location.results[0].geometry.location;
       events = await axios.get(
@@ -36,7 +35,6 @@ export default function SearchOptions(props) {
       );
       props.setEvents(events.data.data);
     } else if (window.navigator) {
-      console.log("Nav")
       window.navigator.geolocation.getCurrentPosition(async function (pos) {
         const { latitude, longitude } = pos.coords;
         events = await axios.get(
@@ -44,9 +42,10 @@ export default function SearchOptions(props) {
         );
         props.setEvents(events.data.data);
       });
+    } else {
+      setCantFindYou(true);
+      props.setEvents([]);
     }
-    //NEED AN ELSE THAT SHOWS A WARNING THAT WE NEED A ZIP CODE
-    //WE CAN NOT FIND YOUR POSITION PLEASE ENTER A ZIP CODE
 
   };
 
@@ -68,6 +67,9 @@ export default function SearchOptions(props) {
         </Grid>
         <Grid item>
           <TextField
+            required={cantFindYou}
+            error={cantFindYou}
+            helperText={cantFindYou ? "Location unavailable Please enter a zip code" : ""}
             type="number"
             id="search-zip"
             label="Zipcode"

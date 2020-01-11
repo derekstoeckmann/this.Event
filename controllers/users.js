@@ -4,7 +4,7 @@ const Event = require("../models/Event");
 // @desc    Get all users
 // @route   GET /api/users
 exports.getUsers = async (req, res, next) => {
-  const users = await User.find();
+  const users = await User.find(req.query);
 
   res.status(200).json({ success: true, count: users.length, data: users });
 };

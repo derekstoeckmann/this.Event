@@ -11,6 +11,7 @@ const SignInForm = (props) => {
     const [loading, setLoading] = useState(false);
 
     const isLoggedIn = props.value;
+    const isSignedIn = props.signed
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -21,6 +22,7 @@ const SignInForm = (props) => {
         })
             .then(res => {
                 isLoggedIn(true)
+                isSignedIn(true)
                 props.history.push("/")
             })
             .catch(err => {

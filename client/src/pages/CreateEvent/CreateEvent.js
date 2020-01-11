@@ -48,7 +48,6 @@ const CreateEvent = props => {
     const getEventIfExists = async () => {
       if (match.params.eventId) {
         const response = await axios.get(`/api/events/${match.params.eventId}`);
-        console.log("RESPONSE: ", response)
         if (window.navigator || match.params.eventId) {
           window.navigator.geolocation.getCurrentPosition(function (pos) {
             const { latitude, longitude } = pos.coords;
@@ -90,7 +89,6 @@ const CreateEvent = props => {
         setEventDescription(response.data.data.description);
         // setByoChecked(response.data.data.);
         setLocationName(response.data.data.location.name);
-        console.log(response.data.data.highlights[0]);
         setHighlightsChecked(
           response.data.data.highlights[0] ||
             response.data.data.highlights[1] ||

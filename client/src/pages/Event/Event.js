@@ -67,8 +67,6 @@ const Event = ({ match }) => {
     }
   };
 
-  console.log("EVENT: ", event);
-  console.log("USER: ", currentUserData);
   if (!event.title || !currentUserData) {
     return <h1>Loading...</h1>;
   }

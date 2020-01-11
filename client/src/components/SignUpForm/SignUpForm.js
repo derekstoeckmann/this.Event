@@ -38,6 +38,7 @@ const SignUpForm = (props) => {
     } else { setValidatingForm(false) }
 
     if (!validatingForm && !badPassword && !badEmail) {
+      setLoading(true)
       if (!signedup) {
         Auth.signUp({
           username: email,

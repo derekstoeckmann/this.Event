@@ -28,8 +28,7 @@ const CreateEvent = props => {
   const [highlight3, setHighlight3] = useState("");
   const [highlight4, setHighlight4] = useState("");
   const [highlight5, setHighlight5] = useState("");
-  const [formSubmitted, setFormSubmitted] = useState(false);
-  const [errorFound, setErrorFound] = useState(false);
+  const [validatingForm, setValidatingForm] = useState(false);
   // const [byoItemType, setByoItemType] = useState("");
   const [locationData, setLocationData] = useState({
     address: "",
@@ -134,14 +133,13 @@ const CreateEvent = props => {
 
   const submitHandler = event => {
     event.preventDefault();
-    setFormSubmitted(true);
+    setValidatingForm(true);
     if (
       !eventTitle || eventTitle === " " ||
       !locationName || locationName === " " ||
       !eventDescription || eventDescription === " ") {
-      setErrorFound(true);
     } else {
-      setFormSubmitted(false);
+      setValidatingForm(false);
       const eventData = {
         user: currentUserData._id,
         title: eventTitle,
@@ -243,8 +241,8 @@ const CreateEvent = props => {
                   <Grid item>
                     <TextField
                       required
-                      error={(!eventTitle || eventTitle === " ") && formSubmitted}
-                      helperText={(!eventTitle || eventTitle === " ") && formSubmitted ? "You must enter an event title" : ""}
+                      error={(!eventTitle || eventTitle === " ") && validatingForm}
+                      helperText={(!eventTitle || eventTitle === " ") && validatingForm ? "You must enter an event title" : ""}
                       id="event-title"
                       label="Event Title"
                       value={eventTitle}
@@ -257,8 +255,8 @@ const CreateEvent = props => {
                   <Grid item>
                     <TextField
                       required
-                      error={(!locationName || locationName === " ") && formSubmitted}
-                      helperText={(!locationName || locationName === " ") && formSubmitted ? "You must enter a location name" : ""}
+                      error={(!locationName || locationName === " ") && validatingForm}
+                      helperText={(!locationName || locationName === " ") && validatingForm ? "You must enter a location name" : ""}
                       id="location-name"
                       label="Location Name"
                       value={locationName}
@@ -417,8 +415,8 @@ const CreateEvent = props => {
                 <br />
                 <TextField
                   required
-                  error={(!eventDescription || eventDescription === " ") && formSubmitted}
-                  helperText={(!eventDescription || eventDescription === " ") && formSubmitted ? "Please enter an event description" : ""}
+                  error={(!eventDescription || eventDescription === " ") && validatingForm}
+                  helperText={(!eventDescription || eventDescription === " ") && validatingForm ? "Please enter an event description" : ""}
                   id="outlined-multiline-static"
                   label="Event Description"
                   multiline

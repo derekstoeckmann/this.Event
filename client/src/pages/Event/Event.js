@@ -67,17 +67,9 @@ const Event = ({ match }) => {
     }
   };
 
-<<<<<<< HEAD
-  console.log("event", event);
-  console.log("user ", currentUserData);
-  // if (!event.title || !currentUserData._id) {
-  //   return <h1>Loading...</h1>;
-  // }
-=======
   if (!event.title || !currentUserData) {
     return <h1>Loading...</h1>;
   }
->>>>>>> ebf201b82899fa35dcff523a0f08fe97fc9b6561
 
   return (
     <Wrapper>
@@ -168,32 +160,29 @@ const Event = ({ match }) => {
                   <br />
                 </Grid>
                 {event.highlights[0] ||
-                  event.highlights[1] ||
-                  event.highlights[2] ||
-                  event.highlights[3] ||
-                  event.highlights[4]
-                  ? (
-                    <>
-                      <Grid item xs={11}>
-                        <span className={styles["data-key"]}>Event Highlights</span>
+                event.highlights[1] ||
+                event.highlights[2] ||
+                event.highlights[3] ||
+                event.highlights[4] ? (
+                  <>
+                    <Grid item xs={11}>
+                      <span className={styles["data-key"]}>
+                        Event Highlights
+                      </span>
+                    </Grid>
+                    <Grid item xs={11}>
+                      <Grid container direction="row" spacing={1}>
+                        {event.highlights.map(highlight =>
+                          highlight && highlight !== " " ? (
+                            <Grid item>
+                              <li>{highlight}</li>
+                            </Grid>
+                          ) : null
+                        )}
                       </Grid>
-                      <Grid item xs={11}>
-                        <Grid
-                          container
-                          direction="row"
-                          spacing={1}
-                        >
-                          {event.highlights.map(highlight => (
-                            highlight && highlight !== " " ? (
-                              <Grid item>
-                                <li>{highlight}</li>
-                              </Grid>
-                            ) : null
-                          ))}
-                        </Grid>
-                      </Grid>
-                    </>
-                  ) : null}
+                    </Grid>
+                  </>
+                ) : null}
               </Grid>
             </Grid>
             <Grid
@@ -217,14 +206,8 @@ const Event = ({ match }) => {
                 <br />
                 <span className={styles["data-key"]}>Description</span>
               </Grid>
-<<<<<<< HEAD
-              <Grid item xs={11}>
-                {console.log(event.description.replace(/\r\n/g, "<br>"))}
-                {event.description.replace(/(?:\r\n|\r|\n)/g, "<br />")}
-=======
               <Grid item xs={11} className={styles["description"]}>
                 {event.description}
->>>>>>> ebf201b82899fa35dcff523a0f08fe97fc9b6561
                 <br />
                 <br />
                 <hr />
@@ -245,11 +228,7 @@ const Event = ({ match }) => {
                 />
               </Grid> */}
               <Grid item xs={11}>
-                <Grid
-                  container
-                  direction="row"
-                  spacing={1}
-                >
+                <Grid container direction="row" spacing={1}>
                   {eventAttending.length > 0 ? (
                     eventAttending.map(user => (
                       <Grid key={user._id} item xs={12} sm={6} md={4}>

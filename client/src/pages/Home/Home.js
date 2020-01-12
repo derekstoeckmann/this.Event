@@ -22,21 +22,43 @@ const Home = () => {
   const [eventsHost, setEventsHost] = useState([]); //Events the user is hosting
 
   useEffect(() => {
+    const source = axios.CancelToken.source();
+
     if (currentUserData) {
       axios
-        .get(`/api/users/${currentUserData._id}/attending`)
-        .then(response => {
-          setEventsAttend([...response.data.data]);
+        .get(`/api/users/${currentUserData._id}/attending`, {
+          cancelToken: source.token
         })
-        .catch(err => console.log(err));
+        .then(response => {
+          setEventsAttend(response.data.data);
+        })
+        .catch(error => {
+          if (axios.isCancel(error)) {
+            console.log("Request cancelled.");
+          } else {
+            throw error;
+          }
+        });
 
       axios
-        .get(`/api/users/${currentUserData._id}/hosting`)
-        .then(response => {
-          setEventsHost([...response.data.data]);
+        .get(`/api/users/${currentUserData._id}/hosting`, {
+          cancelToken: source.token
         })
-        .catch(err => console.log(err));
+        .then(response => {
+          setEventsHost(response.data.data);
+        })
+        .catch(error => {
+          if (axios.isCancel(error)) {
+            console.log("Request cancelled.");
+          } else {
+            throw error;
+          }
+        });
     }
+
+    return () => {
+      source.cancel();
+    };
   }, [currentUserData]);
 
   const handleDateChange = date => {

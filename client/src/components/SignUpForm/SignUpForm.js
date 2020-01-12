@@ -16,47 +16,68 @@ const SignUpForm = (props) => {
   const [signedup, setSignedUp] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [validatingForm, setValidatingForm] = useState(false);
+  const [badPassword, setBadPassword] = useState(false);
+  const [badEmail, setBadEmail] = useState(false);
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (!signedup) {
-      Auth.signUp({
-        username: email,
-        password: password,
-        attributes: {
-          phone_number: "+11234561234"
-        }
-      })
-        .then(res => {
-          setError("")
-          setSignedUp(true)
-        })
-        .catch(err => {
-          setError(err.message)
-        })
-    } else {
-      Auth.confirmSignUp(email, confirmationCode)
-        .then((res) => {
-          const userData = {
-            firstName,
-            lastName,
-            email
+
+    if (!password.match("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})")) {
+      setBadPassword(true)
+    } else { setBadPassword(false) }
+    if (!/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(email)) {
+      setBadEmail(true)
+    } else { setBadEmail(false) }
+    if (signedup && (!lastName || lastName === " " || !firstName || firstName === " ")) {
+      setValidatingForm(true)
+    } else { setValidatingForm(false) }
+    if (!signedup && (!confirmationCode || confirmationCode === " ")) {
+      setValidatingForm(true)
+    } else { setValidatingForm(false) }
+
+    if (!validatingForm && !badPassword && !badEmail) {
+      setLoading(true)
+      if (!signedup) {
+        Auth.signUp({
+          username: email,
+          password: password,
+          attributes: {
+            phone_number: "+11234561234"
           }
-          axios.post("/api/users", userData)
-            .then(res => {
-              props.history.push("/login")
-            })
-            .catch(err => {
-              console.log("axios Error")
-              console.log(err)
-              setError("Email May Already Be Registered In Database")
-            })
         })
-        .catch(err => {
-          setError(err.message)
-        })
+          .then(res => {
+            setError("")
+            setSignedUp(true)
+          })
+          .catch(err => {
+            setError(err.message)
+          })
+      } else {
+        Auth.confirmSignUp(email, confirmationCode)
+          .then((res) => {
+            const userData = {
+              firstName,
+              lastName,
+              email
+            }
+            axios.post("/api/users", userData)
+              .then(res => {
+                props.history.push("/login")
+              })
+              .catch(err => {
+                console.log("axios Error")
+                console.log(err)
+                setError("Email May Already Be Registered In Database")
+              })
+          })
+          .catch(err => {
+            setError(err.message)
+          })
+      }
     }
   }
+
   if (signedup) {
     return (
       <div>
@@ -95,6 +116,9 @@ const SignUpForm = (props) => {
               >
                 <Grid item xs={11} className={styles["center"]}>
                   <TextField
+                    required
+                    error={badEmail}
+                    helperText={badEmail ? "Please Enter a valid email address" : ""}
                     name="email"
                     id="email"
                     label="Email"
@@ -110,6 +134,9 @@ const SignUpForm = (props) => {
                 </Grid>
                 <Grid item xs={11} className={styles["center"]}>
                   <TextField
+                    required
+                    error={(!confirmationCode || confirmationCode === " ") && validatingForm}
+                    helperText={(!confirmationCode || confirmationCode === " ") && validatingForm ? "Please enter a first name" : ""}
                     name="confirmationCode"
                     id="confirmationCode"
                     label="Confirmation Email Code"
@@ -173,6 +200,9 @@ const SignUpForm = (props) => {
               >
                 <Grid item xs={11} className={styles["center"]}>
                   <TextField
+                    required
+                    error={(!firstName || firstName === " ") && validatingForm}
+                    helperText={(!firstName || firstName === " ") && validatingForm ? "Please enter a first name" : ""}
                     name="firstname"
                     id="firstname"
                     label="First Name"
@@ -188,6 +218,9 @@ const SignUpForm = (props) => {
                 </Grid>
                 <Grid item xs={11} className={styles["center"]}>
                   <TextField
+                    required
+                    error={(!lastName || lastName === " ") && validatingForm}
+                    helperText={(!lastName || lastName === " ") && validatingForm ? "Please enter a last name" : ""}
                     name="lastname"
                     id="lastname"
                     label="Last Name"
@@ -203,6 +236,9 @@ const SignUpForm = (props) => {
                 </Grid>
                 <Grid item xs={11} className={styles["center"]}>
                   <TextField
+                    required
+                    error={badEmail}
+                    helperText={badEmail ? "Please Enter a valid email address" : ""}
                     name="email"
                     id="email"
                     label="Email"
@@ -218,6 +254,9 @@ const SignUpForm = (props) => {
                 </Grid>
                 <Grid item xs={11} className={styles["center"]}>
                   <TextField
+                    required
+                    error={badPassword}
+                    helperText={badPassword ? "Please Enter a valid password" : ""}
                     name="password"
                     type="password"
                     id="password"
@@ -227,7 +266,13 @@ const SignUpForm = (props) => {
                     variant="outlined"
                     color="primary"
                     className={styles["data-value-input"]}
-                  />
+                  /><br />
+                  <br />
+                  <span className={styles["red"]}>The password must contain at least 1 lowercase alphabetical character,<br />
+                    at least 1 uppercase alphabetical character,<br />
+                    at least 1 numeric character,<br />
+                    at least one special character,<br />
+                    and must be eight characters or longer</span>
                 </Grid>
               </Grid>
               <Grid item xs={11} className={styles["center"]}>

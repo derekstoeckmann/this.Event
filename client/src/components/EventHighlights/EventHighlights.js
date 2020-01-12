@@ -24,50 +24,66 @@ function EventHighlights(props) {
               className={styles["data-value-input"]}
             />
           </Grid>
-          <Grid item md={6}>
-            <TextField
-              id="highlight-2"
-              label="Event Highlight Two"
-              value={props.highlight2}
-              onChange={event => props.setHighlight2(event.target.value)}
-              variant="outlined"
-              size="small"
-              className={styles["data-value-input"]}
-            />
-          </Grid>
-          <Grid item md={6}>
-            <TextField
-              id="highlight-3"
-              label="Event Highlight Three"
-              value={props.highlight3}
-              onChange={event => props.setHighlight3(event.target.value)}
-              variant="outlined"
-              size="small"
-              className={styles["data-value-input"]}
-            />
-          </Grid>
-          <Grid item md={6}>
-            <TextField
-              id="highlight-4"
-              label="Event Highlight Four"
-              value={props.highlight4}
-              onChange={event => props.setHighlight4(event.target.value)}
-              variant="outlined"
-              size="small"
-              className={styles["data-value-input"]}
-            />
-          </Grid>
-          <Grid item md={6}>
-            <TextField
-              id="highlight-5"
-              label="Event Highlight Five"
-              value={props.highlight5}
-              onChange={event => props.setHighlight5(event.target.value)}
-              variant="outlined"
-              size="small"
-              className={styles["data-value-input"]}
-            />
-          </Grid>
+          {props.highlight1 !== "" ? (
+            <>
+              <Grid item md={6}>
+                <TextField
+                  id="highlight-2"
+                  label="Event Highlight Two"
+                  value={props.highlight2}
+                  onChange={event => props.setHighlight2(event.target.value)}
+                  variant="outlined"
+                  size="small"
+                  className={styles["data-value-input"]}
+                />
+              </Grid>
+            </>
+          ) : props.setHighlight2("")}
+          {props.highlight2 !== "" ? (
+            <>
+              <Grid item md={6}>
+                <TextField
+                  id="highlight-3"
+                  label="Event Highlight Three"
+                  value={props.highlight3}
+                  onChange={event => props.setHighlight3(event.target.value)}
+                  variant="outlined"
+                  size="small"
+                  className={styles["data-value-input"]}
+                />
+              </Grid>
+            </>
+          ) : props.setHighlight3("")}
+          {props.highlight3 !== "" ? (
+            <>
+              <Grid item md={6}>
+                <TextField
+                  id="highlight-4"
+                  label="Event Highlight Four"
+                  value={props.highlight4}
+                  onChange={event => props.setHighlight4(event.target.value)}
+                  variant="outlined"
+                  size="small"
+                  className={styles["data-value-input"]}
+                />
+              </Grid>
+            </>
+          ) : props.setHighlight4("")}
+          {props.highlight4 !== "" ? (
+            <>
+              <Grid item md={6}>
+                <TextField
+                  id="highlight-5"
+                  label="Event Highlight Five"
+                  value={props.highlight5}
+                  onChange={event => props.setHighlight5(event.target.value)}
+                  variant="outlined"
+                  size="small"
+                  className={styles["data-value-input"]}
+                />
+              </Grid>
+            </>
+          ) : props.setHighlight5(null)}
         </Grid>
       </Grid>
     </>

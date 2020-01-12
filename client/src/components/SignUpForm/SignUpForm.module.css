@@ -51,6 +51,10 @@
     color: #03396C;
 }
 
+.red {
+    color: #f00;
+}
+
 .center {
     text-align: center;
 }

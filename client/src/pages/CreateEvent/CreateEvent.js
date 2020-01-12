@@ -28,6 +28,7 @@ const CreateEvent = props => {
   const [highlight3, setHighlight3] = useState("");
   const [highlight4, setHighlight4] = useState("");
   const [highlight5, setHighlight5] = useState("");
+  const [validatingForm, setValidatingForm] = useState(false);
   // const [byoItemType, setByoItemType] = useState("");
   const [locationData, setLocationData] = useState({
     address: "",
@@ -90,37 +91,33 @@ const CreateEvent = props => {
         // setByoChecked(response.data.data.);
         setLocationName(response.data.data.location.name);
         setHighlightsChecked(
-          response.data.data.highlights[0] ||
-            response.data.data.highlights[1] ||
-            response.data.data.highlights[2] ||
-            response.data.data.highlights[3] ||
-            response.data.data.highlights[4]
+          response.data.data.highlights[0]
             ? true : false
         );
         setHighlight1(
           response.data.data.highlights[0]
             ? response.data.data.highlights[0]
-            : null
+            : ""
         );
         setHighlight2(
           response.data.data.highlights[1]
             ? response.data.data.highlights[1]
-            : null
+            : ""
         );
         setHighlight3(
           response.data.data.highlights[2]
             ? response.data.data.highlights[2]
-            : null
+            : ""
         );
         setHighlight4(
           response.data.data.highlights[3]
             ? response.data.data.highlights[3]
-            : null
+            : ""
         );
         setHighlight5(
           response.data.data.highlights[4]
             ? response.data.data.highlights[4]
-            : null
+            : ""
         );
         // setByoItemType(response.data.data.);
         setEventTitle(response.data.data.title);
@@ -136,46 +133,54 @@ const CreateEvent = props => {
 
   const submitHandler = event => {
     event.preventDefault();
-    const eventData = {
-      user: currentUserData._id,
-      title: eventTitle,
-      description: eventDescription,
-      time: selectedDate,
-      location: {
-        type: "Point",
-        coordinates: [
-          locationData.markerPosition.lng,
-          locationData.markerPosition.lat
-        ],
-        name: locationName,
-        address: locationData.address,
-        city: locationData.city,
-        state: locationData.state,
-        zipcode: locationData.zipcode
-      },
-      public: eventIsPublic,
-      locationName: locationName,
-      highlights: [highlight1, highlight2, highlight3, highlight4, highlight5],
-      // byoItemType: byoItemType
-    };
-
-    if (match.params.eventId) {
-      console.log("you hit the UPDATE condition");
-      axios
-        .put(`/api/events/${match.params.eventId}`, eventData)
-        .then(response => {
-          props.history.push(`/event/${response.data.data._id}`);
-        })
-        .catch(err => console.log(err));
+    setValidatingForm(true);
+    if (
+      !eventTitle || eventTitle === " " ||
+      !locationName || locationName === " " ||
+      !eventDescription || eventDescription === " ") {
     } else {
-      console.log("you hit the POST condition");
-      axios
-        .post("/api/events", eventData)
-        .then(response => {
-          console.log("event posted: ", response);
-          props.history.push(`/event/${response.data.data._id}`);
-        })
-        .catch(err => console.log(err));
+      setValidatingForm(false);
+      const eventData = {
+        user: currentUserData._id,
+        title: eventTitle,
+        description: eventDescription,
+        time: selectedDate,
+        location: {
+          type: "Point",
+          coordinates: [
+            locationData.markerPosition.lng,
+            locationData.markerPosition.lat
+          ],
+          name: locationName,
+          address: locationData.address,
+          city: locationData.city,
+          state: locationData.state,
+          zipcode: locationData.zipcode
+        },
+        public: eventIsPublic,
+        locationName: locationName,
+        highlights: [highlight1, highlight2, highlight3, highlight4, highlight5],
+        // byoItemType: byoItemType
+      };
+
+      if (match.params.eventId) {
+        console.log("you hit the UPDATE condition");
+        axios
+          .put(`/api/events/${match.params.eventId}`, eventData)
+          .then(response => {
+            props.history.push(`/event/${response.data.data._id}`);
+          })
+          .catch(err => console.log(err));
+      } else {
+        console.log("you hit the POST condition");
+        axios
+          .post("/api/events", eventData)
+          .then(response => {
+            console.log("event posted: ", response);
+            props.history.push(`/event/${response.data.data._id}`);
+          })
+          .catch(err => console.log(err));
+      }
     }
   };
 
@@ -235,6 +240,9 @@ const CreateEvent = props => {
                 >
                   <Grid item>
                     <TextField
+                      required
+                      error={(!eventTitle || eventTitle === " ") && validatingForm}
+                      helperText={(!eventTitle || eventTitle === " ") && validatingForm ? "You must enter an event title" : ""}
                       id="event-title"
                       label="Event Title"
                       value={eventTitle}
@@ -246,6 +254,9 @@ const CreateEvent = props => {
                   </Grid>
                   <Grid item>
                     <TextField
+                      required
+                      error={(!locationName || locationName === " ") && validatingForm}
+                      helperText={(!locationName || locationName === " ") && validatingForm ? "You must enter a location name" : ""}
                       id="location-name"
                       label="Location Name"
                       value={locationName}
@@ -403,6 +414,9 @@ const CreateEvent = props => {
               <Grid item xs={12} className={styles["tableFullWidth"]}>
                 <br />
                 <TextField
+                  required
+                  error={(!eventDescription || eventDescription === " ") && validatingForm}
+                  helperText={(!eventDescription || eventDescription === " ") && validatingForm ? "Please enter an event description" : ""}
                   id="outlined-multiline-static"
                   label="Event Description"
                   multiline

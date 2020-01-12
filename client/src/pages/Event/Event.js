@@ -184,9 +184,11 @@ const Event = ({ match }) => {
                           spacing={1}
                         >
                           {event.highlights.map(highlight => (
-                            <Grid item>
-                              <li>{highlight}</li>
-                            </Grid>
+                            highlight && highlight !== " " ? (
+                              <Grid item>
+                                <li>{highlight}</li>
+                              </Grid>
+                            ) : null
                           ))}
                         </Grid>
                       </Grid>

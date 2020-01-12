@@ -18,6 +18,7 @@ function DateTime(props) {
         justify="center"
         className="data-value-input"
         minutesStep={15}
+        minDate={new Date()}
       />
     </MuiPickersUtilsProvider>
   );

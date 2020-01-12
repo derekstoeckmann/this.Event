@@ -16,6 +16,7 @@ export default function DatePicker(props) {
         margin="normal"
         id="date-picker-inline"
         label="Search Date"
+        minDate={new Date()}
         value={props.selectedDate}
         onChange={props.handleDateChange}
         KeyboardButtonProps={{

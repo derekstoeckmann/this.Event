@@ -1,6 +1,6 @@
 const Event = require("../models/Event");
 const Post = require("../models/Post");
-const IsAuthenticated = require("../routes/IsAuthenticated")
+const IsAuthenticated = require("../routes/IsAuthenticated");
 
 // @desc    Get all events
 // @route   GET /api/events
@@ -11,7 +11,7 @@ exports.getEvents = async (req, res, next) => {
     match => `$${match}`
   );
   const parsedQuery = JSON.parse(formattedQuery);
-  const events = await Event.find(parsedQuery).populate("user");
+  const events = await Event.find(parsedQuery);
 
   res.status(200).json({ success: true, count: events.length, data: events });
 };

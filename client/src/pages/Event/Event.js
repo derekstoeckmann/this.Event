@@ -67,17 +67,9 @@ const Event = ({ match }) => {
     }
   };
 
-<<<<<<< HEAD
-  console.log("event", event);
-  console.log("user ", currentUserData);
-  // if (!event.title || !currentUserData._id) {
-  //   return <h1>Loading...</h1>;
-  // }
-=======
   if (!event.title || !currentUserData) {
     return <h1>Loading...</h1>;
   }
->>>>>>> ebf201b82899fa35dcff523a0f08fe97fc9b6561
 
   return (
     <Wrapper>
@@ -217,14 +209,8 @@ const Event = ({ match }) => {
                 <br />
                 <span className={styles["data-key"]}>Description</span>
               </Grid>
-<<<<<<< HEAD
-              <Grid item xs={11}>
-                {console.log(event.description.replace(/\r\n/g, "<br>"))}
-                {event.description.replace(/(?:\r\n|\r|\n)/g, "<br />")}
-=======
               <Grid item xs={11} className={styles["description"]}>
                 {event.description}
->>>>>>> ebf201b82899fa35dcff523a0f08fe97fc9b6561
                 <br />
                 <br />
                 <hr />

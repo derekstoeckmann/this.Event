@@ -245,8 +245,8 @@ const Event = ({ match }) => {
                       </Grid>
                     ))
                   ) : (
-                      <h1>No users attending yet!</h1>
-                    )}
+                    <h1>No users attending yet!</h1>
+                  )}
                   <br />
                   <br />
                   <br />
@@ -275,7 +275,7 @@ const Event = ({ match }) => {
                     <Link to={`/createEvent/${event._id}`}>
                       <Button variant="contained" color="primary">
                         Edit Event
-                    </Button>
+                      </Button>
                     </Link>
                   )}
                 </Grid>

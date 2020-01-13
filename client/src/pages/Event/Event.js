@@ -71,7 +71,15 @@ const Event = ({ match }) => {
       });
 
       setEvent({ ...event, attending: updatedAttending });
-      setEventAttending(updatedAttending);
+
+      await axios
+        .get(`/api/events/${match.params.eventId}/attending`)
+        .then(response => {
+          setEventAttending(response.data.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
     } catch (error) {
       console.log(error);
     }

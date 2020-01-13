@@ -1,7 +1,15 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 
-import { Grid, Switch, Button, Checkbox, Container, TextField, FormControlLabel } from "@material-ui/core";
+import {
+  Grid,
+  Switch,
+  Button,
+  Checkbox,
+  Container,
+  TextField,
+  FormControlLabel
+} from "@material-ui/core";
 
 import Map from "../../components/Map/Map.js";
 import Wrapper from "../../components/Wrapper/Wrapper";
@@ -29,6 +37,7 @@ const CreateEvent = props => {
   const [highlight4, setHighlight4] = useState("");
   const [highlight5, setHighlight5] = useState("");
   const [validatingForm, setValidatingForm] = useState(false);
+  const [cancelConfirm, setCancelConfirm] = useState(false);
   // const [byoItemType, setByoItemType] = useState("");
   const [locationData, setLocationData] = useState({
     address: "",
@@ -50,7 +59,7 @@ const CreateEvent = props => {
       if (match.params.eventId) {
         const response = await axios.get(`/api/events/${match.params.eventId}`);
         if (window.navigator || match.params.eventId) {
-          window.navigator.geolocation.getCurrentPosition(function (pos) {
+          window.navigator.geolocation.getCurrentPosition(function(pos) {
             const { latitude, longitude } = pos.coords;
             setLocationData({
               address: response.data.data.location.address
@@ -90,10 +99,7 @@ const CreateEvent = props => {
         setEventDescription(response.data.data.description);
         // setByoChecked(response.data.data.);
         setLocationName(response.data.data.location.name);
-        setHighlightsChecked(
-          response.data.data.highlights[0]
-            ? true : false
-        );
+        setHighlightsChecked(response.data.data.highlights[0] ? true : false);
         setHighlight1(
           response.data.data.highlights[0]
             ? response.data.data.highlights[0]
@@ -135,9 +141,13 @@ const CreateEvent = props => {
     event.preventDefault();
     setValidatingForm(true);
     if (
-      !eventTitle || eventTitle === " " ||
-      !locationName || locationName === " " ||
-      !eventDescription || eventDescription === " ") {
+      !eventTitle ||
+      eventTitle === " " ||
+      !locationName ||
+      locationName === " " ||
+      !eventDescription ||
+      eventDescription === " "
+    ) {
     } else {
       setValidatingForm(false);
       const eventData = {
@@ -159,7 +169,7 @@ const CreateEvent = props => {
         },
         public: eventIsPublic,
         locationName: locationName,
-        highlights: [highlight1, highlight2, highlight3, highlight4, highlight5],
+        highlights: [highlight1, highlight2, highlight3, highlight4, highlight5]
         // byoItemType: byoItemType
       };
 
@@ -184,6 +194,12 @@ const CreateEvent = props => {
     }
   };
 
+  const handleCancel = async () => {
+    await axios.delete(`/api/events/${match.params.eventId}`);
+
+    window.location.replace("/home");
+  };
+
   // THIS NEEDS TO BE SET TO A RELEVENT STATE
   if (match.params.eventId && !locationData.address) {
     return <h1>Loading...</h1>;
@@ -199,11 +215,7 @@ const CreateEvent = props => {
           className={styles["main-inner"]}
         >
           <div className={styles["pageDiv"]}>
-            <Grid
-              container
-              direction="row"
-              justify="center"
-            >
+            <Grid container direction="row" justify="center">
               <Grid item md={5}>
                 <h1>Create Event</h1>
               </Grid>
@@ -225,12 +237,7 @@ const CreateEvent = props => {
               </Grid>
             </Grid>
 
-            <Grid
-              container
-              direction="row"
-              justify="center"
-              spacing={3}
-            >
+            <Grid container direction="row" justify="center" spacing={3}>
               <Grid item md={6}>
                 <Grid
                   container
@@ -241,8 +248,14 @@ const CreateEvent = props => {
                   <Grid item>
                     <TextField
                       required
-                      error={(!eventTitle || eventTitle === " ") && validatingForm}
-                      helperText={(!eventTitle || eventTitle === " ") && validatingForm ? "You must enter an event title" : ""}
+                      error={
+                        (!eventTitle || eventTitle === " ") && validatingForm
+                      }
+                      helperText={
+                        (!eventTitle || eventTitle === " ") && validatingForm
+                          ? "You must enter an event title"
+                          : ""
+                      }
                       id="event-title"
                       label="Event Title"
                       value={eventTitle}
@@ -255,8 +268,16 @@ const CreateEvent = props => {
                   <Grid item>
                     <TextField
                       required
-                      error={(!locationName || locationName === " ") && validatingForm}
-                      helperText={(!locationName || locationName === " ") && validatingForm ? "You must enter a location name" : ""}
+                      error={
+                        (!locationName || locationName === " ") &&
+                        validatingForm
+                      }
+                      helperText={
+                        (!locationName || locationName === " ") &&
+                        validatingForm
+                          ? "You must enter a location name"
+                          : ""
+                      }
                       id="location-name"
                       label="Location Name"
                       value={locationName}
@@ -346,12 +367,7 @@ const CreateEvent = props => {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid
-              container
-              direction="row"
-              justify="center"
-              spacing={3}
-            >
+            <Grid container direction="row" justify="center" spacing={3}>
               <br />
               <br />
               <br />
@@ -365,7 +381,8 @@ const CreateEvent = props => {
               width="100%"
             >
               <Grid item>
-                <span className={styles["data-key"]}>Event Highlights</span> (Up to 5){" "}
+                <span className={styles["data-key"]}>Event Highlights</span> (Up
+                to 5){" "}
                 <Checkbox
                   onChange={event => setHighlightsChecked(!highlightsChecked)}
                   checked={highlightsChecked}
@@ -415,8 +432,16 @@ const CreateEvent = props => {
                 <br />
                 <TextField
                   required
-                  error={(!eventDescription || eventDescription === " ") && validatingForm}
-                  helperText={(!eventDescription || eventDescription === " ") && validatingForm ? "Please enter an event description" : ""}
+                  error={
+                    (!eventDescription || eventDescription === " ") &&
+                    validatingForm
+                  }
+                  helperText={
+                    (!eventDescription || eventDescription === " ") &&
+                    validatingForm
+                      ? "Please enter an event description"
+                      : ""
+                  }
                   id="outlined-multiline-static"
                   label="Event Description"
                   multiline
@@ -431,21 +456,11 @@ const CreateEvent = props => {
                 <br />
                 <br />
               </Grid>
-              <Grid
-                container
-                direction="row"
-                justify="center"
-                spacing={3}
-              >
+              <Grid container direction="row" justify="center" spacing={3}>
                 <br />
                 <br />
               </Grid>
-              <Grid
-                container
-                direction="row"
-                justify="center"
-                spacing={4}
-              >
+              <Grid container direction="row" justify="center" spacing={4}>
                 {!match.params.eventId ? (
                   <>
                     <Grid item>
@@ -459,30 +474,49 @@ const CreateEvent = props => {
                     </Grid>
                   </>
                 ) : (
-                    <>
-                      <Grid item>
+                  <>
+                    <Grid item>
+                      <Button
+                        onClick={submitHandler}
+                        variant="contained"
+                        color="primary"
+                      >
+                        Update Event
+                      </Button>
+                    </Grid>
+                    <Grid item>
+                      {cancelConfirm ? (
+                        <>
+                          <Button
+                            onClick={() => setCancelConfirm(!cancelConfirm)}
+                            variant="contained"
+                            color="primary"
+                            style={{ marginRight: "10px" }}
+                          >
+                            No, Don't Cancel
+                          </Button>
+                          <Button
+                            onClick={handleCancel}
+                            variant="contained"
+                            color="secondary"
+                          >
+                            Yes, Cancel the Event
+                          </Button>
+                        </>
+                      ) : (
                         <Button
-                          onClick={submitHandler}
+                          onClick={() => setCancelConfirm(!cancelConfirm)}
                           variant="contained"
-                          color="primary"
+                          color="secondary"
                         >
-                          Update Event
-                      </Button>
-                      </Grid>
-                      <Grid item>
-                        <Button variant="contained" color="secondary">
                           Cancel Event
-                      </Button>
-                      </Grid>
-                    </>
-                  )}
+                        </Button>
+                      )}
+                    </Grid>
+                  </>
+                )}
               </Grid>
-              <Grid
-                container
-                direction="row"
-                justify="center"
-                spacing={3}
-              >
+              <Grid container direction="row" justify="center" spacing={3}>
                 <br />
                 <br />
                 <br />

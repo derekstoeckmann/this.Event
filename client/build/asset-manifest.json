@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/static/css/main.5e9850b6.chunk.css",
+    "main.js": "/static/js/main.72662689.chunk.js",
+    "main.js.map": "/static/js/main.72662689.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.1dc66141.js",
+    "runtime-main.js.map": "/static/js/runtime-main.1dc66141.js.map",
+    "static/js/2.dc1c75ac.chunk.js": "/static/js/2.dc1c75ac.chunk.js",
+    "static/js/2.dc1c75ac.chunk.js.map": "/static/js/2.dc1c75ac.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.44909a8477a4882b02734c10230866fd.js": "/precache-manifest.44909a8477a4882b02734c10230866fd.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.5e9850b6.chunk.css.map": "/static/css/main.5e9850b6.chunk.css.map",
+    "static/js/2.dc1c75ac.chunk.js.LICENSE": "/static/js/2.dc1c75ac.chunk.js.LICENSE",
+    "static/media/family.png": "/static/media/family.334369b8.png",
+    "static/media/CreateEvent.module.css": "/static/media/header.69b001bb.png",
+    "static/media/making-friends.png": "/static/media/making-friends.b28ed162.png",
+    "static/media/volleyball.png": "/static/media/volleyball.bf6acff3.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.1dc66141.js",
+    "static/js/2.dc1c75ac.chunk.js",
+    "static/css/main.5e9850b6.chunk.css",
+    "static/js/main.72662689.chunk.js"
+  ]
+}

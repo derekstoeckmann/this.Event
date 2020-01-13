@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 import { Grid, Button, Container, TextField } from "@material-ui/core";
 
-const SignUpForm = (props) => {
+const SignUpForm = props => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -15,7 +15,7 @@ const SignUpForm = (props) => {
   const [confirmationCode, setConfirmationCode] = useState("");
   const [signedup, setSignedUp] = useState("");
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loading] = useState(false);
   const [validatingForm, setValidatingForm] = useState(false);
   const [badPassword, setBadPassword] = useState(false);
   const [badEmail, setBadEmail] = useState(false);
@@ -23,21 +23,35 @@ const SignUpForm = (props) => {
   function handleSubmit(e) {
     e.preventDefault();
 
-    if (!password.match("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})")) {
-      setBadPassword(true)
-    } else { setBadPassword(false) }
+    if (
+      !password.match(
+        "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})"
+      )
+    ) {
+      setBadPassword(true);
+    } else {
+      setBadPassword(false);
+    }
     if (!/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(email)) {
-      setBadEmail(true)
-    } else { setBadEmail(false) }
-    if (signedup && (!lastName || lastName === " " || !firstName || firstName === " ")) {
-      setValidatingForm(true)
-    } else { setValidatingForm(false) }
+      setBadEmail(true);
+    } else {
+      setBadEmail(false);
+    }
+    if (
+      signedup &&
+      (!lastName || lastName === " " || !firstName || firstName === " ")
+    ) {
+      setValidatingForm(true);
+    } else {
+      setValidatingForm(false);
+    }
     if (!signedup && (!confirmationCode || confirmationCode === " ")) {
-      setValidatingForm(true)
-    } else { setValidatingForm(false) }
+      setValidatingForm(true);
+    } else {
+      setValidatingForm(false);
+    }
 
     if (!validatingForm && !badPassword && !badEmail) {
-      setLoading(true)
       if (!signedup) {
         Auth.signUp({
           username: email,
@@ -47,33 +61,34 @@ const SignUpForm = (props) => {
           }
         })
           .then(res => {
-            setError("")
-            setSignedUp(true)
+            setError("");
+            setSignedUp(true);
           })
           .catch(err => {
-            setError(err.message)
-          })
+            setError(err.message);
+          });
       } else {
         Auth.confirmSignUp(email, confirmationCode)
-          .then((res) => {
+          .then(res => {
             const userData = {
               firstName,
               lastName,
               email
-            }
-            axios.post("/api/users", userData)
+            };
+            axios
+              .post("/api/users", userData)
               .then(res => {
-                props.history.push("/login")
+                props.history.push("/login");
               })
               .catch(err => {
-                console.log("axios Error")
-                console.log(err)
-                setError("Email May Already Be Registered In Database")
-              })
+                console.log("axios Error");
+                console.log(err);
+                setError("Email May Already Be Registered In Database");
+              });
           })
           .catch(err => {
-            setError(err.message)
-          })
+            setError(err.message);
+          });
       }
     }
   }
@@ -95,16 +110,30 @@ const SignUpForm = (props) => {
               className={styles["main-top-inner"]}
             >
               <Grid item xs={12} className={styles["center"]}>
-                <ErrorBanner>
-                  {error}
-                </ErrorBanner>
+                <ErrorBanner>{error}</ErrorBanner>
               </Grid>
               <Grid item xs={12} className={styles["center"]}>
-                <span className={styles["small-letters"] + " " + styles["shadow"]}>this.</span><span className={styles["large-letters"] + " " + styles["shadow"]}>E</span><span
-                  className={styles["small-letters"] + " " + styles["shadow"]}>vent</span><br />
+                <span
+                  className={styles["small-letters"] + " " + styles["shadow"]}
+                >
+                  this.
+                </span>
+                <span
+                  className={styles["large-letters"] + " " + styles["shadow"]}
+                >
+                  E
+                </span>
+                <span
+                  className={styles["small-letters"] + " " + styles["shadow"]}
+                >
+                  vent
+                </span>
+                <br />
               </Grid>
               <Grid item xs={12} className={styles["center"]}>
-                <h1 className={styles["white"] + " " + styles["shadow"]}>Sign UP</h1>
+                <h1 className={styles["white"] + " " + styles["shadow"]}>
+                  Sign UP
+                </h1>
               </Grid>
               <Grid
                 container
@@ -118,7 +147,9 @@ const SignUpForm = (props) => {
                   <TextField
                     required
                     error={badEmail}
-                    helperText={badEmail ? "Please Enter a valid email address" : ""}
+                    helperText={
+                      badEmail ? "Please Enter a valid email address" : ""
+                    }
                     name="email"
                     id="email"
                     label="Email"
@@ -135,8 +166,16 @@ const SignUpForm = (props) => {
                 <Grid item xs={11} className={styles["center"]}>
                   <TextField
                     required
-                    error={(!confirmationCode || confirmationCode === " ") && validatingForm}
-                    helperText={(!confirmationCode || confirmationCode === " ") && validatingForm ? "Please enter a first name" : ""}
+                    error={
+                      (!confirmationCode || confirmationCode === " ") &&
+                      validatingForm
+                    }
+                    helperText={
+                      (!confirmationCode || confirmationCode === " ") &&
+                      validatingForm
+                        ? "Please enter a first name"
+                        : ""
+                    }
                     name="confirmationCode"
                     id="confirmationCode"
                     label="Confirmation Email Code"
@@ -149,11 +188,24 @@ const SignUpForm = (props) => {
                 </Grid>
               </Grid>
               <Grid item xs={11} className={styles["center"]}>
-                <p className={styles["blue"]}>Already Have an Account? <Link to={"/login"}>Sign In</Link></p>
+                <p className={styles["blue"]}>
+                  Already Have an Account? <Link to={"/login"}>Sign In</Link>
+                </p>
               </Grid>
               <Grid item xs={11} className={styles["center"]}>
-                <Button variant="contained" color="primary" onClick={handleSubmit} disabled={loading}>
-                  {loading && <img className={styles.loading} alt="submit button" src={require("./refresh.png")} />}
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleSubmit}
+                  disabled={loading}
+                >
+                  {loading && (
+                    <img
+                      className={styles.loading}
+                      alt="submit button"
+                      src={require("./refresh.png")}
+                    />
+                  )}
                   {!loading && "Submit"}
                 </Button>
               </Grid>
@@ -161,7 +213,7 @@ const SignUpForm = (props) => {
           </form>
         </Container>
       </div>
-    )
+    );
   } else {
     return (
       <div>
@@ -179,16 +231,30 @@ const SignUpForm = (props) => {
               className={styles["main-top-inner"]}
             >
               <Grid item xs={12} className={styles["center"]}>
-                <ErrorBanner>
-                  {error}
-                </ErrorBanner>
+                <ErrorBanner>{error}</ErrorBanner>
               </Grid>
               <Grid item xs={12} className={styles["center"]}>
-                <span className={styles["small-letters"] + " " + styles["shadow"]}>this.</span><span className={styles["large-letters"] + " " + styles["shadow"]}>E</span><span
-                  className={styles["small-letters"] + " " + styles["shadow"]}>vent</span><br />
+                <span
+                  className={styles["small-letters"] + " " + styles["shadow"]}
+                >
+                  this.
+                </span>
+                <span
+                  className={styles["large-letters"] + " " + styles["shadow"]}
+                >
+                  E
+                </span>
+                <span
+                  className={styles["small-letters"] + " " + styles["shadow"]}
+                >
+                  vent
+                </span>
+                <br />
               </Grid>
               <Grid item xs={12} className={styles["center"]}>
-                <h1 className={styles["white"] + " " + styles["shadow"]}>Sign UP</h1>
+                <h1 className={styles["white"] + " " + styles["shadow"]}>
+                  Sign UP
+                </h1>
               </Grid>
               <Grid
                 container
@@ -202,7 +268,11 @@ const SignUpForm = (props) => {
                   <TextField
                     required
                     error={(!firstName || firstName === " ") && validatingForm}
-                    helperText={(!firstName || firstName === " ") && validatingForm ? "Please enter a first name" : ""}
+                    helperText={
+                      (!firstName || firstName === " ") && validatingForm
+                        ? "Please enter a first name"
+                        : ""
+                    }
                     name="firstname"
                     id="firstname"
                     label="First Name"
@@ -220,7 +290,11 @@ const SignUpForm = (props) => {
                   <TextField
                     required
                     error={(!lastName || lastName === " ") && validatingForm}
-                    helperText={(!lastName || lastName === " ") && validatingForm ? "Please enter a last name" : ""}
+                    helperText={
+                      (!lastName || lastName === " ") && validatingForm
+                        ? "Please enter a last name"
+                        : ""
+                    }
                     name="lastname"
                     id="lastname"
                     label="Last Name"
@@ -238,7 +312,9 @@ const SignUpForm = (props) => {
                   <TextField
                     required
                     error={badEmail}
-                    helperText={badEmail ? "Please Enter a valid email address" : ""}
+                    helperText={
+                      badEmail ? "Please Enter a valid email address" : ""
+                    }
                     name="email"
                     id="email"
                     label="Email"
@@ -256,7 +332,9 @@ const SignUpForm = (props) => {
                   <TextField
                     required
                     error={badPassword}
-                    helperText={badPassword ? "Please Enter a valid password" : ""}
+                    helperText={
+                      badPassword ? "Please Enter a valid password" : ""
+                    }
                     name="password"
                     type="password"
                     id="password"
@@ -266,21 +344,42 @@ const SignUpForm = (props) => {
                     variant="outlined"
                     color="primary"
                     className={styles["data-value-input"]}
-                  /><br />
+                  />
                   <br />
-                  <span className={styles["red"]}>The password must contain at least 1 lowercase alphabetical character,<br />
-                    at least 1 uppercase alphabetical character,<br />
-                    at least 1 numeric character,<br />
-                    at least one special character,<br />
-                    and must be eight characters or longer</span>
+                  <br />
+                  <span className={styles["red"]}>
+                    The password must contain at least 1 lowercase alphabetical
+                    character,
+                    <br />
+                    at least 1 uppercase alphabetical character,
+                    <br />
+                    at least 1 numeric character,
+                    <br />
+                    at least one special character,
+                    <br />
+                    and must be eight characters or longer
+                  </span>
                 </Grid>
               </Grid>
               <Grid item xs={11} className={styles["center"]}>
-                <p className={styles["blue"]}>Already Have an Account? <Link to={"/login"}>Sign In</Link></p>
+                <p className={styles["blue"]}>
+                  Already Have an Account? <Link to={"/login"}>Sign In</Link>
+                </p>
               </Grid>
               <Grid item xs={11} className={styles["center"]}>
-                <Button variant="contained" color="primary" onClick={handleSubmit} disabled={loading}>
-                  {loading && <img className={styles.loading} alt="submit button" src={require("./refresh.png")} />}
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleSubmit}
+                  disabled={loading}
+                >
+                  {loading && (
+                    <img
+                      className={styles.loading}
+                      alt="submit button"
+                      src={require("./refresh.png")}
+                    />
+                  )}
                   {!loading && "Submit"}
                 </Button>
               </Grid>
@@ -288,8 +387,8 @@ const SignUpForm = (props) => {
           </form>
         </Container>
       </div>
-    )
+    );
   }
-}
+};
 
 export default SignUpForm;

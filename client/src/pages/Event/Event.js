@@ -2,7 +2,18 @@ import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Moment from "react-moment";
-
+import {
+  EmailShareButton,
+  FacebookShareButton,
+  LinkedinShareButton,
+  TwitterShareButton
+} from "react-share";
+import {
+  EmailIcon,
+  FacebookIcon,
+  LinkedinIcon,
+  TwitterIcon
+} from "react-share";
 import Wrapper from "../../components/Wrapper/Wrapper";
 
 import { Grid, Button, TextField, Container } from "@material-ui/core";
@@ -15,6 +26,9 @@ const Event = ({ match }) => {
   const { currentUserData } = useContext(CurrentUserEmail);
   const [event, setEvent] = useState([]);
   const [eventAttending, setEventAttending] = useState([]);
+
+  const thisUrl = window.location.href;
+  console.log(thisUrl);
 
   useEffect(() => {
     axios
@@ -150,18 +164,40 @@ const Event = ({ match }) => {
                   alignItems="center"
                 >
                   <Grid item>
-                    <span className={styles["data-key"]}>
-                      <h1>
-                        <Moment format="ddd, MMM Do YYYY">{event.time}</Moment>
-                      </h1>
-                    </span>
+                    <EmailShareButton
+                      url={thisUrl}
+                      subject={event.location.name}
+                      body="body"
+                      className="Demo__some-network__share-button"
+                    >
+                      <EmailIcon size={32} round />
+                    </EmailShareButton>&nbsp;
+                    <FacebookShareButton
+                      url={thisUrl}
+                      quote={event.location.name}
+                      className="Demo__some-network__share-button"
+                    >
+                      <FacebookIcon size={32} round />
+                    </FacebookShareButton>&nbsp;
+                    <TwitterShareButton
+                      url={thisUrl}
+                      title={event.location.name}
+                      className="Demo__some-network__share-button"
+                    >
+                      <TwitterIcon size={32} round />
+                    </TwitterShareButton>&nbsp;
+                    <LinkedinShareButton url={thisUrl} className="Demo__some-network__share-button">
+                      <LinkedinIcon size={32} round />
+                    </LinkedinShareButton>
                   </Grid>
                   <Grid item>
-                    <span className={styles["data-key"]}>
-                      <h1>
-                        <Moment format="h:mm a">{event.time}</Moment>
-                      </h1>
-                    </span>
+                    <h1 className={styles["line-height"]}>
+                      <Moment format="ddd, MMM Do YYYY">{event.time}</Moment>
+                    </h1>
+
+                    <h1 className={styles["line-height"]}>
+                      <Moment format="h:mm a">{event.time}</Moment>
+                    </h1>
                   </Grid>
                   <Grid item>
                     <span className={styles["data-key"]}>
@@ -193,29 +229,29 @@ const Event = ({ match }) => {
                   <br />
                 </Grid>
                 {event.highlights[0] ||
-                event.highlights[1] ||
-                event.highlights[2] ||
-                event.highlights[3] ||
-                event.highlights[4] ? (
-                  <>
-                    <Grid item xs={11}>
-                      <span className={styles["data-key"]}>
-                        Event Highlights
+                  event.highlights[1] ||
+                  event.highlights[2] ||
+                  event.highlights[3] ||
+                  event.highlights[4] ? (
+                    <>
+                      <Grid item xs={11}>
+                        <span className={styles["data-key"]}>
+                          Event Highlights
                       </span>
-                    </Grid>
-                    <Grid item xs={11}>
-                      <Grid container direction="column" spacing={1}>
-                        {event.highlights.map(highlight =>
-                          highlight && highlight !== " " ? (
-                            <Grid item>
-                              <li>{highlight}</li>
-                            </Grid>
-                          ) : null
-                        )}
                       </Grid>
-                    </Grid>
-                  </>
-                ) : null}
+                      <Grid item xs={11}>
+                        <Grid container direction="column" spacing={1}>
+                          {event.highlights.map(highlight =>
+                            highlight && highlight !== " " ? (
+                              <Grid item>
+                                <li>{highlight}</li>
+                              </Grid>
+                            ) : null
+                          )}
+                        </Grid>
+                      </Grid>
+                    </>
+                  ) : null}
               </Grid>
             </Grid>
             <Grid
@@ -271,8 +307,8 @@ const Event = ({ match }) => {
                       </Grid>
                     ))
                   ) : (
-                    <h1>No users attending yet!</h1>
-                  )}
+                      <h1>No users attending yet!</h1>
+                    )}
                   <br />
                   <br />
                   <br />

@@ -217,7 +217,11 @@ const CreateEvent = props => {
           <div className={styles["pageDiv"]}>
             <Grid container direction="row" justify="center">
               <Grid item md={5}>
-                <h1>Create Event</h1>
+                {match.params.eventId ? (
+                  <h1>Edit Event</h1>
+                ) : (
+                  <h1>Create Event</h1>
+                )}
               </Grid>
               <Grid item md={6}>
                 <br />

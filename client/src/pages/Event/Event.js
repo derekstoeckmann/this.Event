@@ -46,6 +46,15 @@ const Event = ({ match }) => {
       });
 
       setEvent({ ...event, attending: updatedAttending });
+
+      await axios
+        .get(`/api/events/${match.params.eventId}/attending`)
+        .then(response => {
+          setEventAttending(response.data.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
     } catch (error) {
       console.log(error);
     }
@@ -62,6 +71,7 @@ const Event = ({ match }) => {
       });
 
       setEvent({ ...event, attending: updatedAttending });
+      setEventAttending(updatedAttending);
     } catch (error) {
       console.log(error);
     }
@@ -160,32 +170,29 @@ const Event = ({ match }) => {
                   <br />
                 </Grid>
                 {event.highlights[0] ||
-                  event.highlights[1] ||
-                  event.highlights[2] ||
-                  event.highlights[3] ||
-                  event.highlights[4]
-                  ? (
-                    <>
-                      <Grid item xs={11}>
-                        <span className={styles["data-key"]}>Event Highlights</span>
+                event.highlights[1] ||
+                event.highlights[2] ||
+                event.highlights[3] ||
+                event.highlights[4] ? (
+                  <>
+                    <Grid item xs={11}>
+                      <span className={styles["data-key"]}>
+                        Event Highlights
+                      </span>
+                    </Grid>
+                    <Grid item xs={11}>
+                      <Grid container direction="row" spacing={1}>
+                        {event.highlights.map(highlight =>
+                          highlight && highlight !== " " ? (
+                            <Grid item>
+                              <li>{highlight}</li>
+                            </Grid>
+                          ) : null
+                        )}
                       </Grid>
-                      <Grid item xs={11}>
-                        <Grid
-                          container
-                          direction="row"
-                          spacing={1}
-                        >
-                          {event.highlights.map(highlight => (
-                            highlight && highlight !== " " ? (
-                              <Grid item>
-                                <li>{highlight}</li>
-                              </Grid>
-                            ) : null
-                          ))}
-                        </Grid>
-                      </Grid>
-                    </>
-                  ) : null}
+                    </Grid>
+                  </>
+                ) : null}
               </Grid>
             </Grid>
             <Grid
@@ -231,11 +238,7 @@ const Event = ({ match }) => {
                 />
               </Grid> */}
               <Grid item xs={11}>
-                <Grid
-                  container
-                  direction="row"
-                  spacing={1}
-                >
+                <Grid container direction="row" spacing={1}>
                   {eventAttending.length > 0 ? (
                     eventAttending.map(user => (
                       <Grid key={user._id} item xs={12} sm={6} md={4}>

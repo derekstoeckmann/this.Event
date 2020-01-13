@@ -1,3 +1,5 @@
+![this.Event Logo](/screenshots/logo.png)
+
 # this.Event
 
 this.Event is an event and meetup application that allows users to find and host events.
@@ -7,19 +9,20 @@ this.Event is an event and meetup application that allows users to find and host
 - [Description](#description)
 - [Link](#link)
 - [Features](#features)
-- [Technologies](#technologies)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Credits](#credits)
+- [API](#api)
+- [Technologies](#technologies)
+- [Developers](#developers)
 - [License](#license)
 
 # Description
 
-this.Event allows users to find nearby events, RSVP to events, host events, and manage events they are hosting.
+this.Event allows users to find nearby events, RSVP to events, host events, and manage events they are hosting. It was built with [NodeJS](https://nodejs.org/), [React](https://reactjs.org/), [Express](https://expressjs.com/), and [MongoDB](https://www.mongodb.com/).
 
 # Link
 
-[Heroku deployment](https://immense-dawn-90138.herokuapp.com/)
+[this.Event](https://immense-dawn-90138.herokuapp.com/)
 
 # Features
 
@@ -70,6 +73,22 @@ http://localhost:3000/
 ```
 
 # Usage
+
+Upon visiting the app for the first time, you will need to create an account in order to proceed. After you submit your user information, you will be redirected to a confirmation page and a confirmation number will be emailed to you.
+
+![Sign up](/screenshots/sign-up.png)
+
+After you confirm your account, you will be redirected to your event dashboard. No events will be displayed at first (since you are not attending or hosting any yet). However, you can search for upcoming events, or create an event of your own.
+
+![Dashboard](/screenshots/dashboard-no-events.png)
+
+When you create an event, you can type the event address into the search box under the map and it will automatically populate your event address info with the map address.
+
+![Create event map](/screenshots/create-event-map.png)
+
+Once you have created or RSVP'd for events, they will be displayed on your event dashboard:
+
+![Events display](/screenshots/events-display.png)
 
 # API
 

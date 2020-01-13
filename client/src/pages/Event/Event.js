@@ -71,15 +71,7 @@ const Event = ({ match }) => {
       });
 
       setEvent({ ...event, attending: updatedAttending });
-
-      await axios
-        .get(`/api/events/${match.params.eventId}/attending`)
-        .then(response => {
-          setEventAttending(response.data.data);
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      setEventAttending(updatedAttending);
     } catch (error) {
       console.log(error);
     }
@@ -178,29 +170,29 @@ const Event = ({ match }) => {
                   <br />
                 </Grid>
                 {event.highlights[0] ||
-                event.highlights[1] ||
-                event.highlights[2] ||
-                event.highlights[3] ||
-                event.highlights[4] ? (
-                  <>
-                    <Grid item xs={11}>
-                      <span className={styles["data-key"]}>
-                        Event Highlights
+                  event.highlights[1] ||
+                  event.highlights[2] ||
+                  event.highlights[3] ||
+                  event.highlights[4] ? (
+                    <>
+                      <Grid item xs={11}>
+                        <span className={styles["data-key"]}>
+                          Event Highlights
                       </span>
-                    </Grid>
-                    <Grid item xs={11}>
-                      <Grid container direction="row" spacing={1}>
-                        {event.highlights.map(highlight =>
-                          highlight && highlight !== " " ? (
-                            <Grid item>
-                              <li>{highlight}</li>
-                            </Grid>
-                          ) : null
-                        )}
                       </Grid>
-                    </Grid>
-                  </>
-                ) : null}
+                      <Grid item xs={11}>
+                        <Grid container direction="row" spacing={1}>
+                          {event.highlights.map(highlight =>
+                            highlight && highlight !== " " ? (
+                              <Grid item>
+                                <li>{highlight}</li>
+                              </Grid>
+                            ) : null
+                          )}
+                        </Grid>
+                      </Grid>
+                    </>
+                  ) : null}
               </Grid>
             </Grid>
             <Grid
@@ -256,8 +248,8 @@ const Event = ({ match }) => {
                       </Grid>
                     ))
                   ) : (
-                    <h1>No users attending yet!</h1>
-                  )}
+                      <h1>No users attending yet!</h1>
+                    )}
                   <br />
                   <br />
                   <br />

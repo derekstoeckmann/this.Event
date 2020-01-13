@@ -144,16 +144,14 @@ const Event = ({ match }) => {
                   <Grid item>
                     <span className={styles["data-key"]}>
                       <h1>
-                        <Moment format="ddd, MMM Do YYYY">
-                          {event.location.time}
-                        </Moment>
+                        <Moment format="ddd, MMM Do YYYY">{event.time}</Moment>
                       </h1>
                     </span>
                   </Grid>
                   <Grid item>
                     <span className={styles["data-key"]}>
                       <h1>
-                        <Moment format="h:mm a">{event.location.time}</Moment>
+                        <Moment format="h:mm a">{event.time}</Moment>
                       </h1>
                     </span>
                   </Grid>

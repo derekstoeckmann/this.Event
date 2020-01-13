@@ -191,18 +191,13 @@ const Event = ({ match }) => {
                     </LinkedinShareButton>
                   </Grid>
                   <Grid item>
-                    <span className={styles["data-key"]}>
-                      <h1>
-                        <Moment format="ddd, MMM Do YYYY">{event.time}</Moment>
-                      </h1>
-                    </span>
-                  </Grid>
-                  <Grid item>
-                    <span className={styles["data-key"]}>
-                      <h1>
-                        <Moment format="h:mm a">{event.time}</Moment>
-                      </h1>
-                    </span>
+                    <h1 className={styles["line-height"]}>
+                      <Moment format="ddd, MMM Do YYYY">{event.time}</Moment>
+                    </h1>
+
+                    <h1 className={styles["line-height"]}>
+                      <Moment format="h:mm a">{event.time}</Moment>
+                    </h1>
                   </Grid>
                   <Grid item>
                     <span className={styles["data-key"]}>

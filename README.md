@@ -18,7 +18,7 @@ this.Event is an event and meetup application that allows users to find and host
 
 # Description
 
-this.Event allows users to find nearby events, RSVP to events, host events, and manage events they are hosting.
+this.Event allows users to find nearby events, RSVP to events, host events, and manage events they are hosting. It was built with [NodeJS](https://nodejs.org/), [React](https://reactjs.org/), [Express](https://expressjs.com/), and [MongoDB](https://www.mongodb.com/).
 
 # Link
 

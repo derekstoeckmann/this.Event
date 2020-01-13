@@ -20,7 +20,7 @@ exports.getUser = async (req, res, next) => {
 // @desc    Get all events user is hosting
 // @route   GET /api/users/:id/hosting
 exports.getUserEventsHosting = async (req, res, next) => {
-  const events = await Event.find({ user: req.params.id });
+  const events = await Event.find({ user: req.params.id }).sort({ time: 1 });
 
   res.status(200).json({ success: true, count: events.length, data: events });
 };
@@ -28,7 +28,9 @@ exports.getUserEventsHosting = async (req, res, next) => {
 // @desc    Get all events user is attending
 // @route   GET /api/users/:id/attending
 exports.getUserEventsAttending = async (req, res, next) => {
-  const events = await Event.find({ attending: { $in: [req.params.id] } });
+  const events = await Event.find({
+    attending: { $in: [req.params.id] }
+  }).sort({ time: 1 });
 
   res.status(200).json({ success: true, count: events.length, data: events });
 };

@@ -11,7 +11,7 @@ exports.getEvents = async (req, res, next) => {
     match => `$${match}`
   );
   const parsedQuery = JSON.parse(formattedQuery);
-  const events = await Event.find(parsedQuery);
+  const events = await Event.find(parsedQuery).sort({ time: 1 });
 
   res.status(200).json({ success: true, count: events.length, data: events });
 };

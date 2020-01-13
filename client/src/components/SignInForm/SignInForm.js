@@ -21,22 +21,14 @@ const SignInForm = props => {
   function handleSubmit(e) {
     e.preventDefault();
 
-    if (
-      !password.match(
-        "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})"
-      )
-    ) {
-      setBadPassword(true);
-    } else {
-      setBadPassword(false);
-    }
-    if (!/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(username)) {
-      setBadEmail(true);
-    } else {
-      setBadEmail(false);
-    }
-    if (!badPassword && !badEmail) {
-      setLoading(true);
+//    if (!password.match("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})")) {
+//      setBadPassword(true)
+//    } else { setBadPassword(false) }
+//    if (!/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(username)) {
+//      setBadEmail(true)
+//    } else { setBadEmail(false) }
+//    if (!badPassword && !badEmail) {
+      setLoading(true)
       Auth.signIn({
         username: username,
         password: password
@@ -47,10 +39,10 @@ const SignInForm = props => {
           props.history.push("/");
         })
         .catch(err => {
-          setLoading(false);
-          setError(err.message);
-        });
-    }
+          setLoading(false)
+          setError(err.message)
+        })
+//    }
   }
   return (
     <div>

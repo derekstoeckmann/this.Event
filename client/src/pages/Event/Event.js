@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Moment from "react-moment";
 
 import Wrapper from "../../components/Wrapper/Wrapper";
 
@@ -142,6 +143,22 @@ const Event = ({ match }) => {
                 >
                   <Grid item>
                     <span className={styles["data-key"]}>
+                      <h1>
+                        <Moment format="ddd, MMM Do YYYY">
+                          {event.location.time}
+                        </Moment>
+                      </h1>
+                    </span>
+                  </Grid>
+                  <Grid item>
+                    <span className={styles["data-key"]}>
+                      <h1>
+                        <Moment format="h:mm a">{event.location.time}</Moment>
+                      </h1>
+                    </span>
+                  </Grid>
+                  <Grid item>
+                    <span className={styles["data-key"]}>
                       {event.location.name}
                     </span>
                   </Grid>
@@ -181,7 +198,7 @@ const Event = ({ match }) => {
                       </span>
                       </Grid>
                       <Grid item xs={11}>
-                        <Grid container direction="row" spacing={1}>
+                        <Grid container direction="column" spacing={1}>
                           {event.highlights.map(highlight =>
                             highlight && highlight !== " " ? (
                               <Grid item>
@@ -190,40 +207,50 @@ const Event = ({ match }) => {
                             ) : null
                           )}
                         </Grid>
-                      </Grid>
+                        <Grid item xs={11}>
+                          <Grid container direction="row" spacing={1}>
+                            {event.highlights.map(highlight =>
+                              highlight && highlight !== " " ? (
+                                <Grid item>
+                                  <li>{highlight}</li>
+                                </Grid>
+                              ) : null
+                            )}
+                          </Grid>
+                        </Grid>
                     </>
-                  ) : null}
+                      ) : null}
               </Grid>
             </Grid>
-            <Grid
-              container
-              direction="row"
-              justify="center"
-              alignItems="center"
-              spacing={3}
-            >
-              <br />
-            </Grid>
-            <Grid
-              container
-              direction="row"
-              justify="center"
-              alignItems="center"
-              spacing={3}
-            >
-              <Grid item xs={11}>
-                <hr />
+              <Grid
+                container
+                direction="row"
+                justify="center"
+                alignItems="center"
+                spacing={3}
+              >
                 <br />
-                <span className={styles["data-key"]}>Description</span>
               </Grid>
-              <Grid item xs={11} className={styles["description"]}>
-                {event.description}
-                <br />
-                <br />
-                <hr />
-              </Grid>
+              <Grid
+                container
+                direction="row"
+                justify="center"
+                alignItems="center"
+                spacing={3}
+              >
+                <Grid item xs={11}>
+                  <hr />
+                  <br />
+                  <span className={styles["data-key"]}>Description</span>
+                </Grid>
+                <Grid item xs={11} className={styles["description"]}>
+                  {event.description}
+                  <br />
+                  <br />
+                  <hr />
+                </Grid>
 
-              {/* <Grid item xs={11} md={5}>
+                {/* <Grid item xs={11} md={5}>
                 <span className={styles["data-key"]}>
                   Bring your own item_to_bring
                 </span>
@@ -237,22 +264,62 @@ const Event = ({ match }) => {
                   className={styles["data-value-input"]}
                 />
               </Grid> */}
-              <Grid item xs={11}>
-                <Grid container direction="row" spacing={1}>
-                  {eventAttending.length > 0 ? (
-                    eventAttending.map(user => (
-                      <Grid key={user._id} item xs={12} sm={6} md={4}>
-                        <li>
-                          {user.firstName} {user.lastName}
-                        </li>
-                      </Grid>
-                    ))
-                  ) : (
-                      <h1>No users attending yet!</h1>
+                <Grid item xs={11}>
+                  <Grid container direction="row" spacing={1}>
+                    {eventAttending.length > 0 ? (
+                      eventAttending.map(user => (
+                        <Grid key={user._id} item xs={12} sm={6} md={4}>
+                          <li>
+                            {user.firstName} {user.lastName}
+                          </li>
+                        </Grid>
+                      ))
+                    ) : (
+                        <h1>No users attending yet!</h1>
+                      )}
+                    <br />
+                    <br />
+                    <br />
+                  </Grid>
+                </Grid>
+                <Grid
+                  container
+                  direction="row"
+                  justify="center"
+                  alignItems="center"
+                  spacing={4}
+                >
+                  <Grid item>
+                    {!event.attending.includes(currentUserData._id) && (
+                      <Button
+                        onClick={userIsAttending}
+                        variant="contained"
+                        color="primary"
+                      >
+                        Attend Event
+                    </Button>
                     )}
-                  <br />
-                  <br />
-                  <br />
+                  </Grid>
+                  <Grid item>
+                    {currentUserData._id === event.user._id && (
+                      <Link to={`/createEvent/${event._id}`}>
+                        <Button variant="contained" color="primary">
+                          Edit Event
+                      </Button>
+                      </Link>
+                    )}
+                  </Grid>
+                  <Grid item>
+                    {event.attending.includes(currentUserData._id) && (
+                      <Button
+                        onClick={userIsNotAttending}
+                        variant="contained"
+                        color="secondary"
+                      >
+                        No Longer Attending
+                    </Button>
+                    )}
+                  </Grid>
                 </Grid>
               </Grid>
               <Grid
@@ -260,58 +327,18 @@ const Event = ({ match }) => {
                 direction="row"
                 justify="center"
                 alignItems="center"
-                spacing={4}
+                spacing={3}
               >
-                <Grid item>
-                  {!event.attending.includes(currentUserData._id) && (
-                    <Button
-                      onClick={userIsAttending}
-                      variant="contained"
-                      color="primary"
-                    >
-                      Attend Event
-                    </Button>
-                  )}
-                </Grid>
-                <Grid item>
-                  {currentUserData._id === event.user._id && (
-                    <Link to={`/createEvent/${event._id}`}>
-                      <Button variant="contained" color="primary">
-                        Edit Event
-                      </Button>
-                    </Link>
-                  )}
-                </Grid>
-                <Grid item>
-                  {event.attending.includes(currentUserData._id) && (
-                    <Button
-                      onClick={userIsNotAttending}
-                      variant="contained"
-                      color="secondary"
-                    >
-                      No Longer Attending
-                    </Button>
-                  )}
-                </Grid>
+                <br />
+                <br />
+                <br />
+                <br />
               </Grid>
-            </Grid>
-            <Grid
-              container
-              direction="row"
-              justify="center"
-              alignItems="center"
-              spacing={3}
-            >
-              <br />
-              <br />
-              <br />
-              <br />
-            </Grid>
           </div>
         </Grid>
       </Container>
     </Wrapper>
-  );
-};
-
-export default Event;
+      );
+    };
+    
+    export default Event;

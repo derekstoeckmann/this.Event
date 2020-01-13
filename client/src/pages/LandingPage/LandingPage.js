@@ -6,7 +6,6 @@ import styles from "./LandingPage.module.css";
 import { Link } from "react-router-dom";
 
 const LandingPage = () => {
-
   return (
     <div>
       <br />
@@ -22,11 +21,21 @@ const LandingPage = () => {
           className={styles["main-top-inner"]}
         >
           <Grid item xs={12} className={styles["center"]}>
-            <span className={styles["small-letters"] + " " + styles["shadow"]}>this.</span><span className={styles["large-letters"] + " " + styles["shadow"]}>E</span><span
-              className={styles["small-letters"] + " " + styles["shadow"]}>vent</span><br />
+            <span className={styles["small-letters"] + " " + styles["shadow"]}>
+              this.
+            </span>
+            <span className={styles["large-letters"] + " " + styles["shadow"]}>
+              E
+            </span>
+            <span className={styles["small-letters"] + " " + styles["shadow"]}>
+              vent
+            </span>
+            <br />
           </Grid>
           <Grid item xs={12} className={styles["center"]}>
-            <h1 className={styles["white"] + " " + styles["shadow"]}>Create, Customize, Join, and Manage Your Events</h1>
+            <h1 className={styles["white"] + " " + styles["shadow"]}>
+              Create, Customize, Join, and Manage Your Events
+            </h1>
           </Grid>
           <Grid item>
             <Link to="/login">
@@ -72,18 +81,32 @@ const LandingPage = () => {
                 alignContent="center"
               >
                 <Grid item xs={11} sm={6}>
-                  <div className={styles["inline-photo"] + " " + styles["show-on-scroll"] + " " + styles["left"]}>
-                    <img className={styles.img} src={require("./img/making-friends.png")} alt="Making Friends" />
+                  <div
+                    className={
+                      styles["inline-photo"] +
+                      " " +
+                      styles["show-on-scroll"] +
+                      " " +
+                      styles["left"]
+                    }
+                  >
+                    <img
+                      className={styles.img}
+                      src={require("./img/making-friends.png")}
+                      alt="Making Friends"
+                    />
                     <h1>Try New Things</h1>
                     <p className={styles["lead"]}>
                       Make New Friends and Socialize With New People
-                  </p>
+                    </p>
                   </div>
                 </Grid>
                 <Grid item xs={11} sm={5}>
                   <p className={styles["desc-text"]}>
-                    Meet new people and share new experiences with others. Create your own event to share with others or find an event to join. Try something new or do something you love.
-                </p>
+                    Meet new people and share new experiences with others.
+                    Create your own event to share with others or find an event
+                    to join. Try something new or do something you love.
+                  </p>
                 </Grid>
               </Grid>
               <Grid
@@ -95,16 +118,31 @@ const LandingPage = () => {
               >
                 <Grid item xs={11} sm={6}>
                   <p className={styles["desc-text"]}>
-                    Whatever you love to do there's something always something happening . Create or join an event based on your interests and hobbies. Enjoy a social outing while doing the things you love.
+                    Whatever you love to do there's something always something
+                    happening . Create or join an event based on your interests
+                    and hobbies. Enjoy a social outing while doing the things
+                    you love.
                   </p>
                 </Grid>
                 <Grid item xs={11} sm={5}>
-                  <div className={styles["inline-photo"] + " " + styles["show-on-scroll"] + " " + styles["right"]}>
-                    <img className={styles.img} src={require("./img/volleyball.png")} alt="Friends playing volleyball" />
+                  <div
+                    className={
+                      styles["inline-photo"] +
+                      " " +
+                      styles["show-on-scroll"] +
+                      " " +
+                      styles["right"]
+                    }
+                  >
+                    <img
+                      className={styles.img}
+                      src={require("./img/volleyball.png")}
+                      alt="Friends playing volleyball"
+                    />
                     <h1>Find Your Hobbies</h1>
                     <p className={styles["lead"]}>
                       Find People That Enjoy The Things You Do
-                  </p>
+                    </p>
                   </div>
                 </Grid>
               </Grid>
@@ -116,17 +154,34 @@ const LandingPage = () => {
                 alignContent="center"
               >
                 <Grid item xs={11} sm={6}>
-                  <div className={styles["inline-photo"] + " " + styles["show-on-scroll"] + " " + styles["right"]}>
-                    <img className={styles.img} src={require("./img/volleyball.png")} alt="Friends playing volleyball" />
-                    <h1>Find Your Hobbies</h1>
+                  <div
+                    className={
+                      styles["inline-photo"] +
+                      " " +
+                      styles["show-on-scroll"] +
+                      " " +
+                      styles["left"]
+                    }
+                  >
+                    <img
+                      className={styles.img}
+                      src={require("./img/family.png")}
+                      alt="Friends playing volleyball"
+                    />
+                    <h1>Create Custom Events</h1>
                     <p className={styles["lead"]}>
-                      Find People That Enjoy The Things You Do
-                  </p>
+                      You Have The Power To Create, Manage, Join and Customize
+                      Events
+                    </p>
                   </div>
                 </Grid>
                 <Grid item xs={11} sm={5}>
                   <p className={styles["desc-text"]}>
-                    Create an event and customize all the details. You decide who you want to invite and when it happens. Or you can open your event to the community and invite others to join in on the fun. This.Event allows you to choose how your event happens.
+                    Create an event and customize all the details. You decide
+                    who you want to invite and when it happens. Or you can open
+                    your event to the community and invite others to join in on
+                    the fun. This.Event allows you to choose how your event
+                    happens.
                   </p>
                   <br />
                   <br />
@@ -135,9 +190,9 @@ const LandingPage = () => {
             </Grid>
           </div>
         </Grid>
-      </Container >
-    </div >
-  )
-}
+      </Container>
+    </div>
+  );
+};
 
 export default LandingPage;

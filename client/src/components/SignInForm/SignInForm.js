@@ -21,13 +21,13 @@ const SignInForm = (props) => {
   function handleSubmit(e) {
     e.preventDefault();
 
-    if (!password.match("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})")) {
-      setBadPassword(true)
-    } else { setBadPassword(false) }
-    if (!/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(username)) {
-      setBadEmail(true)
-    } else { setBadEmail(false) }
-    if (!badPassword && !badEmail) {
+//    if (!password.match("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})")) {
+//      setBadPassword(true)
+//    } else { setBadPassword(false) }
+//    if (!/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(username)) {
+//      setBadEmail(true)
+//    } else { setBadEmail(false) }
+//    if (!badPassword && !badEmail) {
       setLoading(true)
       Auth.signIn({
         username: username,
@@ -42,7 +42,7 @@ const SignInForm = (props) => {
           setLoading(false)
           setError(err.message)
         })
-    }
+//    }
   }
   return (
     <div>

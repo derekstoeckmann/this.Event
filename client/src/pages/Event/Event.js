@@ -189,7 +189,7 @@ const Event = ({ match }) => {
                       </span>
                     </Grid>
                     <Grid item xs={11}>
-                      <Grid container direction="row" spacing={1}>
+                      <Grid container direction="column" spacing={1}>
                         {event.highlights.map(highlight =>
                           highlight && highlight !== " " ? (
                             <Grid item>

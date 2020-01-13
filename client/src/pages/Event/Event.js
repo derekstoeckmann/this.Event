@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Moment from "react-moment";
 
 import Wrapper from "../../components/Wrapper/Wrapper";
 
@@ -148,6 +149,22 @@ const Event = ({ match }) => {
                   justify="space-around"
                   alignItems="center"
                 >
+                  <Grid item>
+                    <span className={styles["data-key"]}>
+                      <h1>
+                        <Moment format="ddd, MMM Do YYYY">
+                          {event.location.time}
+                        </Moment>
+                      </h1>
+                    </span>
+                  </Grid>
+                  <Grid item>
+                    <span className={styles["data-key"]}>
+                      <h1>
+                        <Moment format="h:mm a">{event.location.time}</Moment>
+                      </h1>
+                    </span>
+                  </Grid>
                   <Grid item>
                     <span className={styles["data-key"]}>
                       {event.location.name}

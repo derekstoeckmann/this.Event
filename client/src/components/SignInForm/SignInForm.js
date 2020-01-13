@@ -7,7 +7,7 @@ import styles from "./SignInForm.module.css";
 
 import { Grid, Button, Container, TextField } from "@material-ui/core";
 
-const SignInForm = (props) => {
+const SignInForm = props => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -16,32 +16,40 @@ const SignInForm = (props) => {
   const [badEmail, setBadEmail] = useState(false);
 
   const isLoggedIn = props.value;
-  const isSignedIn = props.signed
+  const isSignedIn = props.signed;
 
   function handleSubmit(e) {
     e.preventDefault();
 
-    if (!password.match("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})")) {
-      setBadPassword(true)
-    } else { setBadPassword(false) }
+    if (
+      !password.match(
+        "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})"
+      )
+    ) {
+      setBadPassword(true);
+    } else {
+      setBadPassword(false);
+    }
     if (!/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(username)) {
-      setBadEmail(true)
-    } else { setBadEmail(false) }
+      setBadEmail(true);
+    } else {
+      setBadEmail(false);
+    }
     if (!badPassword && !badEmail) {
-      setLoading(true)
+      setLoading(true);
       Auth.signIn({
         username: username,
-        password: password,
+        password: password
       })
         .then(res => {
-          isLoggedIn(true)
-          isSignedIn(true)
-          props.history.push("/")
+          isLoggedIn(true);
+          isSignedIn(true);
+          props.history.push("/");
         })
         .catch(err => {
-          setLoading(false)
-          setError(err.message)
-        })
+          setLoading(false);
+          setError(err.message);
+        });
     }
   }
   return (
@@ -60,16 +68,30 @@ const SignInForm = (props) => {
             className={styles["main-top-inner"]}
           >
             <Grid item xs={12} className={styles["center"]}>
-              <ErrorBanner>
-                {error}
-              </ErrorBanner>
+              <ErrorBanner>{error}</ErrorBanner>
             </Grid>
             <Grid item xs={12} className={styles["center"]}>
-              <span className={styles["small-letters"] + " " + styles["shadow"]}>this.</span><span className={styles["large-letters"] + " " + styles["shadow"]}>E</span><span
-                className={styles["small-letters"] + " " + styles["shadow"]}>vent</span><br />
+              <span
+                className={styles["small-letters"] + " " + styles["shadow"]}
+              >
+                this.
+              </span>
+              <span
+                className={styles["large-letters"] + " " + styles["shadow"]}
+              >
+                E
+              </span>
+              <span
+                className={styles["small-letters"] + " " + styles["shadow"]}
+              >
+                vent
+              </span>
+              <br />
             </Grid>
             <Grid item xs={12} className={styles["center"]}>
-              <h1 className={styles["white"] + " " + styles["shadow"]}>Sign In</h1>
+              <h1 className={styles["white"] + " " + styles["shadow"]}>
+                Sign In
+              </h1>
             </Grid>
             <Grid
               container
@@ -83,7 +105,9 @@ const SignInForm = (props) => {
                 <TextField
                   required
                   error={badEmail}
-                  helperText={badEmail ? "Your username is your email address" : ""}
+                  helperText={
+                    badEmail ? "Your username is your email address" : ""
+                  }
                   name="username"
                   id="username"
                   label="Username"
@@ -101,7 +125,9 @@ const SignInForm = (props) => {
                 <TextField
                   required
                   error={badPassword}
-                  helperText={badPassword ? "Please Enter a valid password" : ""}
+                  helperText={
+                    badPassword ? "Please Enter a valid password" : ""
+                  }
                   name="password"
                   type="password"
                   id="password"
@@ -115,19 +141,33 @@ const SignInForm = (props) => {
               </Grid>
             </Grid>
             <Grid item xs={11} className={styles["center"]}>
-              <p className={styles["blue"]}>Don't Have an Account Yet? <Link to={"/signup"}>Create Account</Link></p>
+              <p className={styles["blue"]}>
+                Don't Have an Account Yet?{" "}
+                <Link to={"/signup"}>Create Account</Link>
+              </p>
             </Grid>
             <Grid item xs={11} className={styles["center"]}>
-              <Button variant="contained" color="primary" onClick={handleSubmit} disabled={loading}>
-                {loading && <img className={styles.loading} alt="submit button" src={require("./refresh.png")} />}
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleSubmit}
+                disabled={loading}
+              >
+                {loading && (
+                  <img
+                    className={styles.loading}
+                    alt="submit button"
+                    src={require("./refresh.png")}
+                  />
+                )}
                 {!loading && "Submit"}
               </Button>
             </Grid>
           </Grid>
         </form>
       </Container>
-    </div >
-  )
-}
+    </div>
+  );
+};
 
 export default SignInForm;

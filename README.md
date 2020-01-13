@@ -1,3 +1,5 @@
+![this.Event Logo](/screenshots/logo.png)
+
 # this.Event
 
 this.Event is an event and meetup application that allows users to find and host events.

@@ -23,7 +23,6 @@ class Map extends Component {
       this.props.mapPosition.lng
     ).then(
       response => {
-        console.log("componentDidMount Geocode response: ", response);
         const formattedAddress = response.results[0].formatted_address;
         const address = getAddress(formattedAddress);
         const city = getCity(formattedAddress);
@@ -121,7 +120,7 @@ class Map extends Component {
   };
 
   // Event when map marker window is closed.
-  onInfoWindowClose = event => { };
+  onInfoWindowClose = event => {};
 
   // We don't use this...
   onChange = event => {

@@ -30,35 +30,38 @@ function App() {
   useEffect(() => {
     Auth.currentAuthenticatedUser()
       .then(res => {
-        console.log(res)
-        getLoggedIn(true)
-        console.log(res.attributes.email)
-        const email = res.attributes.email
-        const jwt = res.signInUserSession.idToken.jwtToken
+        getLoggedIn(true);
+        const email = res.attributes.email;
+        const jwt = res.signInUserSession.idToken.jwtToken;
 
-        axios.interceptors.request.use(function (config) {
-          config.headers.authorization = jwt
-          return config;
-        }, function (error) {
-          return Promise.reject(error);
-        });
+        axios.interceptors.request.use(
+          function(config) {
+            config.headers.authorization = jwt;
+            return config;
+          },
+          function(error) {
+            return Promise.reject(error);
+          }
+        );
 
-        axios.post("/auth/validate", { jwt })
+        axios
+          .post("/auth/validate", { jwt })
           .then(res => {
-            axios.get(`/api/users?email=${email}`)
+            axios
+              .get(`/api/users?email=${email}`)
               .then(response => {
                 setCurrentUserData({ ...response.data.data[0] });
               })
               .catch(err => console.log(err));
           })
           .catch(err => {
-            console.log("JWT" + err)
-          })
+            console.log("JWT" + err);
+          });
       })
       .catch(err => {
-        getLoggedIn(false)
-        console.log(err)
-      })
+        getLoggedIn(false);
+        console.log(err);
+      });
   }, [signedIn]);
 
   if (loggedIn) {
@@ -69,7 +72,11 @@ function App() {
             <Switch>
               <Route exact path="/" component={Home} />
               <Route exact path="/createEvent" component={CreateEvent} />
-              <Route exact path="/createEvent/:eventId" component={CreateEvent} />
+              <Route
+                exact
+                path="/createEvent/:eventId"
+                component={CreateEvent}
+              />
               <Route exact path="/search" component={Search} />
               <Route exact path="/event/:eventId" component={Event} />
               <Route component={Home} />
@@ -86,7 +93,9 @@ function App() {
           <Route
             exact
             path="/login"
-            render={props => <SignInForm {...props} value={isLoggedIn} signed={isSignedIn} />}
+            render={props => (
+              <SignInForm {...props} value={isLoggedIn} signed={isSignedIn} />
+            )}
           />
           <Route
             exact

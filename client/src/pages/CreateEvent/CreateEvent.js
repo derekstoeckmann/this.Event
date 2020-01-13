@@ -174,7 +174,6 @@ const CreateEvent = props => {
       };
 
       if (match.params.eventId) {
-        console.log("you hit the UPDATE condition");
         axios
           .put(`/api/events/${match.params.eventId}`, eventData)
           .then(response => {
@@ -182,11 +181,9 @@ const CreateEvent = props => {
           })
           .catch(err => console.log(err));
       } else {
-        console.log("you hit the POST condition");
         axios
           .post("/api/events", eventData)
           .then(response => {
-            console.log("event posted: ", response);
             props.history.push(`/event/${response.data.data._id}`);
           })
           .catch(err => console.log(err));
